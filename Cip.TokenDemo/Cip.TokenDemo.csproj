@@ -77,7 +77,6 @@
     <Content Include="Content\Images\lock-small.png" />
     <Content Include="Content\Images\nancy-logo.png" />
     <Content Include="Content\site.css" />
-    <Content Include="Scripts\CIP.Token.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -88,14 +87,23 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Views\payment.cshtml" />
-    <Content Include="Views\receipt.cshtml" />
+    <Content Include="Views\payment.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\receipt.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Properties\PublishProfiles\cip-token-demo - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\cip-token-demo - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
