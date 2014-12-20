@@ -1,0 +1,110 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<CIP.TransactionResult>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Receipt</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link href="@Url.Content("~/content/site.css")" rel="stylesheet" type="text/css" />
+
+	<style type="text/css">
+
+		body {
+            padding: 50px;
+            height: 100%;
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+    <div style="width: 600px;">
+        <div style="float: right;font-weight: bold;color: #768699;position: relative;"><a href="/payment">make another payment</a></div>
+        <h4>Receipt</h4>
+    </div>
+
+    <div style="padding: 10px;">
+
+        <div style="margin: 0 0 20px 0;color: #4784AD;font-weight: bold;">
+            Thank you for your payment.
+            <br />Please retain this receipt for your records.
+        </div>
+
+        <div style="float: left;">
+            <strong><i>Payment Details</i></strong><br />
+            <div style="color: gray;">
+                <i>@DateTime.UtcNow</i><br />
+                Your RefNum is: <strong><i>@Model.RefNum</i></strong><br />
+                Payment Amount: <strong><i>@Model.AuthAmount</i></strong><br />
+                Auth Code: <strong><i>@Model.AuthCode</i></strong>
+            </div>
+        </div>
+
+        <div style="float: left;margin: 0 0 0 150px;">
+            <strong><i>Billing Address</i></strong><br />
+            <div style="color: gray;">
+                Joe Smith<br/>
+                1234 My Street, Ave<br />
+                Eagle, ID 83616<br/>
+                USA
+            </div>
+
+        </div>
+
+        <table class="table table-bordered table-striped" style="clear: both;margin: 175px 0 0 0;">
+            <colgroup>
+                <col class="col-xs-1">
+                <col class="col-xs-7">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <code>Lightbulb</code>
+                    </td>
+                    <td>High Efficency</td>
+                    <td align="right">$4.99</td>
+                </tr>
+                <tr>
+                    <td>
+                        <code>Dishwasher</code>
+                    </td>
+                    <td>Stainless steel</td>
+                    <td align="right">$400.00</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr style="background-color: #EBECED;">
+                    <td></td>
+                    <td align="right"><strong>Total</strong></td>
+                    <td align="right"><strong>$404.99</strong></td>
+                </tr>
+            </tfoot>
+        </table>
+
+    </div>
+
+    <div class="navbar navbar-fixed-bottom footer">
+
+        Copyright &copy 2012 Payment Processing Partners, Inc. All rights reserved.<br />
+
+        ChargeItPro and ChargeItPro EasyIntegrator are trademarks of Payment Processing Partners, Inc. Other trademarks, service marks, trade names, and company logos<br />
+        referenced are the property of their respective owners. Payment Processing Partners, Inc. is a registered ISO/MSP of Wells Fargo Bank, N.A., Walnut Creek, CA.<br />
+        American Express requires separate approval. <br />
+
+        <a href="http://www.chargeitpro.com/privacy.html">Privacy & Security</a> | <a href="http://www.chargeitpro.com/terms.html">Terms & Conditions</a>
+
+    </div>
+
+</body>
+</html>

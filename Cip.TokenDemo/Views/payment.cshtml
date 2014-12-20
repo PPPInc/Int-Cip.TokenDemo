@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <title>Payment</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link href="@Url.Content("~/content/site.css")" rel="stylesheet" type="text/css" />
+	
+    <!-- Javascript -->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="@Url.Content("~/scripts/CIP.Token.js")"></script>
+
+    <style type="text/css">
+
+	</style>
+
+</head>
+
+<body>
+
+    <h4>Secure Payment Form</h4>
+
+    <form role="form" action="/payment" method="POST" id="payment-form">
+
+        <div class="row">
+
+            <div class="col-md-6">
+
+                <div class="panel panel-default">
+
+                    <div class="panel-heading"><h3 class="panel-title">Card Information</h3></div>
+
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label>Transaction Type</label>
+                            <select class="form-control" style="width: 130px;" name="transactionType">
+                                <option value="sale">Credit Sale</option>
+                                <option value="debit">Debit Sale</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Amount</label>
+                            <input type="text" class="form-control input-medium" value="1.03" name="amount">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Card Number</label>
+                            <input type="text" class="form-control input-medium" value="4000200011112222" data-cip="number">
+                        </div>
+
+                        <div class="form-group">
+                            <label></label>
+                            <select class="form-control expire" style="margin: 0 10px 0 0;" data-cip="exp-month">
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                            </select>
+                            <select class="form-control expire" data-cip="exp-year">
+                                <option value="15">2015</option>
+                                <option value="16">2016</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <button class="btn btn-default" type="submit">Submit</button>
+                    <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <div class="navbar navbar-fixed-bottom footer">
+
+        Copyright &copy 2012 Payment Processing Partners, Inc. All rights reserved.<br />
+
+        ChargeItPro and ChargeItPro EasyIntegrator are trademarks of Payment Processing Partners, Inc. Other trademarks, service marks, trade names, and company logos<br />
+        referenced are the property of their respective owners. Payment Processing Partners, Inc. is a registered ISO/MSP of Wells Fargo Bank, N.A., Walnut Creek, CA.<br />
+        American Express requires separate approval. <br />
+
+        <a href="http://www.chargeitpro.com/privacy.html">Privacy & Security</a> | <a href="http://www.chargeitpro.com/terms.html">Terms & Conditions</a>
+
+    </div>
+
+    <script>
+
+        jQuery(function ($) {
+
+            /* This is the Publishable Key */
+            CIP.Token.merchantName = 'Merchant1_23f1984001644e1ba7b4ca9506077e81';
+
+            $('#payment-form').find('button').prop('disabled', false);
+            $('#loader').addClass('hidden');
+
+            $('#payment-form').submit(function (event) {
+
+                var $form = $(this);
+
+                // Disable the submit button and show ajax loader
+                $form.find('button').prop('disabled', true);
+                $('#loader').removeClass('hidden');
+
+                CIP.Token.create($form, function (status, response) {
+
+                    var token = response.Token;
+
+                    $form.append($('<input type="hidden" name="cipToken" />').val(token));
+
+                    $form.get(0).submit();
+
+                });
+
+                // Prevent the form from submitting with the default action
+                return false;
+            });
+        });
+
+    </script>
+
+</body>
+
+</html>
