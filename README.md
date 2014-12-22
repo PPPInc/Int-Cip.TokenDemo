@@ -13,8 +13,6 @@
 This will ensure these pieces of sensitive data *do not* get posted with the form submit event.  You will use ```data-cip``` ```html5``` data attributes to identify the fields to tokenize.  The ```data-``` attributes are ```data-cip="number", data-cip="exp-month", data-cip-"exp-year"```.
 ```HTML
 <form action="/payment" method="POST" id="payment-form">
-
-    <span id="payment-errors"></span>
     
     <div>
      <span>Amount</span>
@@ -36,6 +34,12 @@ This will ensure these pieces of sensitive data *do not* get posted with the for
      <input type="text" size="2" data-cip="exp-year">
     </div>
     
+    <div>
+        <button type="submit">Submit</button>
+    </div>
+    
+    <div id="payment-errors"></div>
+    
 </form>
 ```
 
@@ -52,13 +56,19 @@ jQuery(function ($) {
        
         /* Create the token and append cipToken as a hidden field on the callback */ 
         CIP.token.create($form, function (status, response) {
+        
+            if (response.error)
+            {
+                $form.find('#payment-errors').text(response.error.message);
+            
+            } else {
 
-            var token = response.Token;
+                var token = response.Token;
 
-            $form.append($('<input type="hidden" name="cipToken" />').val(token));
+                $form.append($('<input type="hidden" name="cipToken" />').val(token));
 
-            $form.get(0).submit();
-
+                $form.get(0).submit();
+            }
         });
         
         // Prevent the form from submitting with the default action
