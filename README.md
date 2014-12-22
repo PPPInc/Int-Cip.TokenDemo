@@ -39,7 +39,7 @@ This will ensure these pieces of sensitive data *do not* get posted with the for
 </form>
 ```
 
-##### 3.  Intercept the form Submit event and create the CIP Token
+##### 3.  Intercept the form Submit event and create the CIP Token, then post back to your server in the callback
 ```Javascript
 jQuery(function ($) {
 
