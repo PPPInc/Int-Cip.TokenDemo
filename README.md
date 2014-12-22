@@ -115,7 +115,7 @@ void YourPaymentHandler()
 }
 ```
 
-##### 5. Custom Integration (.Net)
+##### 5. Custom Integration (.Net) (if not using CIP.Token.dll)
 The REST Endpoint
 
 ######Metadata 
