@@ -71,7 +71,7 @@ jQuery(function ($) {
             }
         });
         
-        // Prevent the form from submitting with the default action
+        // Prevent form submission
         return false;
     });
 });
