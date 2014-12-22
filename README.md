@@ -44,6 +44,13 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
 ```
 
 ##### 3.  Intercept the form Submit event, create the CIP Token, then post back to your server in the callback
+If you're using jQuery, make sure to add a reference to:
+```javascript
+<head>
+    ...
+    <script src="code.jquery.com/jquery-2.1.3.min.js"></script>
+</head>
+```
 ```Javascript
 jQuery(function ($) {
 
