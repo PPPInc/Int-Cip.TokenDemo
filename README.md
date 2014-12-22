@@ -88,7 +88,7 @@ jQuery(function ($) {
 #### Server Side Integration
 
 ##### 4. .Net Integration
-Download <a href="https://github.com/PPPInc/Int-Cip.TokenDemo/blob/master/ExternalLibs/CIP.Token.dll">CIP.Token.dll</a> and add a reference to your .csproj file.
+Download <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.Token.dll">CIP.Token.dll</a> and add a reference to your .csproj file.
 
 ```C#
 void YourPaymentHandler()
