@@ -50,8 +50,8 @@ jQuery(function ($) {
     
         var $form = $(this);
        
-       /* Create the token and append cipToken as a hidden field on the callback */ 
-       CIP.token.create($form, function (status, response) {
+        /* Create the token and append cipToken as a hidden field on the callback */ 
+        CIP.token.create($form, function (status, response) {
 
             var token = response.Token;
 
