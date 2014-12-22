@@ -3,7 +3,7 @@
 ##### 1.  Add a reference to <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js">CIP.token.js</a> in the ```<head>``` tag of the html containing your payment form
 ```javascript
 <head>
-<script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script>
+    <script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script>
 </head>
 ```
 
@@ -60,7 +60,44 @@ jQuery(function ($) {
             $form.get(0).submit();
 
         });
+        
+        // Prevent the form from submitting with the default action
+        return false;
     });
-
 });
+```
+
+##### 4. On the Server Side form submission handler, POST the token to /token/transaction
+The REST Endpoint
+
+######Metadata 
+http://cip-payment.azurewebsites.net/json/metadata?op=TransactionRequest
+
+######URI
+http://cip-payment.azurewebsites.net/token/transaction
+
+######Http Request Headers
+**content-type** : application/json<br/>
+**x-apikey** : 'e5932e4dd41742cd81768c6ace7bedc9'
+
+######Data (Body)
+{"Token":"String","Amount":0,"TransactionType":"String"}
+
+#####Server Code C# Example
+```C#
+/* Fetch your form values */
+var cipToken = this.Request.Form["cipToken"].Value;
+var amount = this.Request.Form["amount"].Value;
+
+/* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
+var transaction = new { Amount = amount, TransactionType = "sale", Token = cipToken };
+
+/* ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. */
+
+/* Invoke the Web Service call */
+var result = YourWebServiceCall();
+
+/* Access the results */
+var refNum = result.RefNum;
+
 ```
