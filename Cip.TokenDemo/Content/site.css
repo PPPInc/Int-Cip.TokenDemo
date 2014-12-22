@@ -75,3 +75,8 @@ select > option {
     border: 1px solid #DDE4EB;
     line-height: 1.75;
 }
+
+.error {
+    color: red;
+    margin: 0 0 0 20px;
+}
