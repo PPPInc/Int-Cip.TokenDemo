@@ -67,7 +67,38 @@ jQuery(function ($) {
 });
 ```
 
-##### 4. On the Server Side form submission handler, POST the token to /token/transaction
+
+#### Server Side Integration
+
+##### 4. .Net Integration
+Download <a href="https://github.com/PPPInc/Int-Cip.TokenDemo/blob/master/ExternalLibs/CIP.Token.dll">CIP.Token.dll</a> and add a reference to your .csproj file.
+
+```C#
+void YourPaymentHandler()
+{
+    /* Fetch your form post values */
+    var cipToken = this.Request.Form["cipToken"].Value;
+    var amount = this.Request.Form["amount"].Value;
+    
+    /* Set your Private Key */
+    CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
+    
+    /* Create a Transaction */
+    var transaction = new CIP.Transaction()
+    {
+        Token = payment.CipToken,
+        Amount = payment.Amount,
+        TransactionType = payment.TransactionType
+    };
+    
+    /* Process the transaction */
+    var result = CIP.Token.RunTransaction(transaction);
+    
+    /* Save the result to your database and/or render the result values to your receipt view */
+}
+```
+
+##### 5. Custom Integration (.Net): In your Server Side form submission handler, POST the token to /token/transaction
 The REST Endpoint
 
 ######Metadata 
@@ -107,3 +138,12 @@ void YourPaymentHandler()
 }
 
 ```
+
+
+#### Test Credentials / Test Card Data
+**MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*<br/>
+**MerchantKey** : *"e5932e4dd41742cd81768c6ace7bedc9"*<br/><br/>
+
+**Card Number** : *4000200011112222*<br/>
+**Card Expiration Month** : *05*<br/>
+**Card Expiration Year** : *15*
