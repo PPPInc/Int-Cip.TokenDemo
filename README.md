@@ -10,7 +10,7 @@
 ##### 2.  Add a payment ```<form>``` to your html page
 
 **Note:** Do not add ```name``` attributes to the *Number* or *Expiration* fields (ie the fields that will be tokenized).  
-This will ensure these pieces of sensitive data *do not* get posted with the form submit event.  You will use ```data-cip``` ```html5``` data attributes to identify the fields to tokenize.
+This will ensure these pieces of sensitive data *do not* get posted with the form submit event.  You will use ```data-cip``` ```html5``` data attributes to identify the fields to tokenize.  The ```data-``` attributes are ```data-cip="number", data-cip="exp-month", data-cip-"exp-year"```.
 ```HTML
 <form action="/payment" method="POST" id="payment-form">
 
@@ -98,14 +98,14 @@ void YourPaymentHandler()
 }
 ```
 
-##### 5. Custom Integration (.Net): In your Server Side form submission handler, POST the token to /token/transaction
+##### 5. Custom Integration (.Net)
 The REST Endpoint
 
 ######Metadata 
 http://cip-payment.azurewebsites.net/json/metadata?op=TransactionRequest
 
 ######URI
-http://cip-payment.azurewebsites.net/token/transaction
+POST http://cip-payment.azurewebsites.net/token/transaction
 
 ######Http Request Headers
 **content-type** : application/json<br/>
