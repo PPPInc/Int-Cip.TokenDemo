@@ -10,7 +10,7 @@
 ##### 2.  Add a payment ```<form>``` to your html page
 
 **Note:** Do not add ```name``` attributes to the *Number* or *Expiration* fields (ie the fields that will be tokenized).  
-This will ensure these pieces of sensitive data do not get posted with the form submit event.  You will use ```data-cip``` ```html5``` data attributes to identify the fields to tokenize.
+This will ensure these pieces of sensitive data *do not* get posted with the form submit event.  You will use ```data-cip``` ```html5``` data attributes to identify the fields to tokenize.
 ```HTML
 <form action="/payment" method="POST" id="payment-form">
 
