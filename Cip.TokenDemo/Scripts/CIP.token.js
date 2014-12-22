@@ -23,12 +23,12 @@ CIP.token = new function () {
                         expYear = form[0].elements[i].value;
                         break;
                     default:
-                        self.card[form[0].elements[i].getAttribute('data-cip')] = form[0].elements[i].getAttribute('value');
+                        self.card[form[0].elements[i].getAttribute('data-cip')] = form[0].elements[i].value;
                 }
             }
         }
 
-        if(expMonth !== null && expYear !== null) self.card.expiration = expMonth + expYear;
+        if (self.card.expiration == null || self.card.expiration == undefined || self.card.expiration == "" && (expMonth !== null && expYear !== null)) self.card.expiration = expMonth + expYear;
 
         var request = {
             'merchantName': self.merchantName,
