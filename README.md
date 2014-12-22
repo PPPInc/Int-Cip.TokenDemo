@@ -85,19 +85,22 @@ http://cip-payment.azurewebsites.net/token/transaction
 
 #####Server Code C# Example
 ```C#
-/* Fetch your form values */
-var cipToken = this.Request.Form["cipToken"].Value;
-var amount = this.Request.Form["amount"].Value;
-
-/* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
-var transaction = new { Amount = amount, TransactionType = "sale", Token = cipToken };
-
-/* ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. */
-
-/* Invoke the Web Service call */
-var result = YourWebServiceCall();
-
-/* Access the results */
-var refNum = result.RefNum;
+void YourPaymentHandler()
+{
+    /* Fetch your form values */
+    var cipToken = this.Request.Form["cipToken"].Value;
+    var amount = this.Request.Form["amount"].Value;
+    
+    /* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
+    var transaction = new { Amount = amount, TransactionType = "sale", Token = cipToken };
+    
+    /* ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. */
+    
+    /* Invoke the Web Service call */
+    var result = YourWebServiceCall();
+    
+    /* Access the results */
+    var refNum = result.RefNum;
+}
 
 ```
