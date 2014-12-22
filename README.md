@@ -47,7 +47,7 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
 ```Javascript
 jQuery(function ($) {
 
-    /* You must set your Publishable Key */
+    /* You must set your Merchant Name identifier (Public Key) */
     CIP.token.merchantName = 'Merchant1_23f1984001644e1ba7b4ca9506077e81';
     
     $('#payment-form').submit(function (event) {
