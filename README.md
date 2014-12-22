@@ -48,7 +48,7 @@ If you're using jQuery, make sure to add a reference to:
 ```javascript
 <head>
     ...
-    <script src="code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
 </head>
 ```
 ```Javascript
