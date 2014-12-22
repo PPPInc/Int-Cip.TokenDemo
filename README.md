@@ -81,7 +81,7 @@ http://cip-payment.azurewebsites.net/token/transaction
 **x-apikey** : 'e5932e4dd41742cd81768c6ace7bedc9'
 
 ######Data (Body)
-{"Token":"String","Amount":0,"TransactionType":"String"}
+{ 'Token':'String', 'Amount':0, 'TransactionType':'String' }
 
 #####Server Code C# Example
 ```C#
