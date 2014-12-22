@@ -94,7 +94,10 @@ void YourPaymentHandler()
     /* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
     var transaction = new { Amount = amount, TransactionType = "sale", Token = cipToken };
     
-    /* ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. */
+    /* 
+        ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. 
+        i.e. HttpRequest.Headers.Add("X-ApiKey", "e5932e4dd41742cd81768c6ace7bedc9")
+    */
     
     /* Invoke the Web Service call */
     var result = YourWebServiceCall();
