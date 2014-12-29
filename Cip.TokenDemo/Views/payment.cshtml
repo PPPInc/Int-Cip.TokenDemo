@@ -13,10 +13,7 @@
     <!-- Javascript -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script>
-
-    <style type="text/css">
-
-	</style>
+    <!-- <script src="@Url.Content("~/scripts/CIP.token.js")"></script> -->
 
 </head>
 
@@ -51,7 +48,7 @@
 
                         <div class="form-group">
                             <label>Card Number</label>
-                            <input type="text" class="form-control input-medium" value="4000200011112222" data-cip="number">
+                            <input type="text" class="form-control input-medium" data-cip="number">
                         </div>
 
                         <div class="form-group">
@@ -72,7 +69,8 @@
                 <div class="form-group">
                     <button class="btn btn-default" type="submit">Submit</button>
                     <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
-                </div>
+                    <span id="payment-validation-error" class="error"></span>
+                 </div>
 
             </div>
 
@@ -112,12 +110,22 @@
 
                 CIP.token.create($form, function (status, response) {
 
-                    var token = response.Token;
+                    if (response.error) {
 
-                    $form.append($('<input type="hidden" name="cipToken" />').val(token));
+                        $form.find('#payment-validation-error').text(response.error.message);
 
-                    $form.get(0).submit();
+                        $('#payment-form').find('button').prop('disabled', false);
 
+                        $('#loader').addClass('hidden');
+
+                    } else {
+
+                        var token = response.Token;
+
+                        $form.append($('<input type="hidden" name="cipToken" />').val(token));
+
+                        $form.get(0).submit();
+                    }
                 });
 
                 // Prevent the form from submitting with the default action
