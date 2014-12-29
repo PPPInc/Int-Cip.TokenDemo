@@ -14,6 +14,14 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
 ```HTML
 <form action="/payment" method="POST" id="payment-form">
     
+	<div class="form-group">
+		<label>Transaction Type</label>
+		<select class="form-control" style="width: 130px;" name="transactionType">
+			<option value="sale">Sale</option>
+			<option value="credit">Credit</option>
+		</select>
+	</div>
+	
     <div>
      <span>Amount</span>
      <input type="text" name="amount">
@@ -93,25 +101,26 @@ Download <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.Token.dll">
 ```C#
 void YourPaymentHandler()
 {
-    /* Fetch your form post values */
-    var cipToken = this.Request.Form["cipToken"].Value;
-    var amount = this.Request.Form["amount"].Value;
-    
-    /* Set your Private Key */
-    CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
-    
-    /* Create a Transaction */
-    var transaction = new CIP.Transaction()
-    {
-        Token = payment.CipToken,
-        Amount = payment.Amount,
-        TransactionType = payment.TransactionType
-    };
-    
-    /* Process the transaction */
-    var result = CIP.Token.RunTransaction(transaction);
-    
-    /* Save the result to your database and/or render the result values to your receipt view */
+	/* Fetch your form post values */
+	var cipToken = this.Request.Form["cipToken"].Value;
+	var amount = this.Request.Form["amount"].Value;
+	var transactionType = this.Request.Form["transactionType"].Value;
+
+	/* Set your Private Key */
+	CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
+
+	/* Create a Transaction */
+	var transaction = new CIP.Transaction()
+	{
+		Token = cipToken,
+		Amount = amount,
+		TransactionType = transactionType
+	};
+
+	/* Process the transaction */
+	var result = CIP.Token.RunTransaction(transaction);
+
+	/* Save the result to your database and/or render the result values to your receipt view */
 }
 ```
 
@@ -138,9 +147,15 @@ void YourPaymentHandler()
     /* Fetch your form values */
     var cipToken = this.Request.Form["cipToken"].Value;
     var amount = this.Request.Form["amount"].Value;
+	var transactionType = this.Request.Form["transactionType"].Value;
     
-    /* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
-    var transaction = new { Amount = amount, TransactionType = "sale", Token = cipToken };
+    /* Create the Transaction object to submit to the Web Service. */
+    var transaction = new CIP.Transaction()
+	{
+		Token = cipToken,
+		Amount = amount,
+		TransactionType = transactionType
+	};
     
     /* 
         ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. 
