@@ -1,0 +1,93 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="~/content/site.css" />
+    <script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
+</head>
+<body>
+    <div>
+
+        <form action="/index/payment" method="POST" id="payment-form">
+
+            <div class="form-group">
+                <label>Transaction Type</label>
+                <select class="form-control" style="width: 130px;" name="transactionType">
+                    <option value="sale">Credit Sale</option>
+                    <option value="debit">Debit Sale</option>
+                </select>
+            </div>
+
+            <div>
+                <span>Amount</span>
+                <input type="text" name="amount" value="3.14">
+            </div>
+
+            <div>
+                <span>Card Number</span>
+                <input type="text" data-cip="number" value="4000200011112222">
+            </div>
+
+            <div>
+                <span>Expiration Month</span>
+                <input type="text" size="2" data-cip="exp-month" value="02">
+            </div>
+
+            <div>
+                <span>Expiration Year</span>
+                <input type="text" size="2" data-cip="exp-year" value="15">
+            </div>
+
+            <div>
+                <button type="submit">Submit</button>
+            </div>
+
+            <div id="payment-errors"></div>
+
+        </form>
+    </div>
+</body>
+</html>
+
+<script type="text/javascript">
+
+    jQuery(function ($) {
+
+        /* You must set your Merchant Name identifier (Public Key) */
+        CIP.token.merchantName = 'Merchant1_23f1984001644e1ba7b4ca9506077e81';
+
+        $('#payment-form').submit(function (event) {
+
+            var $form = $(this);
+
+            /* Create the token and append cipToken as a hidden field on the callback */
+            CIP.token.create($form, function (status, response) {
+
+                if (response.error) {
+                    $form.find('#payment-errors').text(response.error.message);
+
+                } else {
+
+                    var token = response.Token;
+
+                    $form.append($('<input type="hidden" name="cipToken" />').val(token));
+
+                    $form.get(0).submit();
+                }
+            });
+
+            // Prevent form submission
+            return false;
+        });
+    });
+
+</script>
