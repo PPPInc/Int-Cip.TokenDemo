@@ -38,14 +38,14 @@ CIP.token = new function () {
         /* Validation */
         var error = validate(request);
         if (error) {
-            var result = { 'error' : error };
+            var result = { 'error': error };
             callback(0, result);
             return;
         }
 
         /* REST Tokenization */
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "http://cip-payment.azurewebsites.net/token/card.json");
+        xhr.open("POST", "https://psl.chargeitpro.com/token/card.json");
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
@@ -67,7 +67,7 @@ function validate(request) {
 
     if (request.merchantName === undefined || request.merchantName === null) error = { 'message': 'Merchant Name required' };
 
-    if (request.card === undefined || request.card === null 
+    if (request.card === undefined || request.card === null
         || request.card.number === undefined || request.card.number === null
         || request.card.expiration === undefined || request.card.expiration == null) error = { 'message': 'Card Number and Expiration Date required' };
 
