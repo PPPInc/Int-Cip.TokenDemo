@@ -94,7 +94,9 @@
     <Content Include="Views\receipt.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\cip-token-demo - FTP %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\cip-token-demo - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\cip-token-demo - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\cip-token-demo - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
