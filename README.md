@@ -1,4 +1,13 @@
-<h4>CIP Token Integration</h4>
+#### CIP Token Solution
+**What is it?**
+
+CIP Token provides an integrated web based payment solution that ensures sensitive credit card data is not posted to the Merchant's server/domain.
+
+**How does it work?**
+
+CIP tokenizes credit card data in the client browser instance and only posts that token (not credit card data) back to their server form POST handler.  The Merchant then performs a server side tokenized transaction using their CIP (Private) Merchant Key.
+
+#### CIP Token Integration
 
 ##### 1.  Add a reference to <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js">CIP.token.js</a> in the ```<head>``` tag of the html containing your payment form
 ```javascript
