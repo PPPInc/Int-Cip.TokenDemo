@@ -12,33 +12,33 @@
 **Note:** Do not add ```name``` attributes to the *Number* or *Expiration* fields (ie the fields that will be tokenized).  
 This will ensure these pieces of sensitive data ***do not*** get posted with the form submit event.  You will use ```data-cip``` ```html5``` data attributes to identify the fields to tokenize.  The ```data-``` attributes are ```data-cip="number", data-cip="exp-month", data-cip-"exp-year"```.
 ```HTML
-<form action="/payment" method="POST" id="payment-form">
+<form action="/" method="POST" id="payment-form">
     
-	<div class="form-group">
-		<label>Transaction Type</label>
-		<select class="form-control" style="width: 130px;" name="transactionType">
-			<option value="sale">Sale</option>
-			<option value="credit">Credit</option>
-		</select>
+	<div>
+	 <div>Transaction Type</div>
+	 <select name="transactionType">
+	  <option value="sale">Sale</option>
+	  <option value="credit">Credit</option>
+	 </select>
 	</div>
 	
     <div>
-     <span>Amount</span>
+     <div>Amount</div>
      <input type="text" name="amount">
     </div>
     
     <div>
-     <span>Card Number</span>
+     <div>Card Number</div>
      <input type="text" data-cip="number">
     </div>
     
     <div>
-     <span>Expiration Month</span>
+     <div>Expiration Month</div>
      <input type="text" size="2" data-cip="exp-month">
     </div>
     
     <div>
-     <span>Expiration Year</span>
+     <div>Expiration Year</div>
      <input type="text" size="2" data-cip="exp-year">
     </div>
     
@@ -60,6 +60,8 @@ If you're using jQuery, make sure to add a reference to:
 </head>
 ```
 ```Javascript
+<script>
+
 jQuery(function ($) {
 
     /* You must set your Merchant Name identifier (Public Key) */
@@ -90,6 +92,8 @@ jQuery(function ($) {
         return false;
     });
 });
+
+</script>
 ```
 
 
@@ -113,7 +117,7 @@ void YourPaymentHandler()
 	var transaction = new CIP.Transaction()
 	{
 		Token = cipToken,
-		Amount = amount,
+		Amount = double.Parse(amount),
 		TransactionType = transactionType
 	};
 
@@ -138,7 +142,7 @@ POST http://cip-payment.azurewebsites.net/token/transaction
 **x-apikey** : 'e5932e4dd41742cd81768c6ace7bedc9'
 
 ######Data (Body)
-{ 'Token':'String', 'Amount':0, 'TransactionType':'String' }
+{ 'Amount':0, 'TransactionType':'String', 'Token':'String' }
 
 #####Server Code C# Example
 ```C#
@@ -147,15 +151,10 @@ void YourPaymentHandler()
     /* Fetch your form values */
     var cipToken = this.Request.Form["cipToken"].Value;
     var amount = this.Request.Form["amount"].Value;
-	var transactionType = this.Request.Form["transactionType"].Value;
+    var transactionType = this.Request.Form["transactionType"].Value;
     
-    /* Create the Transaction object to submit to the Web Service. */
-    var transaction = new CIP.Transaction()
-	{
-		Token = cipToken,
-		Amount = amount,
-		TransactionType = transactionType
-	};
+    /* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
+    var transaction = new { Amount = amount, TransactionType = transactionType, Token = cipToken };
     
     /* 
         ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. 
