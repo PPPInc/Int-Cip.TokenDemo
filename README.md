@@ -132,10 +132,10 @@ void YourPaymentHandler()
 The REST Endpoint
 
 ######Metadata 
-http://cip-payment.azurewebsites.net/json/metadata?op=TransactionRequest
+https://psl.chargeitpro.com/json/metadata?op=TransactionRequest
 
 ######URI
-POST http://cip-payment.azurewebsites.net/token/transaction
+POST https://psl.chargeitpro.com/token/transaction
 
 ######Http Request Headers
 **content-type** : application/json<br/>
