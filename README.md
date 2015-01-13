@@ -105,7 +105,7 @@ jQuery(function ($) {
 </script>
 ```
 
-
+<br/><br/>
 #### Server Side Integration
 
 #####.Net Integration
@@ -178,7 +178,7 @@ void YourPaymentHandler()
 }
 
 ```
-
+<br/><br/>
 ####Http Status Codes
 #####200 OK
 Successful Http Request.
@@ -189,6 +189,7 @@ Merchant and/or Token not found.
 #####417 Expectation Failed
 Invalid credit card.
 
+<br/><br/>
 ####Transaction Result Codes
 When you invoke the ../token/transaction REST Service call on your server you will be returned a JSON Response object.
 
@@ -210,7 +211,7 @@ When you invoke the ../token/transaction REST Service call on your server you wi
 | E  | Error | There was an error while processing the transaction |
 | V  | Verification | Verification is required |
 
-
+<br/><br/>
 #### Test Credentials / Test Card Data
 **MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*
 
