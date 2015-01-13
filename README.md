@@ -187,7 +187,7 @@ Unauthorized Http Request.  Invalid credentials.
 #####404 Not Found
 Merchant and/or Token not found.
 #####417 Expectation Failed
-Invalid credit card.
+Credit Card validation failed.
 
 <br/>
 ####Transaction Result Codes
