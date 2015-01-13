@@ -191,16 +191,16 @@ Credit Card validation failed.
 
 <br/>
 ####Transaction Result Codes
-When you invoke the ../token/transaction REST Service call on your server you will be returned a JSON Response object.
+When you invoke the *../token/transaction* REST Service call you will be returned a JSON Response object.
 
 {<br/>
-	"Status": "Pending",<br/>
-	"RefNum": "61379914",<br/>
 	"AuthAmount": 0.01,<br/>
 	"AuthCode": "332552",<br/>
-	"Result": "Approved",<br/>
-	"ResultCode": "A",<br/>
 	"Error": "Approved",<br/>
+	"RefNum": "61379914",<br/>
+	"**Result**": "Approved",<br/>
+	"**ResultCode**": "A",<br/>
+	"Status": "Pending",<br/>
 	"Date": "/Date(-62135596800000-0000)/"<br/>
 }<br/>
 #####Result Values
