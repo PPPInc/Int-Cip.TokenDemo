@@ -88,7 +88,8 @@
 				'X-ApiKey: e5932e4dd41742cd81768c6ace7bedc9',                                                                           
 				'Content-Type: application/json', 
 			    	'Content-Length: ' . strlen($data_string))                        
-			);                                                                                                                   
+			);         
+			
 			$result = curl_exec($ch); 
 
 			$jsonResult = json_decode($result);
