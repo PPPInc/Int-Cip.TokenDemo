@@ -198,8 +198,8 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 	"AuthCode": "332552",<br/>
 	"Error": "Approved",<br/>
 	"RefNum": "61379914",<br/>
-	"**Result**": "Approved",<br/>
-	"**ResultCode**": "A",<br/>
+	"**Result**": "**Approved**",<br/>
+	"**ResultCode**": "**A**",<br/>
 	"Status": "Pending",<br/>
 	"Date": "/Date(-62135596800000-0000)/"<br/>
 }<br/>
