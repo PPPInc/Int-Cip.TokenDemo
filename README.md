@@ -189,6 +189,30 @@ Merchant and/or Token not found.
 #####417 Expectation Failed
 Invalid credit card.
 
+####Transaction Result Codes
+When you invoke the ../token/transaction REST Service call on your server you will be returned a JSON Response object.
+
+{
+
+	"Status": "Pending",
+	
+	"RefNum": "61379914",
+	
+	"AuthAmount": 0.01,
+	
+	"AuthCode": "332552",
+	
+	"Result": "Approved",
+	
+	"ResultCode": "A",
+	
+	"Error": "Approved",
+	
+	"Date": "/Date(-62135596800000-0000)/"
+	
+}
+
+
 #### Test Credentials / Test Card Data
 **MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*
 
