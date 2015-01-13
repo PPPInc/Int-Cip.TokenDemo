@@ -179,11 +179,19 @@ void YourPaymentHandler()
 
 ```
 
+####Http Status Codes
+#####200 OK
+Successful Http Request.
+#####401 Unauthorized
+Unauthorized Http Request.  Invalid credentials.
+#####404 Not Found
+Merchant and/or Token not found.
+#####417 Expectation Failed
+Invalid credit card.
 
 #### Test Credentials / Test Card Data
 **MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*<br/>
 **MerchantKey** : *"e5932e4dd41742cd81768c6ace7bedc9"*<br/><br/>
-
 **Card Number** : *4000200011112222*<br/>
 **Card Expiration Month** : *05*<br/>
 **Card Expiration Year** : *15*
