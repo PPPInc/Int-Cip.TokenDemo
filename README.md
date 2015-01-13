@@ -195,19 +195,12 @@ When you invoke the ../token/transaction REST Service call on your server you wi
 {
 
 	"Status": "Pending",
-	
 	"RefNum": "61379914",
-	
 	"AuthAmount": 0.01,
-	
 	"AuthCode": "332552",
-	
 	"Result": "Approved",
-	
 	"ResultCode": "A",
-	
 	"Error": "Approved",
-	
 	"Date": "/Date(-62135596800000-0000)/"
 	
 }
