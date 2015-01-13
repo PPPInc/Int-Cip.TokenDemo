@@ -91,6 +91,10 @@
 			);         
 			
 			$result = curl_exec($ch); 
+			
+			$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            
+            		echo '$http_status: ' . $http_status . ' ';
 
 			$jsonResult = json_decode($result);
 
