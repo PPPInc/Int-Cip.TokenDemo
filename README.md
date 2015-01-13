@@ -150,7 +150,7 @@ POST https://psl.chargeitpro.com/token/transaction
 **content-type** : application/json<br/>
 **x-apikey** : 'e5932e4dd41742cd81768c6ace7bedc9'
 
-######Data (Body)
+**Data (Body)** : 
 { 'Amount':0, 'TransactionType':'String', 'Token':'String' }
 
 #####Server Code C# Example
