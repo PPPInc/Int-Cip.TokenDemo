@@ -3,7 +3,7 @@
   <title>CIP Token PHP Example</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="site.css">
+	<link rel="stylesheet" href="http://cip-token-demo.azurewebsites.net/content/site.css">
 	<script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script>
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
  </head>
