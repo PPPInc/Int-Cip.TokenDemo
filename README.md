@@ -192,17 +192,15 @@ Invalid credit card.
 ####Transaction Result Codes
 When you invoke the ../token/transaction REST Service call on your server you will be returned a JSON Response object.
 
-{
-
-	"Status": "Pending",
-	"RefNum": "61379914",
-	"AuthAmount": 0.01,
-	"AuthCode": "332552",
-	"Result": "Approved",
-	"ResultCode": "A",
-	"Error": "Approved",
-	"Date": "/Date(-62135596800000-0000)/"
-	
+{<br/>
+	"Status": "Pending",<br/>
+	"RefNum": "61379914",<br/>
+	"AuthAmount": 0.01,<br/>
+	"AuthCode": "332552",<br/>
+	"Result": "Approved",<br/>
+	"ResultCode": "A",<br/>
+	"Error": "Approved",<br/>
+	"Date": "/Date(-62135596800000-0000)/"<br/>
 }
 
 
