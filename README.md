@@ -201,7 +201,14 @@ When you invoke the ../token/transaction REST Service call on your server you wi
 	"ResultCode": "A",<br/>
 	"Error": "Approved",<br/>
 	"Date": "/Date(-62135596800000-0000)/"<br/>
-}
+}<br/>
+#####Result Values
+| ResultCode    | Result        | Meaning     |
+| ------------- | ------------- | ----------- |
+| A  | Approved  | Transaction was Approved |
+| D  | Declined  | Transaction was Declined |
+| E  | Error | There was an error while processing the transaction |
+| V  | Verification | Verification is required |
 
 
 #### Test Credentials / Test Card Data
