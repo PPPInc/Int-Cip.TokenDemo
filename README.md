@@ -9,14 +9,14 @@ CIP tokenizes credit card data in the client browser instance and only posts tha
 
 #### CIP Token Integration
 
-##### 1.  Add a reference to <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js">CIP.token.js</a> in the ```<head>``` tag of the html containing your payment form
+#####Add a reference to <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js">CIP.token.js</a> in the ```<head>``` tag of the html containing your payment form
 ```javascript
 <head>
     <script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script>
 </head>
 ```
 
-##### 2.  Add a payment ```<form>``` to your html page
+#####Add a payment ```<form>``` to your html page
 
 **Note:** Do not add ```name``` attributes to the *Number* or *Expiration* fields (ie the fields that will be tokenized).  
 This will ensure these pieces of sensitive data ***do not*** get posted with the form submit event.  You will use ```data-cip``` ```html5``` data attributes to identify the fields to tokenize.  The ```data-``` attributes are ```data-cip="number", data-cip="exp-month", data-cip-"exp-year"```.
@@ -60,7 +60,7 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
 </form>
 ```
 
-##### 3.  Intercept the form Submit event, create the CIP Token, then post back to your server in the callback
+#####Intercept the form Submit event, create the CIP Token, then post back to your server in the callback
 If you're using jQuery, make sure to add a reference to:
 ```javascript
 <head>
@@ -108,7 +108,7 @@ jQuery(function ($) {
 
 #### Server Side Integration
 
-##### 4. .Net Integration
+#####.Net Integration
 Download <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.Token.dll">CIP.Token.dll</a> and add a reference to your .csproj file.
 
 ```C#
@@ -137,7 +137,7 @@ void YourPaymentHandler()
 }
 ```
 
-##### 5. Custom Integration (.Net) (if not using CIP.Token.dll)
+#####Custom Integration (.Net) (if not using CIP.Token.dll)
 The REST Endpoint
 
 ######Metadata 
