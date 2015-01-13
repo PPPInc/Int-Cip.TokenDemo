@@ -190,8 +190,8 @@ Merchant and/or Token not found.
 Invalid credit card.
 
 #### Test Credentials / Test Card Data
-**MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*<br/>
-**MerchantKey** : *"e5932e4dd41742cd81768c6ace7bedc9"*<br/><br/>
-**Card Number** : *4000200011112222*<br/>
-**Card Expiration Month** : *05*<br/>
+**MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*
+**MerchantKey** : *"e5932e4dd41742cd81768c6ace7bedc9"*
+**Card Number** : *4000200011112222*
+**Card Expiration Month** : *05*
 **Card Expiration Year** : *15*
