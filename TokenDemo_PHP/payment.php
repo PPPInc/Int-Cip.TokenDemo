@@ -80,7 +80,8 @@
 			$data = array("token" => $ciptoken, "amount" => $amount, "transactionType" => "sale");                                                                    
 			$data_string = json_encode($data);                                                   
 			 
-			$ch = curl_init('https://psl.chargeitpro.com/token/transaction.json');                                                                      
+			$ch = curl_init('https://psl.chargeitpro.com/token/transaction.json');   
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
