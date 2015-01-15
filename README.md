@@ -194,15 +194,21 @@ Credit Card validation failed.
 When you invoke the *../token/transaction* REST Service call you will be returned a JSON Response object.
 
 {<br/>
-	"AuthAmount": 0.01,<br/>
-	"AuthCode": "332552",<br/>
-	"Error": "Approved",<br/>
-	"RefNum": "61379914",<br/>
-	"**Result**": "**Approved**",<br/>
-	"**ResultCode**": "**A**",<br/>
-	"Status": "Pending",<br/>
-	"Date": "/Date(-62135596800000-0000)/"<br/>
-}<br/>
+	"UniqueTransID": "61395166",<br/>
+"BatchNumber": "155000",<br/>
+"ResultMessage": "Approved",<br/>
+"ResultStatus": "A",<br/>
+"ApprovalNumberResult": "338527",<br/>
+"AmountApproved": 0.01,<br/>
+"AmountBalance": 0,<br/>
+"AVSResponseCode": "YYY",<br/>
+"AVSResponseText": "Address: Match & 5 Digit Zip: Match",<br/>
+"CVVResponseCode": "M",<br/>
+"CVVResponseText": "Match",<br/>
+"Date": "/Date(-62135596800000-0000)/"<br/>
+}
+<br/>
+
 #####Result Values
 | ResultCode    | Result        | Meaning     |
 | ------------- | ------------- | ----------- |
@@ -215,17 +221,26 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 ####Errors
 Error messages will be returned in the Error Field.
 
+<br/>
 {<br/>
-	"AuthAmount": 0,<br/>
-	"AuthCode": "000000",<br/>
-	"RefNum": "61379914",<br/>
-	"**Result**": "**Error**",<br/>
-	"**ResultCode**": "**E**",<br/>
-	"**Error**": "**Invalid expiration date.  Must be in the MMYY format.  (3)**",<br/>
-	"Status": "Pending",<br/>
-	"Date": "/Date(-62135596800000-0000)/"<br/>
-}<br/>
-
+       "UniqueTransID": "61395162",<br/>
+       "BatchNumber": "155000",<br/>
+       "ResultMessage": "Error",<br/>
+       "ResultStatus": "E",<br/>
+       "ApprovalNumberResult": "000000",<br/>
+       "AmountApproved": 0,<br/>
+       "AmountBalance": 0,<br/>
+       "AVSResponseCode": "",<br/>
+       "AVSResponseText": "No AVS response (Typically no AVS data sent or swiped transaction)",<br/>
+       "CVVResponseCode": "",<br/>
+       "CVVResponseText": "No CVV2/CVC data available for transaction.",<br/>
+       "**Error**":<br/>
+       {<br/>
+           "**Message**": "**Invalid expiration date. Must be in MMYY format. (3)**"<br/>
+       },<br/>
+       "Date": "/Date(-62135596800000-0000)/"<br/>
+    }
+<br/>
 <br/>
 #### Test Credentials / Test Card Data
 **MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*
