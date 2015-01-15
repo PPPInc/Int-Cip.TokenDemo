@@ -212,6 +212,21 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 | V  | Verification | Verification is required |
 
 <br/>
+####Errors
+Error messages will be returned in the Error Field.
+
+{<br/>
+	"AuthAmount": 0,<br/>
+	"AuthCode": "000000",<br/>
+	"RefNum": "61379914",<br/>
+	"**Result**": "**Error**",<br/>
+	"**ResultCode**": "**E**",<br/>
+	"**Error**": "**Invalid expiration date.  Must be in the MMYY format.  (3)**",<br/>
+	"Status": "Pending",<br/>
+	"Date": "/Date(-62135596800000-0000)/"<br/>
+}<br/>
+
+<br/>
 #### Test Credentials / Test Card Data
 **MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*
 
