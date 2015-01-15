@@ -222,23 +222,23 @@ Error messages will be returned in the Error Field.
 
 ```
 {
-       "UniqueTransID": "61395162",
-       "BatchNumber": "155000",
-       "ResultMessage": "Error",
-       "ResultStatus": "E",
-       "ApprovalNumberResult": "000000",
-       "AmountApproved": 0,
-       "AmountBalance": 0,
-       "AVSResponseCode": "",
-       "AVSResponseText": "No AVS response (Typically no AVS data sent or swiped transaction)",
-       "CVVResponseCode": "",
-       "CVVResponseText": "No CVV2/CVC data available for transaction.",
-       "Error":
-       {
-           "Message": "Invalid expiration date. Must be in MMYY format. (3)"
-       },
-       "Date": "/Date(-62135596800000-0000)/"
-    }
+	"UniqueTransID": "61395162",
+	"BatchNumber": "155000",
+	"ResultMessage": "Error",
+	"ResultStatus": "E",
+	"ApprovalNumberResult": "000000",
+	"AmountApproved": 0,
+	"AmountBalance": 0,
+	"AVSResponseCode": "",
+	"AVSResponseText": "No AVS response (Typically no AVS data sent or swiped transaction)",
+	"CVVResponseCode": "",
+	"CVVResponseText": "No CVV2/CVC data available for transaction.",
+	"Error":
+	{
+	   "Message": "Invalid expiration date. Must be in MMYY format. (3)"
+	},
+	"Date": "/Date(-62135596800000-0000)/"
+}
 ```
 
 #### Test Credentials / Test Card Data
