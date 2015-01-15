@@ -209,7 +209,7 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 }
 ```
 #####Result Values
-| ResultStatus  | Result        | Meaning     |
+| ResultStatus  | ResultMessage        | Meaning     |
 | ------------- | ------------- | ----------- |
 | A  | Approved  | Transaction was Approved |
 | D  | Declined  | Transaction was Declined |
