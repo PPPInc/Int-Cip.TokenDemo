@@ -3,7 +3,7 @@
   <title>CIP Token PHP Example</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-	<link rel="stylesheet" href="site.css">
+	<link rel="stylesheet" href="http://cip-token-demo.azurewebsites.net/content/site.css">
 	<script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script>
 	<script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
  </head>
@@ -58,7 +58,6 @@
 
                 <div class="form-group">
                     <button class="btn btn-default" type="submit">Submit</button>
-                    <img id="loader" src="ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
                 </div>
 
             </div>
@@ -73,17 +72,7 @@
 	   	if($ciptoken != null) {
 
 	   		$response = httpRequest($ciptoken, $amount);
-
-	   		/* Why are AuthCode and AuthAmount returning 0's */
-
 	   		echo var_dump($response);
-
-			/*printf("<script>location.href='receipt.php?" . 
-				"Status=" . $response->{'Status'} . 
-				"&RefNum=" . $response->{'RefNum'} . 
-				"&AuthCode=" . $response->{'AuthCode'} . 
-				"&AuthAmount=" . $response->{'AuthAmount'} . 
-				"'</script>");*/
 	   	} 
 
 	   	function httpRequest($ciptoken, $amount) {
@@ -91,17 +80,22 @@
 			$data = array("token" => $ciptoken, "amount" => $amount, "transactionType" => "sale");                                                                    
 			$data_string = json_encode($data);                                                   
 			 
-			$ch = curl_init('http://cip-payment.azurewebsites.net/token/transaction.json');                                                                      
+			$ch = curl_init('https://psl.chargeitpro.com/token/transaction.json');   
+			curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 			curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");                                                                     
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);                                                                  
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);                                                                      
 			curl_setopt($ch, CURLOPT_HTTPHEADER, array(	
-
 				'X-ApiKey: e5932e4dd41742cd81768c6ace7bedc9',                                                                           
 				'Content-Type: application/json', 
-			    'Content-Length: ' . strlen($data_string))                        
-			);                                                                                                                   
+			    	'Content-Length: ' . strlen($data_string))                        
+			);         
+			
 			$result = curl_exec($ch); 
+			
+			$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            
+            		echo '$http_status: ' . $http_status . ' ';
 
 			$jsonResult = json_decode($result);
 
@@ -120,7 +114,6 @@
             CIP.token.merchantName = 'Merchant1_23f1984001644e1ba7b4ca9506077e81';
 
             $('#payment-form').find('button').prop('disabled', false);
-            $('#loader').addClass('hidden');
 
             $('#payment-form').submit(function (event) {
 
@@ -128,7 +121,6 @@
 
                 // Disable the submit button and show ajax loader
                 $form.find('button').prop('disabled', true);
-                $('#loader').removeClass('hidden');
 
                 CIP.token.create($form, function (status, response) {
 

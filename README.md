@@ -1,44 +1,53 @@
-<h4>CIP Token Integration</h4>
+#### CIP Token Solution
+**What is it?**
 
-##### 1.  Add a reference to <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js">CIP.token.js</a> in the ```<head>``` tag of the html containing your payment form
+CIP Token provides an integrated web based payment solution that ensures sensitive credit card data is not posted to the Merchant's server/domain.
+
+**How does it work?**
+
+CIP tokenizes credit card data in the client browser instance and only posts that token (not credit card data) back to their server form POST handler.  The Merchant then performs a server side tokenized transaction using their CIP (Private) Merchant Key.
+
+#### CIP Token Integration
+
+#####Add a reference to <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js">CIP.token.js</a> in the ```<head>``` tag of the html containing your payment form
 ```javascript
 <head>
     <script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script>
 </head>
 ```
 
-##### 2.  Add a payment ```<form>``` to your html page
+#####Add a payment ```<form>``` to your html page
 
 **Note:** Do not add ```name``` attributes to the *Number* or *Expiration* fields (ie the fields that will be tokenized).  
 This will ensure these pieces of sensitive data ***do not*** get posted with the form submit event.  You will use ```data-cip``` ```html5``` data attributes to identify the fields to tokenize.  The ```data-``` attributes are ```data-cip="number", data-cip="exp-month", data-cip-"exp-year"```.
 ```HTML
-<form action="/payment" method="POST" id="payment-form">
+<form action="/" method="POST" id="payment-form">
     
-	<div class="form-group">
-		<label>Transaction Type</label>
-		<select class="form-control" style="width: 130px;" name="transactionType">
-			<option value="sale">Sale</option>
-			<option value="credit">Credit</option>
-		</select>
+	<div>
+	 <div>Transaction Type</div>
+	 <select name="transactionType">
+	  <option value="sale">Sale</option>
+	  <option value="credit">Credit</option>
+	 </select>
 	</div>
 	
     <div>
-     <span>Amount</span>
+     <div>Amount</div>
      <input type="text" name="amount">
     </div>
     
     <div>
-     <span>Card Number</span>
+     <div>Card Number</div>
      <input type="text" data-cip="number">
     </div>
     
     <div>
-     <span>Expiration Month</span>
+     <div>Expiration Month</div>
      <input type="text" size="2" data-cip="exp-month">
     </div>
     
     <div>
-     <span>Expiration Year</span>
+     <div>Expiration Year</div>
      <input type="text" size="2" data-cip="exp-year">
     </div>
     
@@ -51,7 +60,7 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
 </form>
 ```
 
-##### 3.  Intercept the form Submit event, create the CIP Token, then post back to your server in the callback
+#####Intercept the form Submit event, create the CIP Token, then post back to your server in the callback
 If you're using jQuery, make sure to add a reference to:
 ```javascript
 <head>
@@ -60,6 +69,8 @@ If you're using jQuery, make sure to add a reference to:
 </head>
 ```
 ```Javascript
+<script>
+
 jQuery(function ($) {
 
     /* You must set your Merchant Name identifier (Public Key) */
@@ -90,12 +101,14 @@ jQuery(function ($) {
         return false;
     });
 });
+
+</script>
 ```
 
-
+<br/>
 #### Server Side Integration
 
-##### 4. .Net Integration
+#####.Net Integration
 Download <a href="https://ppppublic.blob.core.windows.net/webpos/CIP.Token.dll">CIP.Token.dll</a> and add a reference to your .csproj file.
 
 ```C#
@@ -113,7 +126,7 @@ void YourPaymentHandler()
 	var transaction = new CIP.Transaction()
 	{
 		Token = cipToken,
-		Amount = amount,
+		Amount = double.Parse(amount),
 		TransactionType = transactionType
 	};
 
@@ -124,21 +137,21 @@ void YourPaymentHandler()
 }
 ```
 
-##### 5. Custom Integration (.Net) (if not using CIP.Token.dll)
+#####Custom Integration (.Net) (if not using CIP.Token.dll)
 The REST Endpoint
 
 ######Metadata 
-http://cip-payment.azurewebsites.net/json/metadata?op=TransactionRequest
+https://psl.chargeitpro.com/json/metadata?op=TransactionRequest
 
 ######URI
-POST http://cip-payment.azurewebsites.net/token/transaction
+POST https://psl.chargeitpro.com/token/transaction
 
 ######Http Request Headers
 **content-type** : application/json<br/>
 **x-apikey** : 'e5932e4dd41742cd81768c6ace7bedc9'
 
-######Data (Body)
-{ 'Token':'String', 'Amount':0, 'TransactionType':'String' }
+######Data (Body) 
+{ 'Amount':0, 'TransactionType':'String', 'Token':'String' }
 
 #####Server Code C# Example
 ```C#
@@ -147,15 +160,10 @@ void YourPaymentHandler()
     /* Fetch your form values */
     var cipToken = this.Request.Form["cipToken"].Value;
     var amount = this.Request.Form["amount"].Value;
-	var transactionType = this.Request.Form["transactionType"].Value;
+    var transactionType = this.Request.Form["transactionType"].Value;
     
-    /* Create the Transaction object to submit to the Web Service. */
-    var transaction = new CIP.Transaction()
-	{
-		Token = cipToken,
-		Amount = amount,
-		TransactionType = transactionType
-	};
+    /* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
+    var transaction = new { Amount = amount, TransactionType = transactionType, Token = cipToken };
     
     /* 
         ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. 
@@ -170,12 +178,76 @@ void YourPaymentHandler()
 }
 
 ```
+<br/>
+####Http Status Codes
+#####200 OK
+Successful Http Request.
+#####401 Unauthorized
+Unauthorized Http Request.  Invalid credentials.
+#####404 Not Found
+Merchant and/or Token not found.
+#####417 Expectation Failed
+Credit Card validation failed.
 
+<br/>
+####Transaction Result Codes
+When you invoke the *../token/transaction* REST Service call you will be returned a JSON Response object.
+```
+{
+	"UniqueTransID": "61395166",
+	"BatchNumber": "155000",
+	"ResultMessage": "Approved",
+	"ResultStatus": "A",
+	"ApprovalNumberResult": "338527",
+	"AmountApproved": 0.01,
+	"AmountBalance": 0,
+	"AVSResponseCode": "YYY",
+	"AVSResponseText": "Address: Match & 5 Digit Zip: Match",
+	"CVVResponseCode": "M",
+	"CVVResponseText": "Match",
+	"Date": "/Date(-62135596800000-0000)/"
+}
+```
+#####Result Values
+| ResultStatus  | ResultMessage        | Meaning     |
+| ------------- | ------------- | ----------- |
+| A  | Approved  | Transaction was Approved |
+| D  | Declined  | Transaction was Declined |
+| E  | Error | There was an error while processing the transaction |
+| V  | Verification | Verification is required |
+
+<br/>
+####Errors
+Error messages will be returned in the Error Field.
+
+```
+{
+	"UniqueTransID": "61395162",
+	"BatchNumber": "155000",
+	"ResultMessage": "Error",
+	"ResultStatus": "E",
+	"ApprovalNumberResult": "000000",
+	"AmountApproved": 0,
+	"AmountBalance": 0,
+	"AVSResponseCode": "",
+	"AVSResponseText": "No AVS response (Typically no AVS data sent or swiped transaction)",
+	"CVVResponseCode": "",
+	"CVVResponseText": "No CVV2/CVC data available for transaction.",
+	"Error":
+	{
+	   "Message": "Invalid expiration date. Must be in MMYY format. (3)"
+	},
+	"Date": "/Date(-62135596800000-0000)/"
+}
+```
 
 #### Test Credentials / Test Card Data
-**MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*<br/>
-**MerchantKey** : *"e5932e4dd41742cd81768c6ace7bedc9"*<br/><br/>
+**MerchantName** : *"Merchant1_23f1984001644e1ba7b4ca9506077e81"*
 
-**Card Number** : *4000200011112222*<br/>
-**Card Expiration Month** : *05*<br/>
+**MerchantKey** : *"e5932e4dd41742cd81768c6ace7bedc9"*
+
+**Card Number** : *4000200011112222*
+
+**Card Expiration Month** : *05*
+
 **Card Expiration Year** : *15*
