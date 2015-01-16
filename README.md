@@ -174,7 +174,7 @@ void YourPaymentHandler()
     var result = YourWebServiceCall();
     
     /* Access the results */
-    var refNum = result.RefNum;
+    var refNum = result.UniqueTransId;
 }
 
 ```
