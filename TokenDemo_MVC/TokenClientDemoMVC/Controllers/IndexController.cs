@@ -36,10 +36,10 @@ namespace TokenClientDemoMVC.Controllers
 
             var model = new Result()
             {
-                AuthCode = result.AuthCode, 
-                AuthAmount = result.AuthAmount.ToString(), 
-                RefNumber = result.RefNum, 
-                Status = result.Status
+                ApprovalNumberResult = result.ApprovalNumberResult,
+                AmountApproved = result.AmountApproved,
+                UniqueTransID = result.UniqueTransId,
+                ResultStatus = result.ResultStatus
             };
 
             return View("Receipt", model);

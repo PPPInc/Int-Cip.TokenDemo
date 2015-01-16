@@ -38,13 +38,13 @@
             <strong><i>Payment Details</i></strong><br />
             <div style="color: gray;">
                 <i>@DateTime.UtcNow</i><br />
-                Your RefNum is: <strong><i>@Model.RefNum</i></strong><br />
-                Payment Amount: <strong><i>@Model.AuthAmount</i></strong><br />
-                Auth Code: <strong><i>@Model.AuthCode</i></strong>
+                Your TransactionId is: <strong><i>@Model.UniqueTransId</i></strong><br />
+                Payment Amount: <strong><i>@Model.AmountApproved</i></strong><br />
+                Approval Number: <strong><i>@Model.ApprovalNumberResult</i></strong>
             </div>
         </div>
 
-        <div style="float: left;margin: 0 0 0 150px;">
+        <div style="float: left;margin: 0 0 0 100px;">
             <strong><i>Billing Address</i></strong><br />
             <div style="color: gray;">
                 Joe Smith<br/>
