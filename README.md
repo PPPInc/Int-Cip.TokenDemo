@@ -174,7 +174,7 @@ void YourPaymentHandler()
     var result = YourWebServiceCall();
     
     /* Access the results */
-    var refNum = result.RefNum;
+    var refNum = result.UniqueTransId;
 }
 
 ```
@@ -197,7 +197,7 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 	"UniqueTransID": "61395166",
 	"BatchNumber": "155000",
 	"ResultMessage": "Approved",
-	"ResultStatus": "A",
+	"ResultStatus": true,
 	"ApprovalNumberResult": "338527",
 	"AmountApproved": 0.01,
 	"AmountBalance": 0,
@@ -211,10 +211,8 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 #####Result Values
 | ResultStatus  | ResultMessage        | Meaning     |
 | ------------- | ------------- | ----------- |
-| A  | Approved  | Transaction was Approved |
-| D  | Declined  | Transaction was Declined |
-| E  | Error | There was an error while processing the transaction |
-| V  | Verification | Verification is required |
+| true  | Approved  | Transaction was Approved |
+| false  | Declined  | Transaction was Declined |
 
 <br/>
 ####Errors
