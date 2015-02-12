@@ -34,9 +34,9 @@ namespace CIP.TokenDemo.Modules
                     TransactionType = payment.TransactionType
                 };
 
-                var result = CIP.Token.RunTransaction(transaction);
+                var response = CIP.Token.RunTransaction(transaction);
 
-                return View["receipt", result];
+                return View["receipt", response.Result];
             };
 
             Get["/{param1}/{param2}"] = parameters =>

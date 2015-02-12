@@ -3,6 +3,8 @@
 CIP.token = new function () {
 
     var self = this;
+    self.url = 'https://psl.chargeitpro.com/token/card.json';
+    //self.url = 'http://localhost:57192/token/card.json';
     self.merchantName = null;
     self.card = {};
 
@@ -45,7 +47,7 @@ CIP.token = new function () {
 
         /* REST Tokenization */
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "https://psl.chargeitpro.com/token/card.json");
+        xhr.open("POST", self.url);
         xhr.setRequestHeader('Content-Type', 'application/json');
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
