@@ -193,32 +193,32 @@ Credit Card validation failed.
 ####Transaction Result Codes
 When you invoke the *../token/transaction* REST Service call you will be returned a JSON Response object.
 ```
-    {
-       "Success": true,
-       "Status": "OK",
-       "StatusCode": 200,
-       "Result":
-       {
-           "UniqueTransID": "61614252",
-           "BatchNumber": "159086",
-           "ResultMessage": "Approved",
-           "ResultStatus": true,
-           "ApprovalNumberResult": "014860",
-           "AmountBalance": "0.00",
-           "AmountProcessed": "0.01",
-           "AVSResponseCode": "YYY",
-           "AVSResponseText": "Address: Match & 5 Digit Zip: Match",
-           "CVVResponseCode": "M",
-           "CVVResponseText": "Match",
-           "AccountCardType": "VS",
-           "AccountExpiryDate": "0515",
-           "TransactionType": "sale",
-           "BillingName": "John Q. Public",
-           "MaskedAccount": "************2222",
-           "AccountEntryMethod": "Keyed",
-           "CreatedOn": "/Date(1423700761447)/"
-       }
-    }
+{
+	"Success": true,
+	"Status": "OK",
+	"StatusCode": 200,
+	"Result":
+	{
+	   "UniqueTransID": "61614252",
+	   "BatchNumber": "159086",
+	   "ResultMessage": "Approved",
+	   "ResultStatus": true,
+	   "ApprovalNumberResult": "014860",
+	   "AmountBalance": "0.00",
+	   "AmountProcessed": "0.01",
+	   "AVSResponseCode": "YYY",
+	   "AVSResponseText": "Address: Match & 5 Digit Zip: Match",
+	   "CVVResponseCode": "M",
+	   "CVVResponseText": "Match",
+	   "AccountCardType": "VS",
+	   "AccountExpiryDate": "0515",
+	   "TransactionType": "sale",
+	   "BillingName": "John Q. Public",
+	   "MaskedAccount": "************2222",
+	   "AccountEntryMethod": "Keyed",
+	   "CreatedOn": "/Date(1423700761447)/"
+	}
+}
 ```
 #####Result Values
 | ResultStatus  | ResultMessage        | Meaning     |
