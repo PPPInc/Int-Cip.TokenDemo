@@ -258,7 +258,7 @@ Error messages will be returned in the Error Field.
 		"Error":
 		{
 			"Code": "17",
-		       	"Message": "Credit card has expired."
+			"Message": "Credit card has expired."
 		}
 	}
 }
