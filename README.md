@@ -251,7 +251,7 @@ Error messages will be returned in the Error Field.
 		"AccountCardType": "VS",
 		"AccountExpiryDate": "0115",
 		"TransactionType": "sale",
-		"BillingName": "Mr. Token Billing",
+		"BillingName": "John Q. Public",
 		"MaskedAccount": "************2222",
 		"AccountEntryMethod": "Keyed",
 		"CreatedOn": "/Date(1423707032849)/",
