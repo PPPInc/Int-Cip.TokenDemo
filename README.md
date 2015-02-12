@@ -201,7 +201,7 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 	{
 	   "UniqueTransID": "61614252",
 	   "BatchNumber": "159086",
-	   "ResultMessage": "Approved",
+	   "ResultMessage": "014860",
 	   "ResultStatus": true,
 	   "ApprovalNumberResult": "014860",
 	   "AmountBalance": "0.00",
