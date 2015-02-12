@@ -232,23 +232,37 @@ Error messages will be returned in the Error Field.
 
 ```
 {
-	"UniqueTransID": "61395162",
-	"BatchNumber": "155000",
-	"ResultMessage": "Error",
-	"ResultStatus": "E",
-	"ApprovalNumberResult": "000000",
-	"AmountApproved": 0,
-	"AmountBalance": 0,
-	"AVSResponseCode": "",
-	"AVSResponseText": "No AVS response (Typically no AVS data sent or swiped transaction)",
-	"CVVResponseCode": "",
-	"CVVResponseText": "No CVV2/CVC data available for transaction.",
-	"Error":
+	"Success": false,
+	"Status": "Internal Server Error",
+	"StatusCode": 500,
+	"Result":
 	{
-	   "Message": "Invalid expiration date. Must be in MMYY format. (3)"
-	},
-	"Date": "/Date(-62135596800000-0000)/"
+   		"UniqueTransID": "61614712",
+   		"BatchNumber": "159086",
+		"ResultMessage": "17",
+		"ResultStatus": false,
+		"ApprovalNumberResult": "",
+		"AmountBalance": "0.00",
+		"AmountProcessed": "0.00",
+		"AVSResponseCode": "",
+		"AVSResponseText": "No AVS response (Typically no AVS data sent or swiped transaction)",
+		"CVVResponseCode": "",
+		"CVVResponseText": "No CVV2/CVC data available for transaction.",
+		"AccountCardType": "VS",
+		"AccountExpiryDate": "0115",
+		"TransactionType": "sale",
+		"BillingName": "Mr. Token Billing",
+		"MaskedAccount": "************2222",
+		"AccountEntryMethod": "Keyed",
+		"CreatedOn": "/Date(1423707032849)/",
+		"Error":
+		{
+			"Code": "17",
+		       	"Message": "Credit card has expired."
+		}
+	}
 }
+
 ```
 
 #### Test Credentials / Test Card Data
