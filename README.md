@@ -235,34 +235,11 @@ Error messages will be returned in the Error Field.
 	"Success": false,
 	"Status": "InternalServerError",
 	"StatusCode": 500,
-	"Result":
+	"Error":
 	{
-   		"UniqueTransID": "61614712",
-   		"BatchNumber": "159086",
-		"ResultMessage": "17",
-		"ResultStatus": false,
-		"ApprovalNumberResult": "",
-		"AmountBalance": "0.00",
-		"AmountProcessed": "0.00",
-		"AVSResponseCode": "",
-		"AVSResponseText": "No AVS response (Typically no AVS data sent or swiped transaction)",
-		"CVVResponseCode": "",
-		"CVVResponseText": "No CVV2/CVC data available for transaction.",
-		"AccountCardType": "VS",
-		"AccountExpiryDate": "0115",
-		"TransactionType": "sale",
-		"BillingName": "John Q. Public",
-		"MaskedAccount": "************2222",
-		"AccountEntryMethod": "Keyed",
-		"CreatedOn": "/Date(1423707032849)/",
-		"Error":
-		{
-			"Code": "17",
-			"Message": "Credit card has expired."
-		}
+	   "Message": "Credit card has expired."
 	}
 }
-
 ```
 
 #### Test Credentials / Test Card Data
