@@ -233,7 +233,7 @@ Error messages will be returned in the Error Field.
 ```
 {
 	"Success": false,
-	"Status": "Internal Server Error",
+	"Status": "InternalServerError",
 	"StatusCode": 500,
 	"Result":
 	{
