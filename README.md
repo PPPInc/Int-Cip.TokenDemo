@@ -220,11 +220,6 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 	}
 }
 ```
-#####Result Values
-| ResultStatus  | ResultMessage        | Meaning     |
-| ------------- | ------------- | ----------- |
-| true  | Approved  | Transaction was Approved |
-| false  | Declined  | Transaction was Declined |
 
 <br/>
 ####Errors
