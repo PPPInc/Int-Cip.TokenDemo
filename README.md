@@ -186,7 +186,7 @@ Successful Http Request.
 Unauthorized Http Request.  Invalid credentials.
 #####404 Not Found
 Merchant and/or Token not found.
-#####500 InternalServerError *Note: this will be broken out.
+#####500 Internal Server Error *Note: this will be broken out.
 Credit Card validation failed.
 
 <br/>
