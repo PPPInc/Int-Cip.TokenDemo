@@ -186,7 +186,7 @@ Successful Http Request.
 Unauthorized Http Request.  Invalid credentials.
 #####404 Not Found
 Merchant and/or Token not found.
-#####417 Expectation Failed
+#####500 InternalServerError *Note: this will be broken out.
 Credit Card validation failed.
 
 <br/>
@@ -232,7 +232,7 @@ Error messages will be returned in the Error Field.
 	"StatusCode": 500,
 	"Error":
 	{
-	   "Message": "Credit card has expired."
+	   "Message": "Credit card has expired. [GW:17]"
 	}
 }
 ```
