@@ -186,7 +186,7 @@ Successful Http Request.
 Unauthorized Http Request.  Invalid credentials.
 #####404 Not Found
 Merchant and/or Token not found.
-#####417 Expectation Failed
+#####500 Internal Server Error *Note: this will be broken out.
 Credit Card validation failed.
 
 <br/>
@@ -194,25 +194,32 @@ Credit Card validation failed.
 When you invoke the *../token/transaction* REST Service call you will be returned a JSON Response object.
 ```
 {
-	"UniqueTransID": "61395166",
-	"BatchNumber": "155000",
-	"ResultMessage": "Approved",
-	"ResultStatus": true,
-	"ApprovalNumberResult": "338527",
-	"AmountApproved": 0.01,
-	"AmountBalance": 0,
-	"AVSResponseCode": "YYY",
-	"AVSResponseText": "Address: Match & 5 Digit Zip: Match",
-	"CVVResponseCode": "M",
-	"CVVResponseText": "Match",
-	"Date": "/Date(-62135596800000-0000)/"
+	"Success": true,
+	"Status": "OK",
+	"StatusCode": 200,
+	"Result":
+	{
+	   "UniqueTransID": "61614252",
+	   "BatchNumber": "159086",
+	   "ResultMessage": "014860",
+	   "ResultStatus": true,
+	   "ApprovalNumberResult": "014860",
+	   "AmountBalance": "0.00",
+	   "AmountProcessed": "0.01",
+	   "AVSResponseCode": "YYY",
+	   "AVSResponseText": "Address: Match & 5 Digit Zip: Match",
+	   "CVVResponseCode": "M",
+	   "CVVResponseText": "Match",
+	   "AccountCardType": "VS",
+	   "AccountExpiryDate": "0515",
+	   "TransactionType": "sale",
+	   "BillingName": "John Q. Public",
+	   "MaskedAccount": "************2222",
+	   "AccountEntryMethod": "Keyed",
+	   "CreatedOn": "/Date(1423700761447)/"
+	}
 }
 ```
-#####Result Values
-| ResultStatus  | ResultMessage        | Meaning     |
-| ------------- | ------------- | ----------- |
-| true  | Approved  | Transaction was Approved |
-| false  | Declined  | Transaction was Declined |
 
 <br/>
 ####Errors
@@ -220,22 +227,13 @@ Error messages will be returned in the Error Field.
 
 ```
 {
-	"UniqueTransID": "61395162",
-	"BatchNumber": "155000",
-	"ResultMessage": "Error",
-	"ResultStatus": "E",
-	"ApprovalNumberResult": "000000",
-	"AmountApproved": 0,
-	"AmountBalance": 0,
-	"AVSResponseCode": "",
-	"AVSResponseText": "No AVS response (Typically no AVS data sent or swiped transaction)",
-	"CVVResponseCode": "",
-	"CVVResponseText": "No CVV2/CVC data available for transaction.",
+	"Success": false,
+	"Status": "InternalServerError",
+	"StatusCode": 500,
 	"Error":
 	{
-	   "Message": "Invalid expiration date. Must be in MMYY format. (3)"
-	},
-	"Date": "/Date(-62135596800000-0000)/"
+	   "Message": "Credit card has expired. [GW:17]"
+	}
 }
 ```
 
