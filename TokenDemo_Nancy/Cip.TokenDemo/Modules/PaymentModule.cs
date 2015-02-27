@@ -26,6 +26,32 @@ namespace CIP.TokenDemo.Modules
 
                 /* This is the Server Side CIP integration */
                 CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
+                
+                var transaction = new CIP.Transaction()
+                {
+                    Token = payment.CipToken,
+                    Amount = payment.Amount,
+                    TransactionType = payment.TransactionType
+                };
+
+                var response = CIP.Token.RunTransaction(transaction);
+
+                return View["receipt", response.Result];
+            };
+
+            /* Encrypted Payment Examples */
+            Get["/encryptedpayment"] = parameters =>
+            {
+                return View["encrypted_payment"];
+            };
+
+            Post["/encryptedpayment"] = parameters =>
+            {
+                var payment = this.Bind<Payment>();
+
+                /* This is the Server Side CIP integration */
+                CIP.Token.ApiKey = "38646a19091049d59ea46e75847fe88f";
+                //CIP.Token.Url = "http://localhost:57192/token/transaction.json";
 
                 var transaction = new CIP.Transaction()
                 {
