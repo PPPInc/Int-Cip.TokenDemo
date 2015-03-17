@@ -3,7 +3,8 @@
 CIP.token = new function () {
 
     var self = this;
-    self.url = 'https://psl.chargeitpro.com/token/card.json';
+    self.url = 'https://psl-staging.chargeitpro.com/token/card.json';
+    //self.url = 'http://localhost:57192/token/card.json';
     self.merchantName = null;
     self.card = {};
 
@@ -69,8 +70,7 @@ function validate(request) {
     if (request.merchantName === undefined || request.merchantName === null) error = { 'message': 'Merchant Name required' };
 
     if (request.card === undefined || request.card === null
-        || (request.card.number === undefined && request.card.accountdata === undefined)
-        || request.card.expiration === undefined || request.card.expiration == null) error = { 'message': 'Card Number and Expiration Date required' };
+        || (request.card.number === undefined && request.card.accountdata === undefined)) error = { 'message': 'Card Number and Expiration Date required' };
 
     return error;
 };
