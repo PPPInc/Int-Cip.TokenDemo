@@ -52,6 +52,11 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
     </div>
     
     <div>
+     <div>Billing Name</div>
+     <input type="text" data-cip="billingname">
+    </div>
+    
+    <div>
         <button type="submit">Submit</button>
     </div>
     
@@ -127,7 +132,8 @@ void YourPaymentHandler()
 	{
 		Token = cipToken,
 		Amount = double.Parse(amount),
-		TransactionType = transactionType
+		TransactionType = transactionType,
+		Invoice = "Invoice Name"
 	};
 
 	/* Process the transaction */
@@ -163,7 +169,7 @@ void YourPaymentHandler()
     var transactionType = this.Request.Form["transactionType"].Value;
     
     /* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
-    var transaction = new { Amount = amount, TransactionType = transactionType, Token = cipToken };
+    var transaction = new { Amount = amount, TransactionType = transactionType, Token = cipToken, Invoice = "Invoice Name" };
     
     /* 
         ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. 
