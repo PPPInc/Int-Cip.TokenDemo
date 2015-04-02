@@ -52,8 +52,23 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
     </div>
     
     <div>
+     <div>CVV Number</div>
+     <input type="text" size="2" data-cip="cvvnumber">
+    </div>
+    
+    <div>
      <div>Billing Name</div>
      <input type="text" data-cip="billingname">
+    </div>
+    
+    <div>
+     <div>Billing Street Address</div>
+     <input type="text" data-cip="billingstreetaddress">
+    </div>
+    
+    <div>
+     <div>Billing Zip</div>
+     <input type="text" data-cip="billingzip">
     </div>
     
     <div>
