@@ -38,7 +38,7 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
     
     <div>
      <div>Card Number</div>
-     <input type="text" data-cip="number">
+     <input type="text" data-cip="accountdata">
     </div>
     
     <div>
