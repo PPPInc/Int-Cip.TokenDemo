@@ -53,7 +53,7 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
     
     <div>
      <div>CVV Number</div>
-     <input type="text" size="2" data-cip="cvvnumber">
+     <input type="text" size="3" data-cip="cvvnumber">
     </div>
     
     <div>
