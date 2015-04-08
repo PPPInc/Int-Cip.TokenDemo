@@ -12,7 +12,6 @@ namespace CIP.TokenDemo.Modules
             Get["/"] = parameters =>
             {
                 return View["payment"];
-
             };
 
             Get["/payment"] = parameters =>
@@ -34,8 +33,34 @@ namespace CIP.TokenDemo.Modules
                     Token = payment.CipToken,
                     Amount = payment.Amount,
                     TransactionType = payment.TransactionType,
-                    BillingAddress = new BillingAddress(){ FirstName = "Demo Billing Name" },
-                    ShippingAddress = new ShippingAddress() {  FirstName = "Demo Shipping Name" }
+                    BillingAddress = new BillingAddress()
+                    { 
+                        FirstName = payment.BillingFirstName,
+                        LastName = payment.BillingLastName,
+                        Company = payment.BillingCompany,
+                        Street = payment.BillingStreet,
+                        Street2 = payment.BillingStreet2,
+                        City = payment.BillingCity,
+                        State = payment.BillingState,
+                        Zip = payment.BillingZip,
+                        Country = payment.BillingCountry,
+                        Phone = payment.BillingPhone,
+                        Email = payment.BillingEmail
+                    },
+                    ShippingAddress = new ShippingAddress()
+                    {
+                        FirstName = payment.ShippingFirstName,
+                        LastName = payment.ShippingLastName,
+                        Company = payment.ShippingCompany,
+                        Street = payment.ShippingStreet,
+                        Street2 = payment.ShippingStreet2,
+                        City = payment.ShippingCity,
+                        State = payment.ShippingState,
+                        Zip = payment.ShippingZip,
+                        Country = payment.ShippingCountry,
+                        Phone = payment.ShippingPhone
+                    },
+                    Comments = payment.Comments
                 };
 
                 var response = CIP.Token.RunTransaction(transaction);

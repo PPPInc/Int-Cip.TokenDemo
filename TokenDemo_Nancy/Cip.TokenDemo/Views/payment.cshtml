@@ -21,7 +21,7 @@
 
     <h4>Secure Payment Form</h4>
 
-    <form role="form" action="/payment" method="POST" id="payment-form">
+    <form role="form" action="/payment" method="POST" id="payment-form" style="margin: 0 0 100px 0;">
 
         <div class="row">
 
@@ -61,29 +61,156 @@
                                 <option value="16">2016</option>
                             </select>
                         </div>
+
+                        <div class="form-group" style="margin: 25px 0 0 0;">
+                            <label>Comments</label>
+                            <input type="text" class="form-control input-large" value="" name="comments">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Billing Address -->
+                <div class="panel panel-default">
+
+                    <div class="panel-heading"><h3 class="panel-title">Billing Address</h3></div>
+
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control input-medium" value="Joe" name="billingfirstname">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control input-medium" value="Smith" name="billinglastname">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Company</label>
+                            <input type="text" class="form-control input-medium" value="" name="billingcompany">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Street</label>
+                            <input type="text" class="form-control input-large" value="" name="billingstreet">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Street 2</label>
+                            <input type="text" class="form-control input-large" value="" name="billingstreet2">
+                        </div>
+
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" class="form-control input-medium" value="" name="billingcity">
+                        </div>
+
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" class="form-control input-small" value="" name="billingstate">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Zip</label>
+                            <input type="text" class="form-control input-small" value="" name="billingzip">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input type="text" class="form-control input-medium" value="" name="billingcountry">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" class="form-control input-medium" value="" name="billingphone">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control input-medium" value="" name="billingemail">
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Shipping Address -->
+                <div class="panel panel-default">
+
+                    <div class="panel-heading"><h3 class="panel-title">Shipping Address</h3></div>
+
+                    <div class="panel-body">
+
+                        <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control input-medium" value="Sam" name="shippingfirstname">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control input-medium" value="Smith" name="shippinglastname">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Company</label>
+                            <input type="text" class="form-control input-medium" value="" name="shippingcompany">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Street</label>
+                            <input type="text" class="form-control input-large" value="" name="shippingstreet">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Street 2</label>
+                            <input type="text" class="form-control input-large" value="" name="shippingstreet2">
+                        </div>
+
+                        <div class="form-group">
+                            <label>City</label>
+                            <input type="text" class="form-control input-medium" value="" name="shippingcity">
+                        </div>
+
+                        <div class="form-group">
+                            <label>State</label>
+                            <input type="text" class="form-control input-small" value="" name="shippingstate">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Zip</label>
+                            <input type="text" class="form-control input-small" value="" name="shippingzip">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Country</label>
+                            <input type="text" class="form-control input-medium" value="" name="shippingcountry">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Phone</label>
+                            <input type="text" class="form-control input-medium" value="" name="shippingphone">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="text" class="form-control input-medium" value="" name="shippingemail">
+                        </div>
+
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <input type="hidden" data-cip="billingname" value="John Q. Public"/>
+                    <input type="hidden" data-cip="billingname" value="John Q. Public" />
                     <button class="btn btn-default" type="submit">Submit</button>
                     <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
                     <span id="payment-validation-error" class="error"></span>
-                 </div>
+                </div>
 
             </div>
 
         </div>
 
     </form>
-
-    <div class="navbar navbar-fixed-bottom footer">
-
-        Copyright &copy 2012 Payment Processing Partners, Inc. All rights reserved.<br />
-
-        <a href="http://www.chargeitpro.com/privacy.html">Privacy & Security</a> | <a href="http://www.chargeitpro.com/terms.html">Terms & Conditions</a>
-
-    </div>
 
     <script>
 
