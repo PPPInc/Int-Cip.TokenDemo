@@ -25,8 +25,8 @@ namespace CIP.TokenDemo.Modules
 
                 /* This is the Server Side CIP integration */
                 CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
-                //CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
-                CIP.Token.Url = "http://localhost:57192/token/transaction.json";
+                CIP.Token.Url = "https://psl-staging.chargeitpro.com/token/transaction.json";
+                //CIP.Token.Url = "http://localhost:57192/token/transaction.json";
                 
                 var transaction = new CIP.Transaction()
                 {
@@ -82,7 +82,7 @@ namespace CIP.TokenDemo.Modules
 
                 /* This is the Server Side CIP integration */
                 CIP.Token.ApiKey = "38646a19091049d59ea46e75847fe88f";
-                CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
+                CIP.Token.Url = "https://psl-staging.chargeitpro.com/token/transaction.json";
                 //CIP.Token.Url = "http://localhost:57192/token/transaction.json";
 
                 var transaction = new CIP.Transaction()
@@ -111,7 +111,7 @@ namespace CIP.TokenDemo.Modules
 
                 /* This is the Server Side CIP integration */
                 CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
-                CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
+                CIP.Token.Url = "https://psl-staging.chargeitpro.com/token/transaction.json";
                 //CIP.Token.Url = "http://localhost:57192/token/transaction.json";
 
                 var transaction = new CIP.Transaction()
