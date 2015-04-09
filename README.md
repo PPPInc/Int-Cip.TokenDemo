@@ -148,7 +148,36 @@ void YourPaymentHandler()
 		Token = cipToken,
 		Amount = double.Parse(amount),
 		TransactionType = transactionType,
-		Invoice = "Invoice Name"
+		Invoice = "Invoice Name",
+	        BillingAddress = new BillingAddress()
+	        { 
+		        FirstName = "John",
+		        LastName = "Smith",
+		        Company = "The Billing Company",
+		        Street = "1 Mockingbird Ln.",
+		        Street2 = "Apt. 1",
+		        City = "Eagle",
+		        State = "ID",
+		        Zip = "55555-4444",
+		        Country = "USA",
+		        Phone = "555-555-5555",
+		        Email = "email@domain.com"
+	        },
+	        ShippingAddress = new ShippingAddress()
+	        { 
+		        FirstName = "Sam",
+		        LastName = "Smith",
+		        Company = "The Shipping Company",
+		        Street = "2 Shady Ln.",
+		        Street2 = "Apt. 2",
+		        City = "Boise",
+		        State = "ID",
+		        Zip = "55555-4444",
+		        Country = "USA",
+		        Phone = "555-555-5555",
+		        Email = "email1@domain.com"
+	        },
+	        Comments = "Your comments"
 	};
 
 	/* Process the transaction */
