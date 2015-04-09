@@ -151,6 +151,7 @@ void YourPaymentHandler()
 		Invoice = "Invoice Name",
 		BillingAddress = new BillingAddress()
 		{ 
+			CustomerId = "Your Customer Id",
 			FirstName = "John",
 			LastName = "Smith",
 			Company = "The Billing Company",
