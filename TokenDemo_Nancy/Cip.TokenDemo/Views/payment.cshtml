@@ -21,241 +21,245 @@
 
     <h4>Secure Payment Form</h4>
 
-    <form role="form" action="/payment" method="POST" id="payment-form" style="margin: 0 0 100px 0;">
+    <div class="container-fluid">
 
-        <div class="row">
+        <form role="form" action="/payment" method="POST" id="payment-form" style="margin: 0 0 100px 0;">
 
-            <div class="col-md-6">
+            <div class="row">
 
-                <div class="panel panel-default">
+                <div class="col-md-6">
 
-                    <div class="panel-heading"><h3 class="panel-title">Card Information</h3></div>
+                    <div class="panel panel-default">
 
-                    <div class="panel-body">
+                        <div class="panel-heading"><h3 class="panel-title">Card Information</h3></div>
 
-                        <div class="form-group">
-                            <label>Transaction Type</label>
-                            <select class="form-control" style="width: 130px;" name="transactionType">
-                                <option value="sale">Credit Sale</option>
-                            </select>
-                        </div>
+                        <div class="panel-body">
 
-                        <div class="form-group">
-                            <label>Amount</label>
-                            <input type="text" class="form-control input-small" value="1.03" name="amount">
-                        </div>
+                            <div class="form-group">
+                                <label>Transaction Type</label>
+                                <select class="form-control" style="width: 130px;" name="transactionType">
+                                    <option value="sale">Credit Sale</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label>Card Number</label>
-                            <input type="text" class="form-control input-medium" value="4000200011112222" data-cip="accountdata">
-                        </div>
+                            <div class="form-group">
+                                <label>Amount</label>
+                                <input type="text" class="form-control input-small" value="1.03" name="amount">
+                            </div>
 
-                        <div class="form-group">
-                            <label></label>
-                            <select class="form-control expire" style="margin: 0 10px 0 0;" data-cip="exp-month">
-                                <option value="01">January</option>
-                                <option value="02">February</option>
-                                <option value="03">March</option>
-                            </select>
-                            <select class="form-control expire" data-cip="exp-year">
-                                <option value="16">2016</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" class="form-control input-medium" value="4000200011112222" data-cip="accountdata">
+                            </div>
 
-                        <div class="form-group" style="margin: 25px 0 0 0;">
-                            <label>Comments</label>
-                            <input type="text" class="form-control input-large" value="" name="comments">
+                            <div class="form-group">
+                                <label></label>
+                                <select class="form-control expire" style="margin: 0 10px 0 0;" data-cip="exp-month">
+                                    <option value="01">January</option>
+                                    <option value="02">February</option>
+                                    <option value="03">March</option>
+                                </select>
+                                <select class="form-control expire" data-cip="exp-year">
+                                    <option value="16">2016</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" style="margin: 25px 0 0 0;">
+                                <label>Comments</label>
+                                <input type="text" class="form-control input-large" value="" name="comments">
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- Billing Address -->
-                <div class="panel panel-default">
+                    <!-- Billing Address -->
+                    <div class="panel panel-default">
 
-                    <div class="panel-heading"><h3 class="panel-title">Billing Address</h3></div>
+                        <div class="panel-heading"><h3 class="panel-title">Billing Address</h3></div>
 
-                    <div class="panel-body">
+                        <div class="panel-body">
 
-                        <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" class="form-control input-medium" value="Joe" name="billingfirstname">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control input-medium" value="Joe" name="billingfirstname">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control input-medium" value="Smith" name="billinglastname">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input type="text" class="form-control input-medium" value="" name="billingcompany">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Street</label>
+                                <input type="text" class="form-control input-large" value="" name="billingstreet">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Street 2</label>
+                                <input type="text" class="form-control input-large" value="" name="billingstreet2">
+                            </div>
+
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" class="form-control input-medium" value="" name="billingcity">
+                            </div>
+
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" class="form-control input-small" value="" name="billingstate">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Zip</label>
+                                <input type="text" class="form-control input-small" value="" name="billingzip">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" class="form-control input-medium" value="" name="billingcountry">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" class="form-control input-medium" value="" name="billingphone">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control input-medium" value="" name="billingemail">
+                            </div>
+
                         </div>
-
-                        <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control input-medium" value="Smith" name="billinglastname">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Company</label>
-                            <input type="text" class="form-control input-medium" value="" name="billingcompany">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Street</label>
-                            <input type="text" class="form-control input-large" value="" name="billingstreet">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Street 2</label>
-                            <input type="text" class="form-control input-large" value="" name="billingstreet2">
-                        </div>
-
-                        <div class="form-group">
-                            <label>City</label>
-                            <input type="text" class="form-control input-medium" value="" name="billingcity">
-                        </div>
-
-                        <div class="form-group">
-                            <label>State</label>
-                            <input type="text" class="form-control input-small" value="" name="billingstate">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Zip</label>
-                            <input type="text" class="form-control input-small" value="" name="billingzip">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Country</label>
-                            <input type="text" class="form-control input-medium" value="" name="billingcountry">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control input-medium" value="" name="billingphone">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control input-medium" value="" name="billingemail">
-                        </div>
-
                     </div>
-                </div>
 
-                <!-- Shipping Address -->
-                <div class="panel panel-default">
+                    <!-- Shipping Address -->
+                    <div class="panel panel-default">
 
-                    <div class="panel-heading"><h3 class="panel-title">Shipping Address</h3></div>
+                        <div class="panel-heading"><h3 class="panel-title">Shipping Address</h3></div>
 
-                    <div class="panel-body">
+                        <div class="panel-body">
 
-                        <div class="form-group">
-                            <label>First Name</label>
-                            <input type="text" class="form-control input-medium" value="Sam" name="shippingfirstname">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control input-medium" value="Sam" name="shippingfirstname">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control input-medium" value="Smith" name="shippinglastname">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Company</label>
+                                <input type="text" class="form-control input-medium" value="" name="shippingcompany">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Street</label>
+                                <input type="text" class="form-control input-large" value="" name="shippingstreet">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Street 2</label>
+                                <input type="text" class="form-control input-large" value="" name="shippingstreet2">
+                            </div>
+
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" class="form-control input-medium" value="" name="shippingcity">
+                            </div>
+
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" class="form-control input-small" value="" name="shippingstate">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Zip</label>
+                                <input type="text" class="form-control input-small" value="" name="shippingzip">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text" class="form-control input-medium" value="" name="shippingcountry">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text" class="form-control input-medium" value="" name="shippingphone">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control input-medium" value="" name="shippingemail">
+                            </div>
+
                         </div>
-
-                        <div class="form-group">
-                            <label>Last Name</label>
-                            <input type="text" class="form-control input-medium" value="Smith" name="shippinglastname">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Company</label>
-                            <input type="text" class="form-control input-medium" value="" name="shippingcompany">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Street</label>
-                            <input type="text" class="form-control input-large" value="" name="shippingstreet">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Street 2</label>
-                            <input type="text" class="form-control input-large" value="" name="shippingstreet2">
-                        </div>
-
-                        <div class="form-group">
-                            <label>City</label>
-                            <input type="text" class="form-control input-medium" value="" name="shippingcity">
-                        </div>
-
-                        <div class="form-group">
-                            <label>State</label>
-                            <input type="text" class="form-control input-small" value="" name="shippingstate">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Zip</label>
-                            <input type="text" class="form-control input-small" value="" name="shippingzip">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Country</label>
-                            <input type="text" class="form-control input-medium" value="" name="shippingcountry">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text" class="form-control input-medium" value="" name="shippingphone">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" class="form-control input-medium" value="" name="shippingemail">
-                        </div>
-
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <input type="hidden" data-cip="billingname" value="John Q. Public" />
-                    <button class="btn btn-default" type="submit">Submit</button>
-                    <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
-                    <span id="payment-validation-error" class="error"></span>
+                    <div class="form-group">
+                        <input type="hidden" data-cip="billingname" value="John Q. Public" />
+                        <button class="btn btn-default" type="submit">Submit</button>
+                        <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
+                        <span id="payment-validation-error" class="error"></span>
+                    </div>
+
                 </div>
 
             </div>
 
+        </form>
+
         </div>
 
-    </form>
+        <script>
 
-    <script>
+            $(function () {
 
-        $(function () {
+                /* This is the Publishable Key */
+                CIP.token.merchantName = 'Merchant1_23f1984001644e1ba7b4ca9506077e81';
 
-            /* This is the Publishable Key */
-            CIP.token.merchantName = 'Merchant1_23f1984001644e1ba7b4ca9506077e81';
+                $('#payment-form').find('button').prop('disabled', false);
+                $('#loader').addClass('hidden');
 
-            $('#payment-form').find('button').prop('disabled', false);
-            $('#loader').addClass('hidden');
+                $('#payment-form').submit(function (event) {
 
-            $('#payment-form').submit(function (event) {
+                    var $form = $(this);
 
-                var $form = $(this);
+                    // Disable the submit button and show ajax loader
+                    $form.find('button').prop('disabled', true);
+                    $('#loader').removeClass('hidden');
 
-                // Disable the submit button and show ajax loader
-                $form.find('button').prop('disabled', true);
-                $('#loader').removeClass('hidden');
+                    CIP.token.create($form, function (status, response) {
 
-                CIP.token.create($form, function (status, response) {
+                        if (response.error) {
 
-                    if (response.error) {
+                            $form.find('#payment-validation-error').text(response.error.message);
 
-                        $form.find('#payment-validation-error').text(response.error.message);
+                            $('#payment-form').find('button').prop('disabled', false);
 
-                        $('#payment-form').find('button').prop('disabled', false);
+                            $('#loader').addClass('hidden');
 
-                        $('#loader').addClass('hidden');
+                        } else {
 
-                    } else {
+                            var token = response.Token;
 
-                        var token = response.Token;
+                            $form.append($('<input type="hidden" name="cipToken" />').val(token));
 
-                        $form.append($('<input type="hidden" name="cipToken" />').val(token));
+                            $form.get(0).submit();
+                        }
+                    });
 
-                        $form.get(0).submit();
-                    }
+                    // Prevent the form from submitting with the default action
+                    return false;
                 });
-
-                // Prevent the form from submitting with the default action
-                return false;
             });
-        });
 
-    </script>
+        </script>
 
 </body>
 

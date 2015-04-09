@@ -33,6 +33,10 @@ namespace CIP.TokenDemo.Modules
                     Token = payment.CipToken,
                     Amount = payment.Amount,
                     TransactionType = payment.TransactionType,
+                    Invoice = "Test Invoice Number",
+                    PONumber = "Test Po Number",
+                    OrderId = "Test OrderId",
+                    Description = "Test Description",
                     BillingAddress = new BillingAddress()
                     { 
                         FirstName = payment.BillingFirstName,
