@@ -149,6 +149,9 @@ void YourPaymentHandler()
 		Amount = double.Parse(amount),
 		TransactionType = transactionType,
 		Invoice = "Invoice Name",
+		PONumber = "12345",
+		OrderId = "98765",
+		Description = "Your description",
 		BillingAddress = new BillingAddress()
 		{ 
 			CustomerId = "Your Customer Id",
