@@ -33,7 +33,7 @@ namespace CIP.TokenDemo.Modules
                     Token = payment.CipToken,
                     Amount = payment.Amount,
                     TransactionType = payment.TransactionType,
-                    Invoice = "Test Invoice Number",
+                    Invoice = "123ABC",
                     PONumber = "Test Po Number",
                     OrderId = "Test OrderId",
                     Description = "Test Description",
