@@ -23,17 +23,10 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
 ```HTML
 <form action="/" method="POST" id="payment-form">
     
-	<div>
-	 <div>Transaction Type</div>
-	 <select name="transactionType">
-	  <option value="sale">Sale</option>
-	  <option value="credit">Credit</option>
-	 </select>
-	</div>
-	
     <div>
-     <div>Amount</div>
-     <input type="text" name="amount">
+	
+	<!-- Your Form Data Goes Here -->
+	
     </div>
     
     <div>
@@ -136,8 +129,8 @@ void YourPaymentHandler()
 {
 	/* Fetch your form post values */
 	var cipToken = this.Request.Form["cipToken"].Value;
-	var amount = this.Request.Form["amount"].Value;
-	var transactionType = this.Request.Form["transactionType"].Value;
+	var amount = GetYourAmount(); // ie. 9.99
+	var transactionType = GetYourTransactionType(); // ie. CreditSale
 
 	/* Set your Private Key */
 	CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
