@@ -45,13 +45,15 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
     </div>
     
     <div>
-     <div>CVV Number</div>
-     <input type="text" size="3" data-cip="cvvnumber">
-    </div>
-    
-    <div>
      <div>Billing Name</div>
      <input type="text" data-cip="billingname">
+    </div>
+
+    <!-- Add the following 3 fields only for Keyed Transactions (i.e. non-swipe) -->
+        
+    <div>
+     <div>CVV Number</div>
+     <input type="text" size="3" data-cip="cvvnumber">
     </div>
     
     <div>
