@@ -73,6 +73,8 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
 </form>
 ```
 
+**Note:** For Card Present (i.e. swipe data), **do not** include the BillingStreetAddress, BillingZip and CVVNumber fields in your form; these values will be automatically be parsed from the swipe.  For Keyed transactions, **do** include the BillingStreetAddress, BillingZip and CVVNumber fields in your form.  Submitting BillingStreetAddress, BillingZip and CVVNumber will ensure you get the lowest rate. 
+
 #####Intercept the form Submit event, create the CIP Token, then post back to your server in the callback
 If you're using jQuery, make sure to add a reference to:
 ```javascript
@@ -129,8 +131,8 @@ void YourPaymentHandler()
 {
 	/* Fetch your form post values */
 	var cipToken = this.Request.Form["cipToken"].Value;
-	var amount = GetYourAmount(); // ie. 9.99
-	var transactionType = GetYourTransactionType(); // ie. CreditSale
+	var amount = GetYourAmount(); // i.e. 9.99
+	var transactionType = GetYourTransactionType(); // i.e. CreditSale
 
 	/* Set your Private Key */
 	CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
