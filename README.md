@@ -75,7 +75,7 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
 </form>
 ```
 
-**Note:** For Card Present (i.e. swipe data), **do not** include the BillingStreetAddress, BillingZip and CVVNumber fields in your form; these values will be automatically be parsed from the swipe.  For Keyed Transactions, **do** include the BillingStreetAddress, BillingZip and CVVNumber fields in your form.  Submitting BillingStreetAddress, BillingZip and CVVNumber will ensure you get the lowest rate. 
+**Note:** For Card Present (i.e. swipe data), there is no need to include the BillingStreetAddress, BillingZip and CVVNumber fields in your form; these values will be automatically be parsed from the swipe.  For Keyed Transactions, **do** include the BillingStreetAddress, BillingZip and CVVNumber fields in your form.  Submitting BillingStreetAddress, BillingZip and CVVNumber will ensure you get the lowest rate for manual transactions. 
 
 #####Intercept the form Submit event, create the CIP Token, then post back to your server in the callback
 If you're using jQuery, make sure to add a reference to:
