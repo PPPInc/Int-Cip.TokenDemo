@@ -135,6 +135,9 @@ void YourPaymentHandler()
 	var cipToken = this.Request.Form["cipToken"].Value;
 	var amount = GetYourAmount(); // i.e. 9.99
 	var transactionType = GetYourTransactionType(); // i.e. CreditSale
+	
+	/* This toggles the environment, default points to Sandbox, set to True when migrating to Production */
+	CIP.Token.IsSandbox = false;
 
 	/* Set your Private Key */
 	CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
@@ -213,8 +216,14 @@ void YourPaymentHandler()
     var amount = this.Request.Form["amount"].Value;
     var transactionType = this.Request.Form["transactionType"].Value;
     
+    /* This toggles the environment, default points to Sandbox, set to True when migrating to Production */
+    var isSandbox = true;
+    
     /* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
-    var transaction = new { Amount = amount, TransactionType = transactionType, Token = cipToken, Invoice = "Invoice Name" };
+    var transaction = new { 
+    	Amount = amount, TransactionType = transactionType, 
+    	Token = cipToken, Invoice = "Invoice Name", IsSandbox = isSandbox 
+    };
     
     /* 
         ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. 
