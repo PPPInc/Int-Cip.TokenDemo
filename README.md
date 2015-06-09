@@ -271,7 +271,7 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 	   "CVVResponseCode": "M",
 	   "CVVResponseText": "Match",
 	   "AccountCardType": "VS",
-	   "AccountExpiryDate": "0515",
+	   "AccountExpiryDate": "0525",
 	   "TransactionType": "sale",
 	   "BillingName": "John Q. Public",
 	   "MaskedAccount": "************2222",
