@@ -3,7 +3,8 @@
 CIP.token = new function () {
 
     var self = this;
-    self.url = 'https://psl-staging.chargeitpro.com/token/card.json';
+    self.url = 'https://psl.chargeitpro.com/token/card.json';
+    //self.url = 'https://psl-staging.chargeitpro.com/token/card.json';
     //self.url = 'http://localhost:57192/token/card.json';
     self.merchantName = null;
     self.card = {};

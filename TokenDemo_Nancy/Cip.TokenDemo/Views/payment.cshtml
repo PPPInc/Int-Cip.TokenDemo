@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<CIP.TokenDemo.Models.Payment>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -12,8 +14,14 @@
 	
     <!-- Javascript -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <!-- <script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script> -->
     <script src="@Url.Content("~/scripts/CIP.token.js")"></script>
+
+    <script>
+
+        var environment = '@Model.Environment';
+        var merchantName = '@Model.MerchantName';
+
+    </script>
 
 </head>
 
@@ -28,6 +36,13 @@
             <div class="row">
 
                 <div class="col-md-6">
+
+                    @if (@Model != null && @Model.Error != string.Empty)
+                    {
+                        <div style="margin: 10px 0 10px 0;color: red;">
+                            <text>@Model.Error</text>
+                        </div>
+                    }
 
                     <div class="panel panel-default">
 
@@ -60,7 +75,8 @@
                                     <option value="03">March</option>
                                 </select>
                                 <select class="form-control expire" data-cip="exp-year">
-                                    <option value="16">2016</option>
+                                    <option value="14">2014</option>
+                                    <option value="16" selected="selected">2016</option>
                                 </select>
                             </div>
 
@@ -199,10 +215,12 @@
                             </div>
 
                         </div>
+
                     </div>
 
                     <div class="form-group">
-                        <input type="hidden" data-cip="billingname" value="John Q. Public" />
+                        <input type="hidden" name="Environment" value="@Model.Environment" />
+                        <input type="hidden" name="ApiKey" value="@Model.ApiKey" />
                         <button class="btn btn-default" type="submit">Submit</button>
                         <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
                         <span id="payment-validation-error" class="error"></span>
@@ -221,7 +239,25 @@
             $(function () {
 
                 /* This is the Publishable Key */
-                CIP.token.merchantName = 'Merchant1_23f1984001644e1ba7b4ca9506077e81';
+                if (merchantName !== '') {
+                    CIP.token.merchantName = merchantName;
+                } else {
+                    CIP.token.merchantName = 'MJTestUser1234';
+                };
+
+                switch(environment) {
+                    case 'local':
+                        CIP.token.url = 'http://localhost:57192/token/card.json';
+                        break;
+                    case 'staging':
+                        CIP.token.url = 'https://psl-staging.chargeitpro.com/token/card.json';
+                        break;
+                    case 'production':
+                        CIP.token.url = 'https://psl.chargeitpro.com/token/card.json';
+                        break;
+                    default:
+                        CIP.token.url = 'https://psl.chargeitpro.com/token/card.json';
+                }
 
                 $('#payment-form').find('button').prop('disabled', false);
                 $('#loader').addClass('hidden');

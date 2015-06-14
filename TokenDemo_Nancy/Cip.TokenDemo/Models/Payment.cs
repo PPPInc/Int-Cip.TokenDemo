@@ -31,5 +31,9 @@ namespace CIP.TokenDemo.Models
         public string ShippingPhone { get; set; }
         public string ShippingEmail { get; set; }
         public string Comments { get; set; }
+        public string Error { get; set; }
+        public string Environment { get; set; }
+        public string MerchantName { get; set; }
+        public string ApiKey { get; set; }
     }
 }

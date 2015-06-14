@@ -38,8 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CIP.Token">
-      <HintPath>..\ExternalLibs\CIP.Token.dll</HintPath>
+    <Reference Include="CIP.Token, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Cip.TokenDemo\bin\CIP.Token.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Nancy">
@@ -77,6 +78,7 @@
     <Content Include="Content\Images\lock-small.png" />
     <Content Include="Content\Images\nancy-logo.png" />
     <Content Include="Content\site.css" />
+    <Content Include="Scripts\CIP.IE9.token.js" />
     <Content Include="Scripts\CIP.token.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -98,10 +100,16 @@
     <None Include="Properties\PublishProfiles\cip-token-demo - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\cip-token-demo - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\cip-token-demo - Web Deploy.pubxml" />
-    <Content Include="Views\encrypted_payment.cshtml">
+    <Content Include="Views\ie_test.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\swipe_payment.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\ie_test2.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\ie_test3.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Web.Debug.config">
@@ -111,7 +119,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

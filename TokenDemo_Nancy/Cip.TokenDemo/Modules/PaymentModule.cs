@@ -7,16 +7,39 @@ namespace CIP.TokenDemo.Modules
 {
     public class PaymentModule : NancyModule
     {
+        public static string Environment = "staging";
+
         public PaymentModule()
         {
             Get["/"] = parameters =>
             {
-                return View["payment"];
+                var model = new Payment() { Environment = Environment };
+
+                return View["payment", model];
             };
 
             Get["/payment"] = parameters =>
             {
-                return View["payment"];
+                var model = new Payment() { Environment = Environment };
+
+                return View["payment", model];
+            };
+
+            Get["/payment/{environment}"] = parameters =>
+            {
+                var model = new Payment();
+
+                model.Environment = parameters.environment;
+
+                var merchantName = this.Request.Query["MerchantName"];
+
+                if(merchantName.HasValue) model.MerchantName = merchantName.Value;
+
+                var key = this.Request.Query["Key"];
+
+                if (key.HasValue) model.ApiKey = key.Value;
+
+                return View["payment", model];
             };
 
             Post["/payment"] = parameters =>
@@ -24,10 +47,34 @@ namespace CIP.TokenDemo.Modules
                 var payment = this.Bind<Payment>();
 
                 /* This is the Server Side CIP integration */
-                CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
-                CIP.Token.Url = "https://psl-staging.chargeitpro.com/token/transaction.json";
-                //CIP.Token.Url = "http://localhost:57192/token/transaction.json";
-                
+                if (payment.ApiKey != null)
+                {
+                    CIP.Token.ApiKey = payment.ApiKey;
+                }
+                else
+                {
+                    CIP.Token.ApiKey = "9b2ded5065b642c0b0ca6ac85bd2508f";
+                    //CIP.Token.ApiKey = "9f73fa7b8c34443689e4d578c632940d";
+                }
+
+                switch (payment.Environment)
+                {
+                    case "local":
+                        CIP.Token.Url = "http://localhost:57192/token/transaction.json";
+                        break;
+                    case "staging":
+                        CIP.Token.Url = "https://psl-staging.chargeitpro.com/token/transaction.json";
+                        break;
+                    case "production":
+                        CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
+                        break;
+                    default:
+                        CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
+                        break;
+                }
+
+                //CIP.Token.IsSandbox = true;
+
                 var transaction = new CIP.Transaction()
                 {
                     Token = payment.CipToken,
@@ -69,9 +116,20 @@ namespace CIP.TokenDemo.Modules
 
                 var response = CIP.Token.RunTransaction(transaction);
 
-                ViewBag.Referrer = "payment";
+                if (!response.Success)
+                {
+                    var model = new Payment() { Error = response.Error.Message };
 
-                return View["receipt", response.Result];
+                    ViewBag.Referrer = "payment";
+
+                    return View["payment", model];
+                }
+                else
+                {
+                    ViewBag.Referrer = "payment";
+
+                    return View["receipt", response.Result];
+                }
             };
 
             /* Encrypted Payment Examples */
@@ -136,6 +194,30 @@ namespace CIP.TokenDemo.Modules
             Get["/{param1}/{param2}"] = parameters =>
             {
                 return new RedirectResponse("/");
+            };
+
+            /* IE9 Tests */
+            Get["/ie_test"] = parameters =>
+            {
+                return View["ie_test"];
+            };
+
+            Post["/ie_test"] = parameters =>
+            {
+                var payment = this.Bind<Payment>();
+
+                return View["ie_test"];
+            };
+
+            Get["/ie_test2"] = parameters =>
+            {
+                return View["ie_test2"];
+            };
+
+
+            Get["/ie_test3"] = parameters =>
+            {
+                return View["ie_test2"];
             };
         }
     }
