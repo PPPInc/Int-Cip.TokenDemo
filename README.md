@@ -308,7 +308,9 @@ Error messages will be returned in the Error Field.
 
 **Card Expiration Year** : *25*
 
-#####Credential Authorization (to validate credentials and determine if you're pointed to the Sandbox environment or Live)
+#### Credential Authorization 
+Validation of credentials and determine if you're pointed to the Sandbox environment or Live
+
 The REST Endpoint
 
 ######Metadata 
@@ -318,8 +320,12 @@ https://psl.chargeitpro.com/json/metadata?op=TokenAuthRequest
 POST https://psl.chargeitpro.com/token/auth
 
 ######Data (Body) 
-{ 'MerchantName': 'Merchant1_23f1984001644e1ba7b4ca9506077e81', 'Key':'e5932e4dd41742cd81768c6ace7bedc9' }
-
+```
+{ 
+	'MerchantName': 'Merchant1_23f1984001644e1ba7b4ca9506077e81', 
+	'Key':'e5932e4dd41742cd81768c6ace7bedc9' 
+}
+```
 <br/>
 ####Http Status Codes
 #####200 OK
