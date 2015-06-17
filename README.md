@@ -308,6 +308,7 @@ Error messages will be returned in the Error Field.
 
 **Card Expiration Year** : *25*
 
+<br/>
 #### Credential Authorization 
 Validation of credentials and determine if you're pointed to the Sandbox environment or Live
 
