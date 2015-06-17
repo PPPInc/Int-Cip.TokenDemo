@@ -307,3 +307,54 @@ Error messages will be returned in the Error Field.
 **Card Expiration Month** : *05*
 
 **Card Expiration Year** : *25*
+
+#####Credential Authorization (to validate credentials and determine if you're pointed to the Sandbox environment or Live)
+The REST Endpoint
+
+######Metadata 
+https://psl.chargeitpro.com/json/metadata?op=TokenAuthRequest
+
+######URI
+POST https://psl.chargeitpro.com/token/auth
+
+######Data (Body) 
+{ 'MerchantName': 'Merchant1_23f1984001644e1ba7b4ca9506077e81', 'Key':'e5932e4dd41742cd81768c6ace7bedc9' }
+
+<br/>
+####Http Status Codes
+#####200 OK
+Successful Http Request.
+#####401 Unauthorized
+Unauthorized Http Request.  Invalid credentials.
+
+<br/>
+####Authorization Result Codes
+JSON Response object.
+```
+{
+	"Success": true,
+	"Status": "OK",
+	"StatusCode": 200,
+	"Result":
+	{
+	   "IsValid": true,
+	   "IsSandbox": true,
+	}
+}
+```
+
+<br/>
+####Errors
+Error messages will be returned in the Error Field.
+
+```
+{
+	"Success": false,
+	"Status": "Unauthorized",
+	"StatusCode": 401,
+	"Error":
+	{
+	   "Message": "Invalid credentials"
+	}
+}
+```
