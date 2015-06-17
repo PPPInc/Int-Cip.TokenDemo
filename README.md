@@ -310,7 +310,7 @@ Error messages will be returned in the Error Field.
 
 <br/>
 #### Credential Authorization 
-Validation of credentials and determine if you're pointed to the Sandbox environment or Live
+Validation of credentials and determine if you're pointed to the Sandbox or Live environment.
 
 The REST Endpoint
 
