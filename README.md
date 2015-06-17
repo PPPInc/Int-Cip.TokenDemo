@@ -309,7 +309,7 @@ Error messages will be returned in the Error Field.
 **Card Expiration Year** : *25*
 
 <br/>
-#### Credential Authorization 
+#### Credential Validation 
 Validation of credentials and to determine if you're pointed to the Sandbox or Live environment.
 
 The REST Endpoint
