@@ -320,6 +320,9 @@ https://psl.chargeitpro.com/json/metadata?op=TokenAuthRequest
 ######URI
 POST https://psl.chargeitpro.com/token/auth
 
+######Headers
+content-type : application/json
+
 ######Data (Body) 
 ```
 { 
