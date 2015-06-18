@@ -326,8 +326,8 @@ content-type : application/json
 ######Data (Body) 
 ```
 { 
-	'MerchantName': 'Merchant1_23f1984001644e1ba7b4ca9506077e81', 
-	'Key':'e5932e4dd41742cd81768c6ace7bedc9' 
+	"MerchantName":"Merchant1_23f1984001644e1ba7b4ca9506077e81", 
+	"Key":"e5932e4dd41742cd81768c6ace7bedc9" 
 }
 ```
 <br/>
