@@ -31,14 +31,6 @@ namespace CIP.TokenDemo.Modules
 
                 model.Environment = parameters.environment;
 
-                var merchantName = this.Request.Query["MerchantName"];
-
-                if(merchantName.HasValue) model.MerchantName = merchantName.Value;
-
-                var key = this.Request.Query["Key"];
-
-                if (key.HasValue) model.ApiKey = key.Value;
-
                 return View["payment", model];
             };
 
@@ -47,33 +39,9 @@ namespace CIP.TokenDemo.Modules
                 var payment = this.Bind<Payment>();
 
                 /* This is the Server Side CIP integration */
-                if (payment.ApiKey != null)
-                {
-                    CIP.Token.ApiKey = payment.ApiKey;
-                }
-                else
-                {
-                    CIP.Token.ApiKey = "9b2ded5065b642c0b0ca6ac85bd2508f";
-                    //CIP.Token.ApiKey = "9f73fa7b8c34443689e4d578c632940d";
-                }
+                CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
 
-                switch (payment.Environment)
-                {
-                    case "local":
-                        CIP.Token.Url = "http://localhost:57192/token/transaction.json";
-                        break;
-                    case "staging":
-                        CIP.Token.Url = "https://psl-staging.chargeitpro.com/token/transaction.json";
-                        break;
-                    case "production":
-                        CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
-                        break;
-                    default:
-                        CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
-                        break;
-                }
-
-                //CIP.Token.IsSandbox = true;
+                CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
 
                 var transaction = new CIP.Transaction()
                 {
@@ -173,8 +141,7 @@ namespace CIP.TokenDemo.Modules
 
                 /* This is the Server Side CIP integration */
                 CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
-                CIP.Token.Url = "https://psl-staging.chargeitpro.com/token/transaction.json";
-                //CIP.Token.Url = "http://localhost:57192/token/transaction.json";
+                CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
 
                 var transaction = new CIP.Transaction()
                 {

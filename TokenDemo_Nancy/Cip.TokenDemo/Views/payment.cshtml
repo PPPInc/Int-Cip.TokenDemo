@@ -16,13 +16,6 @@
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="@Url.Content("~/scripts/CIP.token.js")"></script>
 
-    <script>
-
-        var environment = '@Model.Environment';
-        var merchantName = '@Model.MerchantName';
-
-    </script>
-
 </head>
 
 <body>
@@ -219,8 +212,6 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="hidden" name="Environment" value="@Model.Environment" />
-                        <input type="hidden" name="ApiKey" value="@Model.ApiKey" />
                         <button class="btn btn-default" type="submit">Submit</button>
                         <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
                         <span id="payment-validation-error" class="error"></span>
@@ -238,31 +229,15 @@
 
             $(function () {
 
-                /* This is the Publishable Key */
-                if (merchantName !== '') {
-                    CIP.token.merchantName = merchantName;
-                } else {
-                    CIP.token.merchantName = 'MJTestUser1234';
-                };
-
-                switch(environment) {
-                    case 'local':
-                        CIP.token.url = 'http://localhost:57192/token/card.json';
-                        break;
-                    case 'staging':
-                        CIP.token.url = 'https://psl-staging.chargeitpro.com/token/card.json';
-                        break;
-                    case 'production':
-                        CIP.token.url = 'https://psl.chargeitpro.com/token/card.json';
-                        break;
-                    default:
-                        CIP.token.url = 'https://psl.chargeitpro.com/token/card.json';
-                }
-
                 $('#payment-form').find('button').prop('disabled', false);
                 $('#loader').addClass('hidden');
 
                 $('#payment-form').submit(function (event) {
+
+                    CIP.token.url = 'https://psl.chargeitpro.com/token/card.json';
+
+                    /* This is the Publishable Key (MerchantName */
+                    CIP.token.merchantName = "Merchant1_23f1984001644e1ba7b4ca9506077e81";
 
                     var $form = $(this);
 
