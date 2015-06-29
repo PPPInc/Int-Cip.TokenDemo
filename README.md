@@ -23,17 +23,10 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
 ```HTML
 <form action="/" method="POST" id="payment-form">
     
-	<div>
-	 <div>Transaction Type</div>
-	 <select name="transactionType">
-	  <option value="sale">Sale</option>
-	  <option value="credit">Credit</option>
-	 </select>
-	</div>
-	
     <div>
-     <div>Amount</div>
-     <input type="text" name="amount">
+	
+	<!-- Your Form Data Goes Here -->
+	
     </div>
     
     <div>
@@ -52,13 +45,15 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
     </div>
     
     <div>
-     <div>CVV Number</div>
-     <input type="text" size="3" data-cip="cvvnumber">
-    </div>
-    
-    <div>
      <div>Billing Name</div>
      <input type="text" data-cip="billingname">
+    </div>
+
+    <!-- Add the following 3 fields only for Keyed Transactions (i.e. non-swipe) -->
+        
+    <div>
+     <div>CVV Number</div>
+     <input type="text" size="3" data-cip="cvvnumber">
     </div>
     
     <div>
@@ -79,6 +74,8 @@ This will ensure these pieces of sensitive data ***do not*** get posted with the
     
 </form>
 ```
+
+**Note:** For Card Present (i.e. swipe data), there is no need to include the BillingStreetAddress, BillingZip and CVVNumber fields in your form; these values will be automatically be parsed from the swipe.  For Keyed Transactions, **do** include the BillingStreetAddress, BillingZip and CVVNumber fields in your form.  Submitting BillingStreetAddress, BillingZip and CVVNumber will ensure you get the lowest rate for manual transactions. 
 
 #####Intercept the form Submit event, create the CIP Token, then post back to your server in the callback
 If you're using jQuery, make sure to add a reference to:
@@ -136,8 +133,11 @@ void YourPaymentHandler()
 {
 	/* Fetch your form post values */
 	var cipToken = this.Request.Form["cipToken"].Value;
-	var amount = this.Request.Form["amount"].Value;
-	var transactionType = this.Request.Form["transactionType"].Value;
+	var amount = GetYourAmount(); // i.e. 9.99
+	var transactionType = GetYourTransactionType(); // i.e. CreditSale
+	
+	/* This toggles the environment, default points to Sandbox, set to True when migrating to Production */
+	CIP.Token.IsSandbox = false;
 
 	/* Set your Private Key */
 	CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
@@ -216,8 +216,14 @@ void YourPaymentHandler()
     var amount = this.Request.Form["amount"].Value;
     var transactionType = this.Request.Form["transactionType"].Value;
     
+    /* This toggles the environment, default points to Sandbox, set to True when migrating to Production */
+    var isSandbox = true;
+    
     /* Create the Transaction object to submit to the Web Service. Note TransactionType must be "sale". */
-    var transaction = new { Amount = amount, TransactionType = transactionType, Token = cipToken, Invoice = "Invoice Name" };
+    var transaction = new { 
+    	Amount = amount, TransactionType = transactionType, 
+    	Token = cipToken, Invoice = "Invoice Name", IsSandbox = isSandbox 
+    };
     
     /* 
         ToDo: Set the x-apikey in the Request header.  Remember this is your Private Key. 
@@ -265,7 +271,7 @@ When you invoke the *../token/transaction* REST Service call you will be returne
 	   "CVVResponseCode": "M",
 	   "CVVResponseText": "Match",
 	   "AccountCardType": "VS",
-	   "AccountExpiryDate": "0515",
+	   "AccountExpiryDate": "0525",
 	   "TransactionType": "sale",
 	   "BillingName": "John Q. Public",
 	   "MaskedAccount": "************2222",
@@ -300,4 +306,65 @@ Error messages will be returned in the Error Field.
 
 **Card Expiration Month** : *05*
 
-**Card Expiration Year** : *15*
+**Card Expiration Year** : *25*
+
+<br/>
+#### Credential Validation 
+Validation of credentials and to determine if you're pointed to the Sandbox or Live environment.
+
+The REST Endpoint
+
+######Metadata 
+https://psl.chargeitpro.com/json/metadata?op=TokenAuthRequest
+
+######URI
+POST https://psl.chargeitpro.com/token/auth
+
+######Headers
+content-type : application/json
+
+######Data (Body) 
+```
+{ 
+	"MerchantName":"Merchant1_23f1984001644e1ba7b4ca9506077e81", 
+	"Key":"e5932e4dd41742cd81768c6ace7bedc9" 
+}
+```
+<br/>
+####Http Status Codes
+#####200 OK
+Successful Http Request.
+#####401 Unauthorized
+Unauthorized Http Request.  Invalid credentials.
+
+<br/>
+####Authorization Result Codes
+JSON Response object.
+```
+{
+	"Success": true,
+	"Status": "OK",
+	"StatusCode": 200,
+	"Result":
+	{
+	   "IsValid": true,
+	   "IsSandbox": true,
+	}
+}
+```
+
+<br/>
+####Errors
+Error messages will be returned in the Error Field.
+
+```
+{
+	"Success": false,
+	"Status": "Unauthorized",
+	"StatusCode": 401,
+	"Error":
+	{
+	   "Message": "Invalid credentials"
+	}
+}
+```
