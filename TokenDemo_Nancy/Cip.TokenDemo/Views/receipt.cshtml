@@ -1,4 +1,4 @@
-﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<CIP.TransactionResult>
+﻿
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,14 +9,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <link href="@Url.Content("~/content/site.css")" rel="stylesheet" type="text/css" />
 
-	<style type="text/css">
-
-		body {
+    <style type="text/css">
+        body {
             padding: 50px;
             height: 100%;
-		}
-
-	</style>
+        }
+    </style>
 
 </head>
 
@@ -40,7 +38,7 @@
                 <i>@DateTime.UtcNow</i><br />
                 Your TransactionId is: <span id="unique-trans-id"><i>@Model.UniqueTransID</i></span><br />
                 Payment Amount: <strong><i>@Model.AmountProcessed</i></strong><br />
-                Approval Number: <strong><i>@Model.ApprovalNumberResult</i></strong><br/>
+                Approval Number: <strong><i>@Model.ApprovalNumberResult</i></strong><br />
                 Billing Name: <strong><i>@Model.BillingName</i></strong><br />
                 Masked Account: <strong><i>@Model.MaskedAccount</i></strong><br />
                 Expiration Date: <strong><i>@Model.AccountExpiryDate</i></strong><br />
@@ -51,9 +49,9 @@
         <div style="float: left;margin: 0 0 0 100px;">
             <strong><i>Billing Address</i></strong><br />
             <div style="color: gray;">
-                Joe Smith<br/>
+                Joe Smith<br />
                 1234 My Street, Ave<br />
-                Eagle, ID 83616<br/>
+                Eagle, ID 83616<br />
                 USA
             </div>
 
