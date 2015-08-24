@@ -192,7 +192,7 @@ void YourPaymentHandler()
 ```
 
 ##### How to process Voids and Returns
-Save the UniqueTransId value from the result object.  Pass the UniqueTransId via the Transaction.UniqueTransRef property (this is the reference Id that points to the transaction you wish to Void or Return), then set the TransactionType to 'Void' or 'CreditReturn'.
+Save the UniqueTransId value from the result object.  Pass the UniqueTransId via the Transaction.UniqueTransRef property (this is the reference id that points to the transaction you wish to Void or Return), then set the TransactionType to 'Void' or 'CreditReturn'.
 
 
 ```C#
