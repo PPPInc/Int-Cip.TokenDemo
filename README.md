@@ -191,6 +191,26 @@ void YourPaymentHandler()
 }
 ```
 
+##### How to process Voids and Returns
+Save the UniqueTransId value from the result object.  Pass the UniqueTransId via the Transaction.UniqueTransRef property (this is the reference Id that points to the transaction you wish to Void or Return), then set the TransactionType to 'Void' or 'CreditReturn'.
+
+
+```C#
+void YourPaymentHandler()
+{
+	...
+
+	/* Create a Transaction */
+	var transaction = new CIP.Transaction()
+	{
+		Token = cipToken,
+		UniqueTransRef = 123ABC, /* This is the UniqueTransId of the transaction you wish to Void / Return */
+		TransactionType = transactionType, /* ie Void, CreditReturn */
+	};
+
+}
+```
+
 #####Custom Integration (.Net) (if not using CIP.Token.dll)
 The REST Endpoint
 
