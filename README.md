@@ -214,7 +214,7 @@ void YourPaymentHandler()
 This works exactly the same as a Credit Sale, but you Set the Transaction.TransactionType to 'CreditReturn'.
 
 ##### Credit Sale and Credit Return via UniqueTransRef
-This will charge the card identified by a Reference Number without submitting card account details.
+This will charge the card identified by a Reference Number without requiring submission of card account details.
 
 ```C#
 void YourPaymentHandler()
