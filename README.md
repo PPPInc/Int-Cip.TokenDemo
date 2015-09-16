@@ -191,6 +191,46 @@ void YourPaymentHandler()
 }
 ```
 
+##### Voids
+Save the UniqueTransId value from the result object.  Pass the UniqueTransId via the Transaction.UniqueTransRef property (this is the reference id that points to the transaction you wish to Void or Return), then set the TransactionType to 'Void'.
+
+```C#
+void YourPaymentHandler()
+{
+	...
+
+	/* Create a Transaction */
+	var transaction = new CIP.Transaction()
+	{
+		Token = cipToken,
+		UniqueTransRef = 1234ABCD, /* This is the UniqueTransId of the transaction you wish to Void */
+		TransactionType = 'Void',
+	};
+
+}
+```
+
+##### Card Present Returns
+This works exactly the same as a Credit Sale, but you Set the Transaction.TransactionType to 'CreditReturn'.
+
+##### Credit Sale and Credit Return via UniqueTransRef
+This will charge the card identified by a Reference Number without requiring submission of card account details.
+
+```C#
+void YourPaymentHandler()
+{
+	...
+
+	/* Create a Transaction */
+	var transaction = new CIP.Transaction()
+	{
+		Token = cipToken,
+		UniqueTransRef = 1234ABCD, /* This is the UniqueTransId of the transaction you wish to Void / Return */
+		TransactionType = 'CreditSale', /* CreditReturn for returns by Reference Number*/
+	};
+
+}
+
 #####Custom Integration (.Net) (if not using CIP.Token.dll)
 The REST Endpoint
 
