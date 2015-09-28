@@ -2,6 +2,7 @@
 using Nancy;
 using Nancy.ModelBinding;
 using Nancy.Responses;
+using System;
 
 namespace CIP.TokenDemo.Modules
 {
@@ -42,12 +43,13 @@ namespace CIP.TokenDemo.Modules
                 CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
                 //CIP.Token.ApiKey = "4d01abf522ce4025929b4515f3017f74";
 
-                CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
-                //CIP.Token.Url = "http://localhost:57192/token/transaction.json";
+                //CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
+                CIP.Token.Url = "http://localhost:57192/token/transaction.json";
 
                 var transaction = new CIP.Transaction()
                 {
                     Token = payment.CipToken,
+                    ReferenceId = Guid.NewGuid().ToString(),
                     Amount = payment.Amount,
                     TransactionType = payment.TransactionType,
                     Invoice = "123ABC",
