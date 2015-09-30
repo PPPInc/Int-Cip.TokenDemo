@@ -267,7 +267,7 @@ GET https://psl.chargeitpro.com/token/transaction/{ReferenceId}
 **x-apikey** : 'e5932e4dd41742cd81768c6ace7bedc9'
 
 <br/>
-####Http Status Codes
+#####Http Status Codes
 #####200 OK
 Successful Http Request.
 #####401 Unauthorized
@@ -325,7 +325,7 @@ void YourPaymentHandler()
 
 ```
 <br/>
-####Http Status Codes
+#####Http Status Codes
 #####200 OK
 Successful Http Request.
 #####401 Unauthorized
@@ -417,7 +417,7 @@ content-type : application/json
 }
 ```
 <br/>
-####Http Status Codes
+#####Http Status Codes
 #####200 OK
 Successful Http Request.
 #####401 Unauthorized
