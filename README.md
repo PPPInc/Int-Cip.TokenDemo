@@ -203,8 +203,9 @@ void YourPaymentHandler()
 	var transaction = new CIP.Transaction()
 	{
 		Token = cipToken,
-		UniqueTransRef = 1234ABCD, /* This is the UniqueTransId of the transaction you wish to Void */
-		TransactionType = 'Void',
+		UniqueTransRef = "1234ABCD", /* This is the UniqueTransId of the transaction you wish to Void */
+		TransactionType = "Void",
+		...
 	};
 
 }
@@ -225,11 +226,56 @@ void YourPaymentHandler()
 	var transaction = new CIP.Transaction()
 	{
 		Token = cipToken,
-		UniqueTransRef = 1234ABCD, /* This is the UniqueTransId of the transaction you wish to Void / Return */
-		TransactionType = 'CreditSale', /* CreditReturn for returns by Reference Number*/
+		UniqueTransRef = "1234ABCD", /* This is the UniqueTransId of the transaction you wish to Void / Return */
+		TransactionType = "CreditSale", /* CreditReturn for returns by Reference Number */
+		...
 	};
 
 }
+```
+
+##### Creating and assigning an External Reference Id
+Create a GUID (string) and assign to Transaction.ReferenceId.  This will be your ReferenceId from which you can track this transaction.  The ReferenceId will also be returned in the JSON Result object.
+
+```C#
+void YourPaymentHandler()
+{
+	...
+
+	/* Create a Transaction */
+	var transaction = new CIP.Transaction()
+	{
+		Token = cipToken,
+		ReferenceId = "006aa7ef-4422-4009-a8ef-9b29eb6b9a88", /* This is your external ReferenceId */
+		TransactionType = "Void",
+		...
+	};
+
+}
+```
+
+#####Query for your Transaction via ReferenceId
+The REST Endpoint
+
+######Metadata 
+https://psl.chargeitpro.com/json/metadata?op=TokenTransactionByReferenceRequest
+
+######URI
+GET https://psl.chargeitpro.com/token/transaction/{ReferenceId}
+
+######Http Request Headers
+**x-apikey** : 'e5932e4dd41742cd81768c6ace7bedc9'
+
+<br/>
+#####Http Status Codes
+#####200 OK
+Successful Http Request.
+#####401 Unauthorized
+Unauthorized Http Request.  Invalid credentials.
+#####404 Not Found
+Transaction not found.
+
+<br/>
 
 #####Custom Integration (.Net) (if not using CIP.Token.dll)
 The REST Endpoint
@@ -279,7 +325,7 @@ void YourPaymentHandler()
 
 ```
 <br/>
-####Http Status Codes
+#####Http Status Codes
 #####200 OK
 Successful Http Request.
 #####401 Unauthorized
@@ -371,7 +417,7 @@ content-type : application/json
 }
 ```
 <br/>
-####Http Status Codes
+#####Http Status Codes
 #####200 OK
 Successful Http Request.
 #####401 Unauthorized
