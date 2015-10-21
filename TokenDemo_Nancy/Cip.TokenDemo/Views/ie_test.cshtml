@@ -1,0 +1,99 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+
+    <title>Payment</title>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+    <link href="@Url.Content("~/content/site.css")" rel="stylesheet" type="text/css" />
+	
+    <!-- Javascript -->
+    <script src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    
+    <style>
+
+        div {
+            margin: 10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <h4>IE Demo Test</h4>
+
+    <div>
+        <input type="text" class="form-control" placeholder="type a message" id="message" />
+    </div>
+
+    <div>
+        <select class="form-control" style="width: 100px;" id="verb">
+            <option value="GET">GET</option>
+            <option value="POST">POST</option>
+        </select>
+    </div>
+
+    <div>
+        <button id="send" class="btn btn-default">Send</button>
+    </div>
+
+    <div id="result"></div>
+
+    <script>
+
+        $(function () {
+
+            $("#send").on('click', function () {
+
+                $("#result").text('');
+
+                var message = $("#message").val();
+
+                if (message === '') message = 'test message';
+
+                var verb = $("#verb").val();
+
+                var xhr = new XMLHttpRequest();
+
+                if (verb === 'POST') {
+
+                    xhr.open(verb, "https://psl-staging.chargeitpro.com/echo.json");
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var response = eval("(" + xhr.responseText + ")");
+                            $("#result").text(JSON.stringify(response));
+                        }
+                    }
+
+                    var request = { "Message": message };
+
+                    xhr.send(JSON.stringify(request));
+
+                } else {
+
+                    xhr.open(verb, "https://psl-staging.chargeitpro.com/echo/" + message + ".json");
+                    xhr.onreadystatechange = function () {
+                        if (xhr.readyState == 4 && xhr.status == 200) {
+                            var response = eval("(" + xhr.responseText + ")");
+                            $("#result").text(JSON.stringify(response));
+                        }
+                    }
+
+                    xhr.send();
+                }
+
+            });
+
+        });
+
+    </script>
+
+</body>
+
+</html>
