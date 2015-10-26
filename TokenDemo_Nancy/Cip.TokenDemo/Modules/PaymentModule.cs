@@ -56,6 +56,7 @@ namespace CIP.TokenDemo.Modules
                     PONumber = "Test Po Number",
                     OrderId = "Test OrderId",
                     Description = "Test Description",
+                    Email = payment.Email,
                     BillingAddress = new BillingAddress()
                     { 
                         FirstName = payment.BillingFirstName,

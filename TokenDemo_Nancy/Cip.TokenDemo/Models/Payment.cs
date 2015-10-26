@@ -35,5 +35,6 @@ namespace CIP.TokenDemo.Models
         public string Environment { get; set; }
         public string MerchantName { get; set; }
         public string ApiKey { get; set; }
+        public string Email { get; set; }
     }
 }
