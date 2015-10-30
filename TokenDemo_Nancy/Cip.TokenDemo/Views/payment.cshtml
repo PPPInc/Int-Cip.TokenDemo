@@ -238,7 +238,7 @@
 
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="text" class="form-control input-large" value="" name="email">
+                                <input type="text" class="form-control input-large" value="" name="email" id="email">
                             </div>
 
                         </div>
@@ -248,7 +248,7 @@
                     <div class="form-group">
                         <button class="btn btn-default" type="submit">Submit</button>
                         <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
-                        <span id="payment-validation-error" class="error"></span>
+                        <span id="payment-validation-error" class="error" style="margin: 0 0 0 10px;"></span>
                     </div>
 
                 </div>
@@ -268,13 +268,22 @@
 
                 $('#payment-form').submit(function (event) {
 
-                    //CIP.token.url = 'https://psl.chargeitpro.com/token/card.json';
-                    CIP.token.url = 'http://localhost:57192/token/card.json';
-
-                    /* This is the Publishable Key (MerchantName */
-                    CIP.token.merchantName = "Merchant1_23f1984001644e1ba7b4ca9506077e81";
-
                     var $form = $(this);
+
+                    $("#email").removeClass('error');
+
+                    /* Email Validation */
+                    if ($("#email").val() !== "" && !isValidEmail($("#email").val())) {
+                        $("#email").addClass('error');
+                        $form.find('#payment-validation-error').text('Invalid email address');
+                        return false;
+                    }
+
+                    CIP.token.url = 'https://psl.chargeitpro.com/token/card.json';
+                    //CIP.token.url = 'http://localhost:57192/token/card.json';
+
+                    /* This is the Publishable Key (MerchantName) */
+                    CIP.token.merchantName = "Merchant1_23f1984001644e1ba7b4ca9506077e81";
 
                     // Disable the submit button and show ajax loader
                     $form.find('button').prop('disabled', true);
@@ -303,7 +312,13 @@
                     // Prevent the form from submitting with the default action
                     return false;
                 });
+
             });
+
+            function isValidEmail(email) {
+                var re = /^([\w-]+(?:\.[\w-]+)*)@@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+                return re.test(email);
+            }
 
         </script>
 
