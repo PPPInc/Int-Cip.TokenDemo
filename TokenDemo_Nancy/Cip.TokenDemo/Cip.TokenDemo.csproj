@@ -75,6 +75,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\ajax-loader-1.gif" />
+    <Content Include="Content\Images\check_sample.gif" />
     <Content Include="Content\Images\lock-small.png" />
     <Content Include="Content\Images\nancy-logo.png" />
     <Content Include="Content\site.css" />
@@ -113,6 +114,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\encrypted_payment.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\achpayment.cshtml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Web.Debug.config">
