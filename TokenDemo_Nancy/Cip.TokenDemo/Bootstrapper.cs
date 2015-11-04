@@ -9,6 +9,7 @@ namespace Nancy
         {
             nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("Scripts", @"Scripts"));
             nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("Content/Images", @"Images"));
+            nancyConventions.StaticContentsConventions.Add(StaticContentConventionBuilder.AddDirectory("/", "Views"));
             base.ConfigureConventions(nancyConventions);
         }
     }
