@@ -51,7 +51,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="message">Message</label>
-                                <input type="email" class="form-control" id="message" placeholder="Email">
+                                <input type="email" class="form-control" id="message" placeholder="Your Message">
                             </div>
                             <button type="button" class="btn btn-default" id="send">Send</button>
                         </form>
@@ -74,6 +74,8 @@
 
                 </div>
 
+                <button type="button" class="btn btn-default" id="clear">Clear</button>
+
             </div>
 
         </div>
@@ -95,6 +97,8 @@
 
             var connection = $.hubConnection('https://api-staging.chargeitpro.com');
 
+            //var connection = $.hubConnection('http://localhost:811');
+
             connection.qs = { "userName": userName };
 
             var chatHub = connection.createHubProxy('ChatHub');
@@ -109,11 +113,20 @@
 
                 $("#send").click(function () {
                     chatHub.invoke('send', $("#to").val(), $("#message").val());
+                    $("#message").val('');
                 });
 
                 $("#connected").html("You are connected as: " + userName).removeClass("error");
 
+                console.log(connection.id);
+
             }).fail(function (error) { console.log(error); });
+
+
+        });
+
+        $("#clear").click(function () {
+            $("#messages").find("tr:gt(0)").remove();
         });
 
     });
