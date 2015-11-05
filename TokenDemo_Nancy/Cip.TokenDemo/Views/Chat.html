@@ -4,7 +4,7 @@
     <title></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
-    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="Scripts/jquery.signalR-2.2.0.js"></script>
     <style>
         body {
@@ -54,6 +54,7 @@
                                 <input type="email" class="form-control" id="message" placeholder="Your Message">
                             </div>
                             <button type="button" class="btn btn-default" id="send">Send</button>
+                            <button type="button" class="btn btn-default" id="broadcast">Broadcast</button>
                         </form>
 
                     </div>
@@ -87,9 +88,14 @@
 
 <script>
 
+    function setFrom(control) {
+        $("#to").val($(control).html());
+        $("#message").focus();
+    };
+
     $(function () {
 
-        $("#connect").click(function () {
+        $("#connect").on('click', function () {
 
             var userName = $("#user-name").val();
 
@@ -105,24 +111,45 @@
 
             chatHub.on('send', function (from, message) {
                 var d = new Date();
-                $('#messages tr:last').after('<tr><td class="wash">' + from + '</td><td>'
+                $('#messages tr:last').after('<tr><td class="wash"><a href="#" onclick="setFrom(this);return false;" class="from">' + from + '</a></td><td>'
                     + message + '<span style="float: right;" class="wash">' + d.getHours() + ':' + d.getMinutes() + '</span></td></tr>');
             });
 
+            chatHub.on('broadcast', function (message) {
+                var d = new Date();
+                $('#messages tr:last').after('<tr><td class="wash">broadcast</td><td>'
+                    + message + '<span style="float: right;" class="wash">' + d.getHours() + ':' + d.getMinutes() + '</span></td></tr>');
+            });
+
+            /* uncomment for verbose client side logging */
+            //connection.logging = true;
+
             connection.start().done(function () {
 
-                $("#send").click(function () {
-                    chatHub.invoke('send', $("#to").val(), $("#message").val());
-                    $("#message").val('');
+                $("#send")
+                    .off('click', function () { })
+                    .on('click', function () {
+                        chatHub.invoke('send', $("#to").val(), $("#message").val());
+                        $("#message").val('');
+                });
+
+                $("#broadcast")
+                    .off('click', function () { })
+                    .on('click', function () {
+                        chatHub.invoke('broadcast', $("#message").val()).fail(function (error) {
+                            console.log('broadcast error: ' + error)
+                        });
                 });
 
                 $("#connected").html("You are connected as: " + userName).removeClass("error");
 
-                console.log(connection.id);
+                //console.log(connection.id);
 
             }).fail(function (error) { console.log(error); });
 
-
+            connection.error(function (error) {
+                console.log('SignalR error: ' + error)
+            });
         });
 
         $("#clear").click(function () {
