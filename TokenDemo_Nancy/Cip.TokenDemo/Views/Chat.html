@@ -101,9 +101,9 @@
 
             if (userName === '') return;
 
-            var connection = $.hubConnection('https://api-staging.chargeitpro.com');
+            //var connection = $.hubConnection('https://api-staging.chargeitpro.com');
 
-            //var connection = $.hubConnection('http://localhost:811');
+            var connection = $.hubConnection('http://localhost:811');
 
             connection.qs = { "userName": userName };
 
