@@ -56,6 +56,29 @@
                             <div id="CreditSale">
                                 <label for="amount">Amount</label>
                                 <input type="text" id="amount" />
+                                <br />
+                                <input type="checkbox" id="isManualEntry" /> Manual Entry<br />
+                                <br />
+                                <div id="manualEntryDiv" style="display:none">
+                                    <label for="accountNumber">Card Number</label>
+                                    <input type="text" id="accountNumber" />
+                                    <br />
+                                    <label for="billingName">Billing Name</label>
+                                    <input type="text" id="billingName" />
+                                    <br />
+                                    <label for="expDate">Expiration</label>
+                                    <input type="text" id="expDate" />
+                                    <br />
+                                    <label for="cvv">CVV</label>
+                                    <input type="text" id="cvv" />
+                                    <br />
+                                    <label for="street">Street Address</label>
+                                    <input type="text" id="street" />
+                                    <br />
+                                    <label for="zip">Zipcode</label>
+                                    <input type="text" id="zip"/>
+                                    <br/>
+                                </div>
                             </div>
                             <div id="Void" style="display: none">
                                 <label for="uniqueTransRef">UniqueTransRef</label>
@@ -83,26 +106,23 @@
                 <div class="panel panel-default" id="resultsPanel" style="display: none">
                     <div class="panel-heading">
                         <h3 class="panel-title">Results</h3>
-                        <div>
-                            <label for="resultStatus">Result Status</label>
-                            <input type="text" id="resultStatus" />
-                        </div>
-                        <div>
-                            <label for="resultMessage">ResultMessage</label>
-                            <input type="text" id="resultMessage" />
-                        </div>
-                        <div>
-                            <label for="amountProcessed">AmountProcessed</label>
-                            <input type="text" id="amountProcessed" />
-                        </div>
-                        <div>
-                            <label for="uniqueTransRefResult">UniqueTransRef</label>
-                            <input type="text" id="uniqueTransRefResult"/>
-                        </div>
-                        <div>
-                            <label for="signature">Signature</label>
-                            <input type="text" id="signature"/>
-                        </div>
+                        <label for="resultStatus">Result Status</label>
+                        <input type="text" id="resultStatus" />
+                        <br />
+                        <label for="resultMessage">ResultMessage</label>
+                        <input type="text" id="resultMessage" />
+                        <br />
+                        <label for="amountProcessed">AmountProcessed</label>
+                        <input type="text" id="amountProcessed" />
+                        <br />
+                        <label for="uniqueTransRefResult">UniqueTransRef</label>
+                        <input type="text" id="uniqueTransRefResult"/>
+                        <br />
+                        <label for="signature">Signature</label>
+                        <input type="text" id="signature"/>
+                        <br/>
+                        <label for="resultBillingName">Billing Name</label>
+                        <input type="text" id="resultBillingName"/>
                     </div>
                 </div>
             </div>
@@ -153,6 +173,7 @@
                         $("#uniqueTransRef").val(result.POSLinkResponse.RefNum);
                         $("#uniqueTransRefResult").val(result.POSLinkResponse.RefNum);
                         $("#signature").val(result.POSLinkResponse.Signature);
+                        $("#resultBillingName").val(result.POSLinkResponse.ExtData);
                     }
                     else if (result.ResultFields) {
                         $("#resultsPanel").show();
@@ -162,6 +183,7 @@
                         $("#uniqueTransRef").val(result.ResultFields.UniqueTransRef);
                         $("#uniqueTransRefResult").val(result.ResultFields.UniqueTransRef);
                         $("#signature").val(result.ResultFields.Signature);
+                        $("#resultBillingName").val(result.ResultFields.BillingName);
                     }
                     return;
                 }
@@ -183,7 +205,12 @@
                             $("#message").val('');
                         }
                         else if (action === "CreditSale") {
-                            var csMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, Amount: $("#amount").val(), DeviceName: "S300NumberOne" }) };
+                            var csMessage;
+                            debugger;
+                            if ($("#isManualEntry").prop('checked'))
+                                csMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, Amount: $("#amount").val(), AccountNumber: $("#accountNumber").val(), BillingName:$("#billingName").val(), ExpDate: $("#expDate").val(), CVV: $("#cvv").val(), Street:$("#street").val(), Zip:$("#zip").val(), DeviceName: "S300NumberOne" }) };
+                            else
+                                csMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, Amount: $("#amount").val(), DeviceName: "S300NumberOne" }) };
                             remoteHub.invoke('send', $("#to").val(), JSON.stringify(csMessage));
                             $("#amount").val('');
                         }
@@ -232,9 +259,11 @@
             $("#" + $("#transactionType option:selected").val()).show();
         });
 
-        $("#clear").click(function () {
-            $("#messages").find("tr:gt(0)").remove();
+        $("#isManualEntry").on('change', function() {
+            if (this.checked)
+                $("#manualEntryDiv").show();
+            else
+                $("#manualEntryDiv").hide();
         });
-
     });
 </script>
