@@ -45,8 +45,8 @@
                                 <input type="email" class="form-control" style="width: 185px;" id="to" placeholder="To">
                             </div>
                             <div class="form-group">
-                                <label for="transactionType">Action</label>
-                                <select id="transactionType">
+                                <label class="form-inline" for="transactionType">Action</label>
+                                <select class="form-control" id="transactionType" style="width: auto">
                                     <option value="CreditSale" selected>Credit Sale</option>
                                     <option value="Void">Void</option>
                                     <option value="RequestSignature">Request Signature</option>
@@ -55,29 +55,56 @@
                             </div>
                             <div id="CreditSale">
                                 <label for="amount">Amount</label>
-                                <input type="text" id="amount" />
+                                <input class="form-control" style="width:auto" type="text" id="amount" />
                                 <br />
                                 <input type="checkbox" id="isManualEntry" /> Manual Entry<br />
                                 <br />
-                                <div id="manualEntryDiv" style="display:none">
-                                    <label for="accountNumber">Card Number</label>
-                                    <input type="text" id="accountNumber" />
+                                <div id="manualEntryDiv" style="display: none">
+                                    <table>
+                                        <tr>
+                                            <td>
+                                                <label for="accountNumber">Card Number</label>
+                                            </td>
+                                            <td style="padding: 10px">
+                                                <input class="form-control" style="width:auto" type="text" id="accountNumber" />
+                                            </td>
+                                            <td>
+                                                <label for="expDate">Expiration</label>
+                                            </td>
+                                            <td style="padding: 10px">
+                                                <input class="form-control" style="width:auto" type="text" id="expDate" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="cvv">CVV</label>
+                                            </td>
+                                            <td style="padding: 10px">
+                                                <input class="form-control" style="width:auto" type="text" id="cvv" />
+                                            </td>
+                                            <td>
+                                                <label for="billingName">Billing Name</label>
+                                            </td>
+                                            <td style="padding: 10px">
+                                                <input class="form-control" style="width:auto" type="text" id="billingName" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <label for="street">Street Address</label>
+                                            </td>
+                                            <td style="padding: 10px">
+                                                <input class="form-control" style="width:auto" type="text" id="street" />
+                                            </td>
+                                            <td>
+                                                <label for="zip">Zipcode</label>
+                                            </td>
+                                            <td style="padding: 10px">
+                                                <input class="form-control" style="width:auto" type="text" id="zip" />
+                                            </td>
+                                        </tr>
+                                    </table>
                                     <br />
-                                    <label for="billingName">Billing Name</label>
-                                    <input type="text" id="billingName" />
-                                    <br />
-                                    <label for="expDate">Expiration</label>
-                                    <input type="text" id="expDate" />
-                                    <br />
-                                    <label for="cvv">CVV</label>
-                                    <input type="text" id="cvv" />
-                                    <br />
-                                    <label for="street">Street Address</label>
-                                    <input type="text" id="street" />
-                                    <br />
-                                    <label for="zip">Zipcode</label>
-                                    <input type="text" id="zip"/>
-                                    <br/>
                                 </div>
                             </div>
                             <div id="Void" style="display: none">
@@ -106,23 +133,50 @@
                 <div class="panel panel-default" id="resultsPanel" style="display: none">
                     <div class="panel-heading">
                         <h3 class="panel-title">Results</h3>
-                        <label for="resultStatus">Result Status</label>
-                        <input type="text" id="resultStatus" />
-                        <br />
-                        <label for="resultMessage">ResultMessage</label>
-                        <input type="text" id="resultMessage" />
-                        <br />
-                        <label for="amountProcessed">AmountProcessed</label>
-                        <input type="text" id="amountProcessed" />
-                        <br />
-                        <label for="uniqueTransRefResult">UniqueTransRef</label>
-                        <input type="text" id="uniqueTransRefResult"/>
-                        <br />
-                        <label for="signature">Signature</label>
-                        <input type="text" id="signature"/>
-                        <br/>
-                        <label for="resultBillingName">Billing Name</label>
-                        <input type="text" id="resultBillingName"/>
+                        <table>
+                            <tr>
+                                <td>
+                                    <label for="resultStatus">Result Status</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width:auto" type="text" id="resultStatus" />
+                                </td>
+                                <td>
+                                    <label for="resultMessage">ResultMessage</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width:auto" type="text" id="resultMessage" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="amountProcessed">AmountProcessed</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width:auto" type="text" id="amountProcessed" />
+                                </td>
+                                <td>
+                                    <label for="uniqueTransRefResult">UniqueTransRef</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width:auto" type="text" id="uniqueTransRefResult" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="signature">Signature</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width:auto" type="text" id="signature" />
+                                </td>
+                                <td>
+                                    <label for="resultBillingName">Billing Name</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width:auto" type="text" id="resultBillingName" />
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -168,6 +222,10 @@
                     if (result.POSLinkResponse) {
                         $("#resultsPanel").show();
                         $("#resultStatus").val(result.Success);
+                        if (result.Success)
+                            $("#resultsPanel").css('border-color', "#4CA950");
+                        else
+                            $("#resultsPanel").css('border-color', "red");
                         $("#amountProcessed").val(result.POSLinkResponse.ApprovedAmount);
                         $("#resultMessage").val(result.POSLinkResponse.ResultTxt);
                         $("#uniqueTransRef").val(result.POSLinkResponse.RefNum);
@@ -178,6 +236,10 @@
                     else if (result.ResultFields) {
                         $("#resultsPanel").show();
                         $("#resultStatus").val(result.Success);
+                        if (result.Success)
+                            $("#resultsPanel").css('border-color', "#4CA950");
+                        else
+                            $("#resultsPanel").css('border-color', "red");
                         $("#amountProcessed").val(result.ResultFields.AmountProcessed);
                         $("#resultMessage").val(result.ResultFields.ResultMessage);
                         $("#uniqueTransRef").val(result.ResultFields.UniqueTransRef);
@@ -205,19 +267,18 @@
                             $("#message").val('');
                         }
                         else if (action === "CreditSale") {
+                            clearResults();
                             var csMessage;
-                            debugger;
                             if ($("#isManualEntry").prop('checked'))
                                 csMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, Amount: $("#amount").val(), AccountNumber: $("#accountNumber").val(), BillingName:$("#billingName").val(), ExpDate: $("#expDate").val(), CVV: $("#cvv").val(), Street:$("#street").val(), Zip:$("#zip").val(), DeviceName: "S300NumberOne" }) };
                             else
                                 csMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, Amount: $("#amount").val(), DeviceName: "S300NumberOne" }) };
                             remoteHub.invoke('send', $("#to").val(), JSON.stringify(csMessage));
-                            $("#amount").val('');
+                            clearFields();
                         }
                         else if (action === "Void") {
                             var vMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, UniqueTransRef: $("#uniqueTransRef").val(), DeviceName:"S300NumberOne" }) };
                             remoteHub.invoke('send', $("#to").val(), JSON.stringify(vMessage));
-                            $("#uniqueTransRef").val('');
                         }
                         else if (action === "RequestSignature") {
                             var rsMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, DeviceName: "S300NumberOne" }) };
@@ -266,4 +327,28 @@
                 $("#manualEntryDiv").hide();
         });
     });
+
+    function clearFields() {
+        $("#amount").val('');
+        $("#isManualEntry").prop('checked', false);
+        $("#manualEntryDiv").hide();
+        $("#accountNumber").val('');
+        $("#uniqueTransRef").val('');
+        $("#expDate").val('');
+        $("#cvv").val('');
+        $("#billingName").val('');
+        $("#street").val('');
+        $("#zip").val('');
+    };
+
+    function clearResults() {
+        $("#resultsPanel").hide();
+        $("#resultStatus").val('');
+        $("#amountProcessed").val('');
+        $("#resultMessage").val('');
+        $("#uniqueTransRef").val('');
+        $("#uniqueTransRefResult").val('');
+        $("#signature").val('');
+        $("#resultBillingName").val('');
+    };
 </script>
