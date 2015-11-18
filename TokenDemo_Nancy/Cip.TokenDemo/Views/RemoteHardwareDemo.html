@@ -108,12 +108,28 @@
                                 </div>
                             </div>
                             <div id="Void" style="display: none">
-                                <label for="uniqueTransRef">UniqueTransRef</label>
-                                <input type="text" id="uniqueTransRef" />
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for="uniqueTransId">UniqueTransID</label>
+                                        </td>
+                                        <td style="padding:10px">
+                                            <input class="form-control" style="width: auto" type="text" id="uniqueTransId" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div id="Echo" style="display: none">
-                                <label for="messages">Message</label>
-                                <input type="text" id="message" />
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for="message">Message</label>
+                                        </td>
+                                        <td style="padding:10px">
+                                            <input class="form-control" style="width:auto" type="text" id="message" />
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
                             <div id="RequestSignature" style="display: none">
                             </div>
@@ -156,10 +172,10 @@
                                     <input class="form-control" style="width:auto" type="text" id="amountProcessed" />
                                 </td>
                                 <td>
-                                    <label for="uniqueTransRefResult">UniqueTransRef</label>
+                                    <label for="uniqueTransIdResult">UniqueTransID</label>
                                 </td>
                                 <td style="padding: 10px">
-                                    <input class="form-control" style="width:auto" type="text" id="uniqueTransRefResult" />
+                                    <input class="form-control" style="width:auto" type="text" id="uniqueTransIdResult" />
                                 </td>
                             </tr>
                             <tr>
@@ -219,21 +235,7 @@
                     return;
                 }
                 else if (result.Action === 'Result') {
-                    if (result.POSLinkResponse) {
-                        $("#resultsPanel").show();
-                        $("#resultStatus").val(result.Success);
-                        if (result.Success)
-                            $("#resultsPanel").css('border-color', "#4CA950");
-                        else
-                            $("#resultsPanel").css('border-color', "red");
-                        $("#amountProcessed").val(result.POSLinkResponse.ApprovedAmount);
-                        $("#resultMessage").val(result.POSLinkResponse.ResultTxt);
-                        $("#uniqueTransRef").val(result.POSLinkResponse.RefNum);
-                        $("#uniqueTransRefResult").val(result.POSLinkResponse.RefNum);
-                        $("#signature").val(result.POSLinkResponse.Signature);
-                        $("#resultBillingName").val(result.POSLinkResponse.ExtData);
-                    }
-                    else if (result.ResultFields) {
+                    if (result.ResultFields) {
                         $("#resultsPanel").show();
                         $("#resultStatus").val(result.Success);
                         if (result.Success)
@@ -242,10 +244,12 @@
                             $("#resultsPanel").css('border-color', "red");
                         $("#amountProcessed").val(result.ResultFields.AmountProcessed);
                         $("#resultMessage").val(result.ResultFields.ResultMessage);
-                        $("#uniqueTransRef").val(result.ResultFields.UniqueTransRef);
-                        $("#uniqueTransRefResult").val(result.ResultFields.UniqueTransRef);
+                        $("#uniqueTransId").val(result.ResultFields.UniqueTransID);
+                        $("#uniqueTransIdResult").val(result.ResultFields.UniqueTransID);
                         $("#signature").val(result.ResultFields.Signature);
                         $("#resultBillingName").val(result.ResultFields.BillingName);
+                    } else {
+                        alert("No Result returned from remote hardware.");
                     }
                     return;
                 }
@@ -277,7 +281,7 @@
                             clearFields();
                         }
                         else if (action === "Void") {
-                            var vMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, UniqueTransRef: $("#uniqueTransRef").val(), DeviceName:"S300NumberOne" }) };
+                            var vMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, UniqueTransRef: $("#uniqueTransId").val(), DeviceName:"S300NumberOne" }) };
                             remoteHub.invoke('send', $("#to").val(), JSON.stringify(vMessage));
                         }
                         else if (action === "RequestSignature") {
@@ -333,7 +337,8 @@
         $("#isManualEntry").prop('checked', false);
         $("#manualEntryDiv").hide();
         $("#accountNumber").val('');
-        $("#uniqueTransRef").val('');
+        $("#uniqueTransId").val('');
+        $("#uniqueTransIdResult").val('');
         $("#expDate").val('');
         $("#cvv").val('');
         $("#billingName").val('');
@@ -346,8 +351,8 @@
         $("#resultStatus").val('');
         $("#amountProcessed").val('');
         $("#resultMessage").val('');
-        $("#uniqueTransRef").val('');
-        $("#uniqueTransRefResult").val('');
+        $("#uniqueTransId").val('');
+        $("#uniqueTransIdResult").val('');
         $("#signature").val('');
         $("#resultBillingName").val('');
     };
