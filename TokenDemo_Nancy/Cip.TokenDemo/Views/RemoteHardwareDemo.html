@@ -238,7 +238,7 @@
                     if (result.ResultFields) {
                         $("#resultsPanel").show();
                         $("#resultStatus").val(result.Success);
-                        if (result.Success)
+                        if (result.ResultFields.ResultStatus)
                             $("#resultsPanel").css('border-color', "#4CA950");
                         else
                             $("#resultsPanel").css('border-color', "red");
