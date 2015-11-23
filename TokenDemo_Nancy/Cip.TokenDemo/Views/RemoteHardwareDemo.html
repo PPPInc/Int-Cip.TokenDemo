@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
     <script src="https://code.jquery.com/jquery-2.1.4.js"></script>
     <script src="Scripts/jquery.signalR-2.2.0.js"></script>
+    <script src="Scripts/RemoteHardware.js"></script>
     <style>
         body {
             padding: 20px;
@@ -34,10 +35,10 @@
                                 <label for="user-name"></label>
                                 <input type="text" class="form-control" id="user-name" placeholder="User Name">
                             </div>
-                            <button type="button" class="btn btn-default" id="connect">Connect</button>
+                            <!--<button type="button" class="btn btn-default" id="connect">Connect</button>
                             <div class="form-group">
                                 <label for="" style="margin: 0 0 0 10px;" id="connected" class="error">You are not connected</label>
-                            </div>
+                            </div>-->
                         </form>
                         <form style="margin: 20px 0 0 0;">
                             <div class="form-group">
@@ -55,7 +56,7 @@
                             </div>
                             <div id="CreditSale">
                                 <label for="amount">Amount</label>
-                                <input class="form-control" style="width:auto" type="text" id="amount" />
+                                <input class="form-control" style="width: auto" type="text" id="amount" />
                                 <br />
                                 <input type="checkbox" id="isManualEntry" /> Manual Entry<br />
                                 <br />
@@ -66,13 +67,13 @@
                                                 <label for="accountNumber">Card Number</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width:auto" type="text" id="accountNumber" />
+                                                <input class="form-control" style="width: auto" type="text" id="accountNumber" />
                                             </td>
                                             <td>
                                                 <label for="expDate">Expiration</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width:auto" type="text" id="expDate" />
+                                                <input class="form-control" style="width: auto" type="text" id="expDate" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -80,13 +81,13 @@
                                                 <label for="cvv">CVV</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width:auto" type="text" id="cvv" />
+                                                <input class="form-control" style="width: auto" type="text" id="cvv" />
                                             </td>
                                             <td>
                                                 <label for="billingName">Billing Name</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width:auto" type="text" id="billingName" />
+                                                <input class="form-control" style="width: auto" type="text" id="billingName" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -94,13 +95,13 @@
                                                 <label for="street">Street Address</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width:auto" type="text" id="street" />
+                                                <input class="form-control" style="width: auto" type="text" id="street" />
                                             </td>
                                             <td>
                                                 <label for="zip">Zipcode</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width:auto" type="text" id="zip" />
+                                                <input class="form-control" style="width: auto" type="text" id="zip" />
                                             </td>
                                         </tr>
                                     </table>
@@ -113,7 +114,7 @@
                                         <td>
                                             <label for="uniqueTransId">UniqueTransID</label>
                                         </td>
-                                        <td style="padding:10px">
+                                        <td style="padding: 10px">
                                             <input class="form-control" style="width: auto" type="text" id="uniqueTransId" />
                                         </td>
                                     </tr>
@@ -125,8 +126,8 @@
                                         <td>
                                             <label for="message">Message</label>
                                         </td>
-                                        <td style="padding:10px">
-                                            <input class="form-control" style="width:auto" type="text" id="message" />
+                                        <td style="padding: 10px">
+                                            <input class="form-control" style="width: auto" type="text" id="message" />
                                         </td>
                                     </tr>
                                 </table>
@@ -155,13 +156,13 @@
                                     <label for="resultStatus">Result Status</label>
                                 </td>
                                 <td style="padding: 10px">
-                                    <input class="form-control" style="width:auto" type="text" id="resultStatus" />
+                                    <input class="form-control" style="width: auto" type="text" id="resultStatus" />
                                 </td>
                                 <td>
                                     <label for="resultMessage">ResultMessage</label>
                                 </td>
                                 <td style="padding: 10px">
-                                    <input class="form-control" style="width:auto" type="text" id="resultMessage" />
+                                    <input class="form-control" style="width: auto" type="text" id="resultMessage" />
                                 </td>
                             </tr>
                             <tr>
@@ -169,13 +170,13 @@
                                     <label for="amountProcessed">AmountProcessed</label>
                                 </td>
                                 <td style="padding: 10px">
-                                    <input class="form-control" style="width:auto" type="text" id="amountProcessed" />
+                                    <input class="form-control" style="width: auto" type="text" id="amountProcessed" />
                                 </td>
                                 <td>
                                     <label for="uniqueTransIdResult">UniqueTransID</label>
                                 </td>
                                 <td style="padding: 10px">
-                                    <input class="form-control" style="width:auto" type="text" id="uniqueTransIdResult" />
+                                    <input class="form-control" style="width: auto" type="text" id="uniqueTransIdResult" />
                                 </td>
                             </tr>
                             <tr>
@@ -183,13 +184,13 @@
                                     <label for="signature">Signature</label>
                                 </td>
                                 <td style="padding: 10px">
-                                    <input class="form-control" style="width:auto" type="text" id="signature" />
+                                    <input class="form-control" style="width: auto" type="text" id="signature" />
                                 </td>
                                 <td>
                                     <label for="resultBillingName">Billing Name</label>
                                 </td>
                                 <td style="padding: 10px">
-                                    <input class="form-control" style="width:auto" type="text" id="resultBillingName" />
+                                    <input class="form-control" style="width: auto" type="text" id="resultBillingName" />
                                 </td>
                             </tr>
                         </table>
@@ -198,162 +199,105 @@
             </div>
         </div>
     </div>
+    <script>
+        $(function () {
+            OnResultFunction = function (result) {
+                $("#resultsPanel").show();
+                $("#resultStatus").val(result.Success);
+                if (result.ResultFields.ResultStatus)
+                    $("#resultsPanel").css('border-color', "#4CA950");
+                else
+                    $("#resultsPanel").css('border-color', "red");
+                $("#amountProcessed").val(result.ResultFields.AmountProcessed);
+                $("#resultMessage").val(result.ResultFields.ResultMessage);
+                $("#uniqueTransId").val(result.ResultFields.UniqueTransID);
+                $("#uniqueTransIdResult").val(result.ResultFields.UniqueTransID);
+                $("#signature").val(result.ResultFields.Signature);
+                $("#resultBillingName").val(result.ResultFields.BillingName);
+            };
+            OnEchoFunction = function (message) {
+                alert(message);
+            };
+            OnQuestionFunction = function (question) {
+                $("#questionPanel").show();
+                $("#question").text(question);
+            };
+
+            $("#yes")
+                .off('click', function() {})
+                .on('click', function () {
+                    answerYesFunction();
+                    $("#questionPanel").hide();
+                });
+
+            $("#no")
+                .off('click', function() {})
+                .on('click', function() {
+                    answerNoFunction();
+                    $("#questionPanel").hide();
+                });
+
+            $("#send").on('click', function () {
+                debugger;
+                UserName = $("#user-name").val();
+                ControllerName = $("#to").val();
+
+                $("#resultsPanel").hide();
+                var action = $("#transactionType option:selected").val();
+                if (action === "Echo") {
+                    echoFunction($("#message").val());
+                    $("#message").val('');
+                } else if (action === "CreditSale") {
+                    clearResults();
+                    creditSaleFunction("S300NumberOne", $("#amount").val(), $("#accountNumber").val(), $("#billingName").val(), $("#expDate").val(), $("#cvv").val(), $("#street").val(), $("#zip").val());
+                    clearFields();
+                } else if (action === "Void") {
+                    voidFunction("S300NumberOne", $("#uniqueTransId").val());
+                } else if (action === "RequestSignature") {
+                    requestSignatureFunction("S300NumberOne");
+                }
+            });
+
+            $("#transactionType").on('change', function () {
+                $("#CreditSale").hide();
+                $("#Void").hide();
+                $("#Echo").hide();
+                $("#RequestSignature").hide();
+                $("#" + $("#transactionType option:selected").val()).show();
+            });
+
+            $("#isManualEntry").on('change', function () {
+                if (this.checked)
+                    $("#manualEntryDiv").show();
+                else
+                    $("#manualEntryDiv").hide();
+            });
+        });
+
+        function clearFields() {
+            $("#amount").val('');
+            $("#isManualEntry").prop('checked', false);
+            $("#manualEntryDiv").hide();
+            $("#accountNumber").val('');
+            $("#uniqueTransId").val('');
+            $("#uniqueTransIdResult").val('');
+            $("#expDate").val('');
+            $("#cvv").val('');
+            $("#billingName").val('');
+            $("#street").val('');
+            $("#zip").val('');
+        };
+
+        function clearResults() {
+            $("#resultsPanel").hide();
+            $("#resultStatus").val('');
+            $("#amountProcessed").val('');
+            $("#resultMessage").val('');
+            $("#uniqueTransId").val('');
+            $("#uniqueTransIdResult").val('');
+            $("#signature").val('');
+            $("#resultBillingName").val('');
+        };
+    </script>
 </body>
 </html>
-<script>
-
-    function setFrom(control) {
-        $("#to").val($(control).html());
-        $("#message").focus();
-    };
-
-    $(function () {
-
-        $("#connect").on('click', function () {
-
-            var userName = $("#user-name").val();
-
-            if (userName === '') return;
-
-            //var connection = $.hubConnection('https://api-staging.chargeitpro.com');
-
-            var connection = $.hubConnection('http://localhost:811');
-
-            connection.qs = { "userName": userName };
-
-            var remoteHub = connection.createHubProxy('ChatHub');
-
-            remoteHub.on('send', function (from, message) {
-                var result = JSON.parse(message);
-                if (result.Action === 'Echo') {
-                    alert("Message " + result.Data + " echoed from " + $("#to").val());
-                    return;
-                }
-                else if (result.Action === 'Question') {
-                    $("#questionPanel").show();
-                    $("#question").text(result.Data);
-                    return;
-                }
-                else if (result.Action === 'Result') {
-                    if (result.ResultFields) {
-                        $("#resultsPanel").show();
-                        $("#resultStatus").val(result.Success);
-                        if (result.ResultFields.ResultStatus)
-                            $("#resultsPanel").css('border-color', "#4CA950");
-                        else
-                            $("#resultsPanel").css('border-color', "red");
-                        $("#amountProcessed").val(result.ResultFields.AmountProcessed);
-                        $("#resultMessage").val(result.ResultFields.ResultMessage);
-                        $("#uniqueTransId").val(result.ResultFields.UniqueTransID);
-                        $("#uniqueTransIdResult").val(result.ResultFields.UniqueTransID);
-                        $("#signature").val(result.ResultFields.Signature);
-                        $("#resultBillingName").val(result.ResultFields.BillingName);
-                    } else {
-                        alert("No Result returned from remote hardware.");
-                    }
-                    return;
-                }
-            });
-           
-            /* uncomment for verbose client side logging */
-            //connection.logging = true;
-
-            connection.start().done(function () {
-
-                $("#send")
-                    .off('click', function () { })
-                    .on('click', function () {
-                        $("#resultsPanel").hide();
-                        var action = $("#transactionType option:selected").val();
-                        if (action === "Echo") {
-                            var eMessage = { Action: action, Data: $("#message").val() };
-                            remoteHub.invoke('send', $("#to").val(), JSON.stringify(eMessage));
-                            $("#message").val('');
-                        }
-                        else if (action === "CreditSale") {
-                            clearResults();
-                            var csMessage;
-                            if ($("#isManualEntry").prop('checked'))
-                                csMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, Amount: $("#amount").val(), AccountNumber: $("#accountNumber").val(), BillingName:$("#billingName").val(), ExpDate: $("#expDate").val(), CVV: $("#cvv").val(), Street:$("#street").val(), Zip:$("#zip").val(), DeviceName: "S300NumberOne" }) };
-                            else
-                                csMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, Amount: $("#amount").val(), DeviceName: "S300NumberOne" }) };
-                            remoteHub.invoke('send', $("#to").val(), JSON.stringify(csMessage));
-                            clearFields();
-                        }
-                        else if (action === "Void") {
-                            var vMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, UniqueTransRef: $("#uniqueTransId").val(), DeviceName:"S300NumberOne" }) };
-                            remoteHub.invoke('send', $("#to").val(), JSON.stringify(vMessage));
-                        }
-                        else if (action === "RequestSignature") {
-                            var rsMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: action, DeviceName: "S300NumberOne" }) };
-                            remoteHub.invoke('send', $("#to").val(), JSON.stringify(rsMessage));
-                        }
-                    });
-                $("#yes")
-                    .off('click', function() {})
-                    .on('click', function() {
-                        var yesMessage = { Action: "Answer", Success: true };
-                        remoteHub.invoke('send', $("#to").val(), JSON.stringify(yesMessage));
-                        $("#questionPanel").hide();
-                    });
-                $("#no")
-                    .off('click', function() {})
-                    .on('click', function() {
-                        var noMessage = { Action: "Answer", Success: false };
-                        remoteHub.invoke('send', $("#to").val(), JSON.stringify(noMessage));
-                        $("#questionPanel").hide();
-                    });
-
-
-                $("#connected").html("You are connected as: " + userName).removeClass("error");
-
-                //console.log(connection.id);
-
-            }).fail(function (error) { console.log(error); });
-
-            connection.error(function (error) {
-                console.log('SignalR error: ' + error);
-            });
-        });
-
-        $("#transactionType").on('change', function () {
-            $("#CreditSale").hide();
-            $("#Void").hide();
-            $("#Echo").hide();
-            $("#RequestSignature").hide();
-            $("#" + $("#transactionType option:selected").val()).show();
-        });
-
-        $("#isManualEntry").on('change', function() {
-            if (this.checked)
-                $("#manualEntryDiv").show();
-            else
-                $("#manualEntryDiv").hide();
-        });
-    });
-
-    function clearFields() {
-        $("#amount").val('');
-        $("#isManualEntry").prop('checked', false);
-        $("#manualEntryDiv").hide();
-        $("#accountNumber").val('');
-        $("#uniqueTransId").val('');
-        $("#uniqueTransIdResult").val('');
-        $("#expDate").val('');
-        $("#cvv").val('');
-        $("#billingName").val('');
-        $("#street").val('');
-        $("#zip").val('');
-    };
-
-    function clearResults() {
-        $("#resultsPanel").hide();
-        $("#resultStatus").val('');
-        $("#amountProcessed").val('');
-        $("#resultMessage").val('');
-        $("#uniqueTransId").val('');
-        $("#uniqueTransIdResult").val('');
-        $("#signature").val('');
-        $("#resultBillingName").val('');
-    };
-</script>
