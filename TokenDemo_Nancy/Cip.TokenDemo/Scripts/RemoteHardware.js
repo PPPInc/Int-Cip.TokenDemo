@@ -1,12 +1,12 @@
 ﻿/*
  * These functions need to be implemented by consuming Developers.
  */
-var OnResultFunction;
-var OnEchoFunction;
-var OnQuestionFunction;
+var OnResultFunction; //Function to be called when transaction results are returned from remote hardware.
+var OnEchoFunction; //Function to be called when an echo response is returned from remote hardware.
+var OnQuestionFunction; //Function to be called when remote hardware requires input from the POS to finish a transaction.
 
 /*
- * This variable needs to be set by consuming Developers.
+ * These variables need to be set by consuming Developers.
  */
 var UserName;
 var ControllerName;
@@ -17,9 +17,18 @@ var ControllerName;
 var answerYesFunction;
 var answerNoFunction;
 var echoFunction;
+var debitSaleFunction; //TODO
+var debitReturnFunction; //TODO?????
 var creditSaleFunction;
+var creditReturnFunction; //TODO
+var creditAuthFunction; //TODO
+var creditForceFunction; //TODO
+var creditAddTipFunction; //TODO
 var voidFunction;
 var requestSignatureFunction;
+var saveCreditCardFunction; //TODO
+var displayTextFunction; //TODO
+
 
 /*
  * private variables
