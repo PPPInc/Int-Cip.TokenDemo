@@ -48,9 +48,12 @@
                                     <option value="CreditReturn">Credit Return</option>
                                     <option value="CreditAuth">Credit Auth</option>
                                     <option value="CreditForce">Credit Force</option>
+                                    <option value="CreditAddTip">Credit Add Tip</option>
+                                    <option value="CreditSaveCard">Save Credit Card</option>
                                     <option value="DebitSale">Debit Sale</option>
                                     <option value="Void">Void</option>
                                     <option value="RequestSignature">Request Signature</option>
+                                    <option value="DisplayText">Display Text</option>
                                     <option value="Echo">Echo</option>
                                 </select>
                             </div>
@@ -475,10 +478,19 @@
                     clearResults();
                     creditReturnFunction("S300NumberOne", $("#amount").val());
                     clearFields();
-                }else if (action === "CreditForce") {
+                } else if (action === "CreditForce") {
                     var uniqueTransRef = $("#uniqueTransId").val();
                     clearResults();
                     creditForceFunction("S300NumberOne", $("#amount").val(), $("#voiceAuthNumber").val(), uniqueTransRef);
+                    clearFields();
+                } else if (action === "CreditAddTip") {
+                    var ref = $("#uniqueTransId").val();
+                    clearResults();
+                    creditAddTipFunction("S300NumberOne", $("#amount").val(), ref);
+                    clearFields();
+                } else if (action === "CreditSaveCard") {
+                    clearResults();
+                    saveCreditCardFunction("S300NumberOne");
                     clearFields();
                 } else if (action === "DebitSale") {
                     clearResults();
@@ -488,6 +500,8 @@
                     voidFunction("S300NumberOne", $("#uniqueTransId").val());
                 } else if (action === "RequestSignature") {
                     requestSignatureFunction("S300NumberOne");
+                } else if (action === "DisplayText") {
+                    displayTextFunction("S300NumberOne", $("#message").val());
                 }
             });
 
@@ -500,7 +514,6 @@
                 $("#isManualEntry").hide();
                 $("#manualEntryDiv").hide();
                 $("#RequestSignature").hide();
-                debugger;
                 var selected = $("#transactionType option:selected").val();
                 if (selected === "DebitSale" || selected === "CreditReturn") {
                     $("#CreditSale").show();
@@ -512,10 +525,15 @@
                     $("#CreditSale").show();
                     $("#CreditForce").show();
                     $("#UniqueTransIdDiv").show();
+                }else if (selected === "CreditAddTip") {
+                    $("#CreditSale").show();
+                    $("#UniqueTransIdDiv").show();
                 } else if (selected === "CreditSale" || selected === "CreditAuth") {
                     $("#lblManualEntry").show();
                     $("#isManualEntry").show();
                     $("#CreditSale").show();
+                } else if (selected === "DisplayText") {
+                    $("#Echo").show();
                 } else {
                     $("#" + selected).show();
                 }
