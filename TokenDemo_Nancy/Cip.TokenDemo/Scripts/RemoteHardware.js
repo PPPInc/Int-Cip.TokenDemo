@@ -16,13 +16,13 @@ var ControllerName;
  */
 var answerYesFunction;
 var answerNoFunction;
-var echoFunction;
-var debitSaleFunction; //TODO
+var echoFunction; //Call this function to test connectivity between your web-based POS and the remote hardware controller.
+var debitSaleFunction;
 var debitReturnFunction; //TODO?????
 var creditSaleFunction;
-var creditReturnFunction; //TODO
-var creditAuthFunction; //TODO
-var creditForceFunction; //TODO
+var creditReturnFunction;
+var creditAuthFunction;
+var creditForceFunction;
 var creditAddTipFunction; //TODO
 var voidFunction;
 var requestSignatureFunction;
@@ -128,6 +128,50 @@ $(function() {
             }, function() { alert("Error connecting."); });
         else {
             _remoteHub.invoke('send', ControllerName, JSON.stringify(csMessage));
+        }
+    };
+
+    creditReturnFunction = function(deviceName, amount) {
+        var crMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditReturn", Amount: amount, DeviceName: deviceName }) };
+        if (!_connected)
+            _connect(function() {
+                _remoteHub.invoke('send', ControllerName, JSON.stringify(crMessage));
+            }, function() { alert("Error connecting."); });
+        else {
+            _remoteHub.invoke('send', ControllerName, JSON.stringify(crMessage));
+        }
+    };
+
+    creditAuthFunction = function(deviceName, amount, accountNumber, billingName, expDate, cvv, street, zip) {
+        var caMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditAuth", Amount: amount, AccountNumber: accountNumber, BillingName: billingName, ExpDate: expDate, CVV: cvv, Street: street, Zip: zip, DeviceName: deviceName }) };
+        if (!_connected)
+            _connect(function() {
+                _remoteHub.invoke('send', ControllerName, JSON.stringify(caMessage));
+            }, function() { alert("Error connecting."); });
+        else {
+            _remoteHub.invoke('send', ControllerName, JSON.stringify(caMessage));
+        }
+    };
+
+    creditForceFunction = function(deviceName, amount, authCode, uniqueTransRef) {
+        var cfMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditForce", Amount: amount, DeviceName: deviceName, VoiceAuthCode: authCode, UniqueTransRef: uniqueTransRef}) };
+        if (!_connected)
+            _connect(function() {
+                _remoteHub.invoke('send', ControllerName, JSON.stringify(cfMessage));
+            }, function() { alert("Error connecting."); });
+        else {
+            _remoteHub.invoke('send', ControllerName, JSON.stringify(cfMessage));
+        }
+    };
+
+    debitSaleFunction = function(deviceName, amount) {
+        var dsMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "DebitSale", Amount: amount, DeviceName: deviceName }) };
+        if (!_connected)
+            _connect(function() {
+                _remoteHub.invoke('send', ControllerName, JSON.stringify(dsMessage));
+            }, function() { alert("Error connecting."); });
+        else {
+            _remoteHub.invoke('send', ControllerName, JSON.stringify(dsMessage));
         }
     };
 

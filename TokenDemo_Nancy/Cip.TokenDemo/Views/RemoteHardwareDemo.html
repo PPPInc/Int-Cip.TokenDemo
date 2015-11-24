@@ -35,10 +35,6 @@
                                 <label for="user-name"></label>
                                 <input type="text" class="form-control" id="user-name" placeholder="User Name">
                             </div>
-                            <!--<button type="button" class="btn btn-default" id="connect">Connect</button>
-                            <div class="form-group">
-                                <label for="" style="margin: 0 0 0 10px;" id="connected" class="error">You are not connected</label>
-                            </div>-->
                         </form>
                         <form style="margin: 20px 0 0 0;">
                             <div class="form-group">
@@ -49,6 +45,10 @@
                                 <label class="form-inline" for="transactionType">Action</label>
                                 <select class="form-control" id="transactionType" style="width: auto">
                                     <option value="CreditSale" selected>Credit Sale</option>
+                                    <option value="CreditReturn">Credit Return</option>
+                                    <option value="CreditAuth">Credit Auth</option>
+                                    <option value="CreditForce">Credit Force</option>
+                                    <option value="DebitSale">Debit Sale</option>
                                     <option value="Void">Void</option>
                                     <option value="RequestSignature">Request Signature</option>
                                     <option value="Echo">Echo</option>
@@ -56,10 +56,10 @@
                             </div>
                             <div id="CreditSale">
                                 <label for="amount">Amount</label>
-                                <input class="form-control" style="width: auto" type="text" id="amount" />
-                                <br />
-                                <input type="checkbox" id="isManualEntry" /> Manual Entry<br />
-                                <br />
+                                <input class="form-control" style="width: auto" type="text" id="amount"/>
+                                <br/>
+                                <input type="checkbox" id="isManualEntry"/><label id="lblManualEntry">Manual Entry</label><br/>
+                                <br/>
                                 <div id="manualEntryDiv" style="display: none">
                                     <table>
                                         <tr>
@@ -67,13 +67,13 @@
                                                 <label for="accountNumber">Card Number</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="accountNumber" />
+                                                <input class="form-control" style="width: auto" type="text" id="accountNumber"/>
                                             </td>
                                             <td>
                                                 <label for="expDate">Expiration</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="expDate" />
+                                                <input class="form-control" style="width: auto" type="text" id="expDate"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -81,13 +81,13 @@
                                                 <label for="cvv">CVV</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="cvv" />
+                                                <input class="form-control" style="width: auto" type="text" id="cvv"/>
                                             </td>
                                             <td>
                                                 <label for="billingName">Billing Name</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="billingName" />
+                                                <input class="form-control" style="width: auto" type="text" id="billingName"/>
                                             </td>
                                         </tr>
                                         <tr>
@@ -95,20 +95,32 @@
                                                 <label for="street">Street Address</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="street" />
+                                                <input class="form-control" style="width: auto" type="text" id="street"/>
                                             </td>
                                             <td>
                                                 <label for="zip">Zipcode</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="zip" />
+                                                <input class="form-control" style="width: auto" type="text" id="zip"/>
                                             </td>
                                         </tr>
                                     </table>
-                                    <br />
+                                    <br/>
                                 </div>
                             </div>
-                            <div id="Void" style="display: none">
+                            <div id="CreditForce" style="display: none">
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <label for="voiceAuthNumber">Voice Auth Code</label>
+                                        </td>
+                                        <td style="padding: 10px">
+                                            <input class="form-control" style="width: auto" type="text" id="voiceAuthNumber"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="UniqueTransIdDiv" style="display: none">
                                 <table>
                                     <tr>
                                         <td>
@@ -184,13 +196,195 @@
                                     <label for="signature">Signature</label>
                                 </td>
                                 <td style="padding: 10px">
-                                    <input class="form-control" style="width: auto" type="text" id="signature" />
+                                    <input class="form-control" style="width: auto" type="text" id="signature"/>
                                 </td>
                                 <td>
                                     <label for="resultBillingName">Billing Name</label>
                                 </td>
                                 <td style="padding: 10px">
-                                    <input class="form-control" style="width: auto" type="text" id="resultBillingName" />
+                                    <input class="form-control" style="width: auto" type="text" id="resultBillingName"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="accountCardType">Account Card Type</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="accountCardType"/>
+                                </td>
+                                <td>
+                                    <label for="accountExpiryDate">Account Expiry Date</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="accountExpiryDate"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="amountBill">Amount Bill</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="amountBill" />
+                                </td>
+                                <td>
+                                    <label for="avsResponseCode">AVS Response Code</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="avsResponseCode" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="batchNumber">Batch Number</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="batchNumber" />
+                                </td>
+                                <td>
+                                    <label for="cvvResponseCode">CVV Response Code</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="cvvResponseCode" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="maskedAccount">Masked Account</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="maskedAccount" />
+                                </td>
+                                <td>
+                                    <label for="transactionTypeResult">Transaction Type</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="transactionTypeResult" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="accountEntryMethod">Account Entry Method</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="accountEntryMethod" />
+                                </td>
+                                <td>
+                                    <label for="amountBalance">Amount Balance</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="amountBalance" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="amountFee">Amount Fee</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="amountFee" />
+                                </td>
+                                <td>
+                                    <label for="approvalNumberResult">Approval Number Result</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="approvalNumberResult" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="avsResponseText">AVS Response Text</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="avsResponseText" />
+                                </td>
+                                <td>
+                                    <label for="cvvResponseText">CVV Response Text</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="cvvResponseText" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="receipt">Receipt</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="receipt" />
+                                </td>
+                                <td>
+                                    <label for="amountTipped">Amount Tipped</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="amountTipped" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="aid">AID</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="aid" />
+                                </td>
+                                <td>
+                                    <label for="tvr">TVR</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="tvr" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="tsi">TSI</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="tsi" />
+                                </td>
+                                <td>
+                                    <label for="cvmCode">CVM Code</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="cvmCode" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="arc">ARC</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="arc" />
+                                </td>
+                                <td>
+                                    <label for="emvOfflineData">EMV Offline Data</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width:auto" type="text" id="emvOfflineData" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="cvmMethod">Card Holder Verification Method</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="cvmMethod" />
+                                </td>
+                                <td>
+                                    <label for="authorizationMode">Authorization Mode</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width:auto" type="text" id="authorizationMode"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label for="currencyIndicator">Currency Indicator</label>
+                                </td>
+                                <td style="padding: 10px">
+                                    <input class="form-control" style="width: auto" type="text" id="currencyIndicator" />
+                                </td>
+                                <td>
+                                    <!--<label for="authorizationMode">Authorization Mode</label>-->
+                                </td>
+                                <td style="padding: 10px">
+                                    <!--<input class="form-control" style="width:auto" type="text" id="authorizationMode" />-->
                                 </td>
                             </tr>
                         </table>
@@ -201,7 +395,7 @@
     </div>
     <script>
         $(function () {
-            OnResultFunction = function (result) {
+            OnResultFunction = function(result) {
                 $("#resultsPanel").show();
                 $("#resultStatus").val(result.Success);
                 if (result.ResultFields.ResultStatus)
@@ -214,6 +408,29 @@
                 $("#uniqueTransIdResult").val(result.ResultFields.UniqueTransID);
                 $("#signature").val(result.ResultFields.Signature);
                 $("#resultBillingName").val(result.ResultFields.BillingName);
+                $("#accountCardType").val(result.ResultFields.AccountCardType);
+                $("#maskedAccount").val(result.ResultFields.MaskedAccount);
+                $("#approvalNumberResult").val(result.ResultFields.ApprovalNumberResult);
+                $("#avsResponseCode").val(result.ResultFields.AVSResponseCode);
+                $("#avsResponseText").val(result.ResultFields.AVSResponseText);
+                $("#cvvResponseCode").val(result.ResultFields.CVVResponseCode);
+                $("#cvvResponseText").val(result.ResultFields.CVVResponseText);
+                $("#accountExpiryDate").val(result.ResultFields.AccountExpiryDate);
+                $("#accountEntryMethod").val(result.ResultFields.AccountEntryMethod);
+                $("#amountBalance").val(result.ResultFields.AmountBalance);
+                $("#amountBill").val(result.ResultFields.AmountBill);
+                $("#batchNumber").val(result.ResultFields.BatchNumber);
+                $("#transactionTypeResult").val(result.ResultFields.TransactionType);
+                $("#amountTipped").val(result.ResultFields.AmountTipped);
+                $("#aid").val(result.ResultFields.AID);
+                $("#tvr").val(result.ResultFields.TVR);
+                $("#tsi").val(result.ResultFields.TSI);
+                $("#cvmCode").val(result.ResultFields.CVMCode);
+                $("#cvmMethod").val(result.ResultFields.CardHolderVerificationMethod);
+                $("#arc").val(result.ResultFields.ARC);
+                $("#authorizationMode").val(result.ResultFields.AuthorizationMode);
+                $("#emvOfflineData").val(result.ResultFields.EMVOfflineData);
+                $("#currencyIndicator").val(result.ResultFields.CurrencyIndicator);
             };
             OnEchoFunction = function (message) {
                 alert(message);
@@ -237,7 +454,7 @@
                     $("#questionPanel").hide();
                 });
 
-            $("#send").on('click', function () {
+            $("#send").on('click', function() {
                 UserName = $("#user-name").val();
                 ControllerName = $("#to").val();
 
@@ -250,6 +467,23 @@
                     clearResults();
                     creditSaleFunction("S300NumberOne", $("#amount").val(), $("#accountNumber").val(), $("#billingName").val(), $("#expDate").val(), $("#cvv").val(), $("#street").val(), $("#zip").val());
                     clearFields();
+                } else if (action === "CreditAuth") {
+                    clearResults();
+                    creditAuthFunction("S300NumberOne", $("#amount").val(), $("#accountNumber").val(), $("#billingName").val(), $("#expDate").val(), $("#cvv").val(), $("#street").val(), $("#zip").val());
+                    clearFields();
+                } else if (action === "CreditReturn") {
+                    clearResults();
+                    creditReturnFunction("S300NumberOne", $("#amount").val());
+                    clearFields();
+                }else if (action === "CreditForce") {
+                    var uniqueTransRef = $("#uniqueTransId").val();
+                    clearResults();
+                    creditForceFunction("S300NumberOne", $("#amount").val(), $("#voiceAuthNumber").val(), uniqueTransRef);
+                    clearFields();
+                } else if (action === "DebitSale") {
+                    clearResults();
+                    debitSaleFunction("S300NumberOne", $("#amount").val());
+                    clearFields();
                 } else if (action === "Void") {
                     voidFunction("S300NumberOne", $("#uniqueTransId").val());
                 } else if (action === "RequestSignature") {
@@ -257,12 +491,34 @@
                 }
             });
 
-            $("#transactionType").on('change', function () {
+            $("#transactionType").on('change', function() {
                 $("#CreditSale").hide();
-                $("#Void").hide();
+                $("#CreditForce").hide();
+                $("#UniqueTransIdDiv").hide();
                 $("#Echo").hide();
+                $("#lblManualEntry").hide();
+                $("#isManualEntry").hide();
+                $("#manualEntryDiv").hide();
                 $("#RequestSignature").hide();
-                $("#" + $("#transactionType option:selected").val()).show();
+                debugger;
+                var selected = $("#transactionType option:selected").val();
+                if (selected === "DebitSale" || selected === "CreditReturn") {
+                    $("#CreditSale").show();
+                } else if (selected === "Void") {
+                    $("#UniqueTransIdDiv").show();
+                } else if (selected === "RequestSignature") {
+                    $("#" + selected).show();
+                } else if (selected === "CreditForce") {
+                    $("#CreditSale").show();
+                    $("#CreditForce").show();
+                    $("#UniqueTransIdDiv").show();
+                } else if (selected === "CreditSale" || selected === "CreditAuth") {
+                    $("#lblManualEntry").show();
+                    $("#isManualEntry").show();
+                    $("#CreditSale").show();
+                } else {
+                    $("#" + selected).show();
+                }
             });
 
             $("#isManualEntry").on('change', function () {
@@ -285,6 +541,7 @@
             $("#billingName").val('');
             $("#street").val('');
             $("#zip").val('');
+            $("#voiceAuthNumber").val('');
         };
 
         function clearResults() {
@@ -296,6 +553,29 @@
             $("#uniqueTransIdResult").val('');
             $("#signature").val('');
             $("#resultBillingName").val('');
+            $("#accountCardType").val('');
+            $("#maskedAccount").val('');
+            $("#approvalNumberResult").val('');
+            $("#avsResponseCode").val('');
+            $("#avsResponseText").val('');
+            $("#cvvResponseCode").val('');
+            $("#cvvResponseText").val('');
+            $("#accountExpiryDate").val('');
+            $("#accountEntryMethod").val('');
+            $("#amountBalance").val('');
+            $("#amountBill").val('');
+            $("#batchNumber").val('');
+            $("#transactionTypeResult").val('');
+            $("#amountTipped").val('');
+            $("#aid").val('');
+            $("#tvr").val('');
+            $("#tsi").val('');
+            $("#cvmCode").val('');
+            $("#cvmMethod").val('');
+            $("#arc").val('');
+            $("#authorizationMode").val('');
+            $("#emvOfflineData").val('');
+            $("#currencyIndicator").val('');
         };
     </script>
 </body>
