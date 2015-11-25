@@ -455,7 +455,7 @@
                 var deviceSelect = $("#devices");
                 $.each(Devices, function (index, device) {
                     deviceSelect
-                        .append($("<option></option")
+                        .append($("<option></option>")
                             .attr('value', device.DeviceName)
                             .text(device.DeviceName)
                             .prop('selected', device.IsDefault));
