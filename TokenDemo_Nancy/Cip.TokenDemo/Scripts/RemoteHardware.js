@@ -145,8 +145,8 @@ $(function() {
         _doTransaction(catMessage);
     };
 
-    saveCreditCardFunction = function(deviceName) {
-        var sccMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditSaveCard", Amount: "0.05", DeviceName: deviceName }) };
+    saveCreditCardFunction = function (deviceName, accountNumber, billingName, expDate, cvv, street, zip) {
+        var sccMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditSaveCard", Amount: "0.05", AccountNumber: accountNumber, BillingName: billingName, ExpDate: expDate, CVV: cvv, Street: street, Zip: zip, DeviceName: deviceName }) };
         _doTransaction(sccMessage);
     };
 
