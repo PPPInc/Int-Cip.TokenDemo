@@ -4,16 +4,19 @@
 var OnResultFunction; //Function to be called when transaction results are returned from remote hardware.
 var OnEchoFunction; //Function to be called when an echo response is returned from remote hardware.
 var OnQuestionFunction; //Function to be called when remote hardware requires input from the POS to finish a transaction.
+var OnConfigurationDownloaded; //Function to be called when the configuration has been downloaded.
 
 /*
- * These variables need to be set by consuming Developers.
+ * These variables can be used by consuming Developers.
  */
-var UserName;
-var ControllerName;
+var UserName; //Unique name for this connection.
+var ControllerName; //Name of the remote hardware controller to send transactions.
+var Devices; //Array of remote hardware devices that transactions can be processed on.
 
 /*
  * These are functions that can be consumed by Developers and should not be assigned to or overwritten.
  */
+var downloadConfiguration; //Call this function to download the configuration settings for your location.
 var answerYesFunction; //Call this function to respond with "YES" to a question request from remote hardware.
 var answerNoFunction; //Call this function to respond with "NO" to a question request from rmote hardware.
 var echoFunction; //Call this function to test connectivity between your web-based POS and the remote hardware controller.
@@ -171,4 +174,32 @@ $(function() {
         var dtMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "DisplayText", DeviceName: deviceName, DisplayText: displayText }) };
         _doTransaction(dtMessage);
     };
+
+    downloadConfiguration = function (locationId) {
+        if (!locationId) return;
+        $.ajax({
+            url: "https://api-staging.chargeitpro.com/RemoteConfig/" + locationId,
+            headers: {
+                "Content-Type" : "application/json",
+                "x-apiKey" : "587DAA0C-E50B-4679-B4D1-036E49B7A899"
+            }
+        }).done(function (data) {
+            if (data.Success === true) {
+                ControllerName = data.Result.ControllerName;
+                Devices = data.Result.Devices;
+                if (!OnConfigurationDownloaded) {
+                    alert("Configuration successfully downloaded.");
+                    return;
+                }
+                Devices.sort(function (a, b) {
+                    if (a.DeviceName < b.DeviceName) return -1;
+                    if (a.DeviceName > b.DeviceName) return 1;
+                    return 0;
+                });
+                OnConfigurationDownloaded();
+            }
+        }).fail(function(error) {
+            alert("Unable to download configuration.");
+        });
+    }
 });

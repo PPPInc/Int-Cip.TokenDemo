@@ -30,16 +30,23 @@
                         <h3 class="panel-title">Remote Hardware Demo</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="form-inline">
+                        <form style="margin: 20px 0 0 0;">
+                            <div class="form-inline">
+                                <label for="locationId">Location Id</label>
+                                <input type="text" class="form-control" id="locationId" placeholder="Location Id" style="width: 185px;" />
+                                <button type="button" id="getConfig">Download Configuration</button>
+                            </div>
                             <div class="form-group">
                                 <label for="user-name"></label>
-                                <input type="text" class="form-control" id="user-name" placeholder="User Name">
+                                <input type="text" class="form-control" style="width: 185px;" id="user-name" placeholder="User Name">
                             </div>
-                        </form>
-                        <form style="margin: 20px 0 0 0;">
                             <div class="form-group">
-                                <label for="to">To</label>
-                                <input type="email" class="form-control" style="width: 185px;" id="to" placeholder="To">
+                                <label for="to">Remote Hardware Controller</label>
+                                <input type="text" class="form-control" style="width: 185px;" id="to" placeholder="Controller Name">
+                            </div>
+                            <div class="form-group">
+                                <label for="devices">Destination Device</label>
+                                <select class="form-control" id="devices" style="width: auto;"></select>
                             </div>
                             <div class="form-group">
                                 <label class="form-inline" for="transactionType">Action</label>
@@ -59,10 +66,10 @@
                             </div>
                             <div id="CreditSale">
                                 <label for="amount">Amount</label>
-                                <input class="form-control" style="width: auto" type="text" id="amount"/>
-                                <br/>
-                                <input type="checkbox" id="isManualEntry"/><label id="lblManualEntry">Manual Entry</label><br/>
-                                <br/>
+                                <input class="form-control" style="width: auto" type="text" id="amount" />
+                                <br />
+                                <input type="checkbox" id="isManualEntry" /><label id="lblManualEntry">Manual Entry</label><br />
+                                <br />
                                 <div id="manualEntryDiv" style="display: none">
                                     <table>
                                         <tr>
@@ -70,13 +77,13 @@
                                                 <label for="accountNumber">Card Number</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="accountNumber"/>
+                                                <input class="form-control" style="width: auto" type="text" id="accountNumber" />
                                             </td>
                                             <td>
                                                 <label for="expDate">Expiration</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="expDate"/>
+                                                <input class="form-control" style="width: auto" type="text" id="expDate" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -84,13 +91,13 @@
                                                 <label for="cvv">CVV</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="cvv"/>
+                                                <input class="form-control" style="width: auto" type="text" id="cvv" />
                                             </td>
                                             <td>
                                                 <label for="billingName">Billing Name</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="billingName"/>
+                                                <input class="form-control" style="width: auto" type="text" id="billingName" />
                                             </td>
                                         </tr>
                                         <tr>
@@ -98,17 +105,17 @@
                                                 <label for="street">Street Address</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="street"/>
+                                                <input class="form-control" style="width: auto" type="text" id="street" />
                                             </td>
                                             <td>
                                                 <label for="zip">Zipcode</label>
                                             </td>
                                             <td style="padding: 10px">
-                                                <input class="form-control" style="width: auto" type="text" id="zip"/>
+                                                <input class="form-control" style="width: auto" type="text" id="zip" />
                                             </td>
                                         </tr>
                                     </table>
-                                    <br/>
+                                    <br />
                                 </div>
                             </div>
                             <div id="CreditForce" style="display: none">
@@ -118,7 +125,7 @@
                                             <label for="voiceAuthNumber">Voice Auth Code</label>
                                         </td>
                                         <td style="padding: 10px">
-                                            <input class="form-control" style="width: auto" type="text" id="voiceAuthNumber"/>
+                                            <input class="form-control" style="width: auto" type="text" id="voiceAuthNumber" />
                                         </td>
                                     </tr>
                                 </table>
@@ -443,6 +450,18 @@
                 $("#question").text(question);
             };
 
+            OnConfigurationDownloaded = function() {
+                $("#to").val(ControllerName);
+                var deviceSelect = $("#devices");
+                $.each(Devices, function (index, device) {
+                    deviceSelect
+                        .append($("<option></option")
+                            .attr('value', device.DeviceName)
+                            .text(device.DeviceName)
+                            .prop('selected', device.IsDefault));
+                });
+            }
+
             $("#yes")
                 .off('click', function() {})
                 .on('click', function () {
@@ -457,7 +476,19 @@
                     $("#questionPanel").hide();
                 });
 
+            $("#getConfig").on('click', function () {
+                var locationId = $("#locationId").val();
+                if (locationId) {
+                    downloadConfiguration($("#locationId").val());
+                    $("#locationId").css('border-color', 'Green');
+                }
+                else
+                    $("#locationId").css('border-color', 'Red');
+            });
+
             $("#send").on('click', function() {
+                var deviceName = $("#devices option:selected").val();
+                if (!deviceName) deviceName = "";
                 UserName = $("#user-name").val();
                 ControllerName = $("#to").val();
 
@@ -468,40 +499,40 @@
                     $("#message").val('');
                 } else if (action === "CreditSale") {
                     clearResults();
-                    creditSaleFunction("S300NumberOne", $("#amount").val(), $("#accountNumber").val(), $("#billingName").val(), $("#expDate").val(), $("#cvv").val(), $("#street").val(), $("#zip").val());
+                    creditSaleFunction(deviceName, $("#amount").val(), $("#accountNumber").val(), $("#billingName").val(), $("#expDate").val(), $("#cvv").val(), $("#street").val(), $("#zip").val());
                     clearFields();
                 } else if (action === "CreditAuth") {
                     clearResults();
-                    creditAuthFunction("S300NumberOne", $("#amount").val(), $("#accountNumber").val(), $("#billingName").val(), $("#expDate").val(), $("#cvv").val(), $("#street").val(), $("#zip").val());
+                    creditAuthFunction(deviceName, $("#amount").val(), $("#accountNumber").val(), $("#billingName").val(), $("#expDate").val(), $("#cvv").val(), $("#street").val(), $("#zip").val());
                     clearFields();
                 } else if (action === "CreditReturn") {
                     clearResults();
-                    creditReturnFunction("S300NumberOne", $("#amount").val());
+                    creditReturnFunction(deviceName, $("#amount").val());
                     clearFields();
                 } else if (action === "CreditForce") {
                     var uniqueTransRef = $("#uniqueTransId").val();
                     clearResults();
-                    creditForceFunction("S300NumberOne", $("#amount").val(), $("#voiceAuthNumber").val(), uniqueTransRef);
+                    creditForceFunction(deviceName, $("#amount").val(), $("#voiceAuthNumber").val(), uniqueTransRef);
                     clearFields();
                 } else if (action === "CreditAddTip") {
                     var ref = $("#uniqueTransId").val();
                     clearResults();
-                    creditAddTipFunction("S300NumberOne", $("#amount").val(), ref);
+                    creditAddTipFunction(deviceName, $("#amount").val(), ref);
                     clearFields();
                 } else if (action === "CreditSaveCard") {
                     clearResults();
-                    saveCreditCardFunction("S300NumberOne");
+                    saveCreditCardFunction(deviceName);
                     clearFields();
                 } else if (action === "DebitSale") {
                     clearResults();
-                    debitSaleFunction("S300NumberOne", $("#amount").val());
+                    debitSaleFunction(deviceName, $("#amount").val());
                     clearFields();
                 } else if (action === "Void") {
-                    voidFunction("S300NumberOne", $("#uniqueTransId").val());
+                    voidFunction(deviceName, $("#uniqueTransId").val());
                 } else if (action === "RequestSignature") {
-                    requestSignatureFunction("S300NumberOne");
+                    requestSignatureFunction(deviceName);
                 } else if (action === "DisplayText") {
-                    displayTextFunction("S300NumberOne", $("#message").val());
+                    displayTextFunction(deviceName, $("#message").val());
                 }
             });
 
