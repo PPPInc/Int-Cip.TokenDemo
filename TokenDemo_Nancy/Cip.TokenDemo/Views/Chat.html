@@ -133,7 +133,7 @@
             });
 
             /* uncomment for verbose client side logging */
-            connection.logging = true;
+            //connection.logging = true;
 
             connection.start().done(function () {
 
@@ -154,7 +154,7 @@
 
                 $("#connected").html("You are connected as: " + userName).removeClass("error");
 
-                console.log(connection);
+                //console.log(connection);
 
             }).fail(function (error) { console.log("Fail Error:" + error); });
 
