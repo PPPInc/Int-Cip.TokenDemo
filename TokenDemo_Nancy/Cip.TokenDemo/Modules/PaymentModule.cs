@@ -1,5 +1,6 @@
 ﻿using CIP.TokenDemo.Models;
 using Nancy;
+using Nancy.Json;
 using Nancy.ModelBinding;
 using Nancy.Responses;
 using System;
@@ -270,6 +271,35 @@ namespace CIP.TokenDemo.Modules
             Get["/ie_test3"] = parameters =>
             {
                 return View["ie_test2"];
+            };
+
+            Get["/paymenttest"] = parameters =>
+            {
+                return View["paymenttest"];
+            };
+
+            Post["/paymenttest"] = parameters =>
+            {
+                var payment = this.Bind<Payment>();
+
+                CIP.Token.ApiKey = "e5932e4dd41742cd81768c6ace7bedc9";
+
+                CIP.Token.Url = "https://psl.chargeitpro.com/token/transaction.json";
+
+                var transaction = new CIP.Transaction()
+                {
+                    Token = payment.CipToken,
+                    Amount = 5.00,
+                    TransactionType = "CreditSale"
+                };
+
+                var response = CIP.Token.RunTransaction(transaction);
+
+                var serializer = new JavaScriptSerializer();
+
+                var result = serializer.Serialize(response.Result);
+
+                return View["paymenttest", result];
             };
         }
     }

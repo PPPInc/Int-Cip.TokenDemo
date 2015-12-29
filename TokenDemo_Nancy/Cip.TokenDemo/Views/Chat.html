@@ -36,11 +36,15 @@
                         <form class="form-inline">
                             <div class="form-group">
                                 <label for="user-name"></label>
-                                <input type="text" class="form-control" id="user-name" placeholder="User Name">
+                                <input type="text" class="form-control" id="user-name" placeholder="User Name" value="Merchant1_23f1984001644e1ba7b4ca9506077e81">
+                            </div>
+                            <div class="form-group">
+                                <label for="password"></label>
+                                <input type="text" class="form-control" id="password" placeholder="Password" value="e5932e4dd41742cd81768c6ace7bedc9">
                             </div>
                             <button type="button" class="btn btn-default" id="connect">Connect</button>
                             <div class="form-group">
-                                <label for="" style="margin: 0 0 0 10px;" id="connected" class="error">You are not connected</label>
+                                <label for="" style="margin: 10px 0 0 10px;" id="connected" class="error">You are not connected</label>
                             </div>
                         </form>
 
@@ -99,15 +103,18 @@
 
             var userName = $("#user-name").val();
 
-            if (userName === '') return;
+            var password = $("#password").val();
+            //var password = 'e5932e4dd41742cd81768c6ace7bedc9';
 
-            var connection = $.hubConnection('https://api-staging.chargeitpro.com');
+            if (userName === '' || password === '') return;
 
-            //var connection = $.hubConnection('http://localhost:811');
+            //var connection = $.hubConnection('https://api-staging.chargeitpro.com');
 
-            connection.qs = { "userName": userName };
+            var connection = $.hubConnection('http://localhost:57192');
 
-            var chatHub = connection.createHubProxy('ChatHub');
+            connection.qs = { "userName": userName, "x-apikey" : password };
+
+            var chatHub = connection.createHubProxy('DeviceHub');
 
             chatHub.on('send', function (from, message) {
                 var d = new Date();
@@ -121,8 +128,12 @@
                     + message + '<span style="float: right;" class="wash">' + d.getHours() + ':' + d.getMinutes() + '</span></td></tr>');
             });
 
+            chatHub.on('error', function (message) {
+                alert(message);
+            });
+
             /* uncomment for verbose client side logging */
-            //connection.logging = true;
+            connection.logging = true;
 
             connection.start().done(function () {
 
@@ -143,9 +154,9 @@
 
                 $("#connected").html("You are connected as: " + userName).removeClass("error");
 
-                //console.log(connection.id);
+                console.log(connection);
 
-            }).fail(function (error) { console.log(error); });
+            }).fail(function (error) { console.log("Fail Error:" + error); });
 
             connection.error(function (error) {
                 console.log('SignalR error: ' + error)
