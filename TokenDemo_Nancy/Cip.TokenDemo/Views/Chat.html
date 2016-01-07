@@ -130,6 +130,7 @@
 
             chatHub.on('error', function (message) {
                 alert(message);
+                $("#connected").html("You are not connected").addClass("error");
             });
 
             /* uncomment for verbose client side logging */

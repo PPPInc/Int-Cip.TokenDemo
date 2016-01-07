@@ -5,12 +5,14 @@ var OnResultFunction; //Function to be called when transaction results are retur
 var OnEchoFunction; //Function to be called when an echo response is returned from remote hardware.
 var OnQuestionFunction; //Function to be called when remote hardware requires input from the POS to finish a transaction.
 var OnConfigurationDownloaded; //Function to be called when the configuration has been downloaded.
+var OnErrorFunction; //Function to be called when the Hub reports an error.
 
 /*
  * These variables can be used by consuming Developers.
  */
 var UserName; //Unique name for this connection.
 var ControllerName; //Name of the remote hardware controller to send transactions.
+var LocationId; //LocationId for this connection.
 var Devices; //Array of remote hardware devices that transactions can be processed on.
 
 /*
@@ -57,11 +59,11 @@ $(function() {
 
         //var connection = $.hubConnection('https://api-staging.chargeitpro.com');
 
-        var connection = $.hubConnection('http://localhost:811');
+        var connection = $.hubConnection('http://localhost:57192');
 
         connection.qs = { "userName": UserName };
 
-        _remoteHub = connection.createHubProxy("ChatHub");
+        _remoteHub = connection.createHubProxy("DeviceHub");
 
         _remoteHub.on("send", function(from, message) {
             var result = JSON.parse(message);
@@ -84,6 +86,10 @@ $(function() {
             }
         });
 
+        _remoteHub.on("error", function (error) {
+            OnErrorFunction(error);
+        });
+
         connection.start().done(function() {
             _connected = true;
             console.log("Connected");
@@ -103,7 +109,7 @@ $(function() {
     _doTransaction = function(message) {
         if (!_connected)
             _connect(function () {
-                _remoteHub.invoke("send", ControllerName, JSON.stringify(message));
+                _remoteHub.invoke("send", ControllerName, LocationId, JSON.stringify(message));
             }, function () { alert("Error connecting."); });
         else {
             _remoteHub.invoke("send", ControllerName, JSON.stringify(message));

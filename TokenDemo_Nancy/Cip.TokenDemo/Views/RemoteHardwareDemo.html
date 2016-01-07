@@ -32,13 +32,13 @@
                     <div class="panel-body">
                         <form style="margin: 20px 0 0 0;">
                             <div class="form-inline">
-                                <label for="locationId">Location Id</label>
+                                <label for="locationId">Location Id</label><br/>
                                 <input type="text" class="form-control" id="locationId" placeholder="Location Id" style="width: 185px;" />
-                                <button type="button" id="getConfig">Download Configuration</button>
+                                <button type="button" class="btn btn-default" id="getConfig">Download Configuration</button>
                             </div>
                             <div class="form-group">
-                                <label for="user-name"></label>
-                                <input type="text" class="form-control" style="width: 185px;" id="user-name" placeholder="User Name">
+                                <label for="user-name" style="margin: 10px 0 0 0;">User Name</label>
+                                <input type="text" class="form-control" style="width: 185px;margin: 5px 0 0 0;" id="user-name" placeholder="User Name">
                             </div>
                             <div class="form-group">
                                 <label for="to">Remote Hardware Controller</label>
@@ -46,7 +46,9 @@
                             </div>
                             <div class="form-group">
                                 <label for="devices">Destination Device</label>
-                                <select class="form-control" id="devices" style="width: auto;"></select>
+                                <select class="form-control" id="devices" style="width: auto;">
+                                    <option value="" selected>No Devices</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-inline" for="transactionType">Action</label>
@@ -68,7 +70,7 @@
                                 <label for="amount">Amount</label>
                                 <input class="form-control" style="width: auto" type="text" id="amount" />
                                 <br />
-                                <input type="checkbox" id="isManualEntry" /><label id="lblManualEntry">Manual Entry</label><br />
+                                <input type="checkbox" id="isManualEntry" /><label style="margin: 0 0 0 10px;" id="lblManualEntry">Manual Entry</label><br />
                                 <br />
                                 <div id="manualEntryDiv" style="display: none">
                                     <table>
@@ -449,10 +451,15 @@
                 $("#questionPanel").show();
                 $("#question").text(question);
             };
-
+            OnErrorFunction = function (error) {
+                alert(error);
+            };
             OnConfigurationDownloaded = function() {
                 $("#to").val(ControllerName);
                 var deviceSelect = $("#devices");
+                deviceSelect.find('option')
+                    .remove()
+                    .end();
                 $.each(Devices, function (index, device) {
                     deviceSelect
                         .append($("<option></option>")
@@ -491,6 +498,7 @@
                 if (!deviceName) deviceName = "";
                 UserName = $("#user-name").val();
                 ControllerName = $("#to").val();
+                LocationId = $("#locationId").val();
 
                 $("#resultsPanel").hide();
                 var action = $("#transactionType option:selected").val();
