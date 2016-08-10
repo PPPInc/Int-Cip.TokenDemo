@@ -1,0 +1,101 @@
+﻿@inherits Nancy.ViewEngines.Razor.NancyRazorViewBase<object>
+<html>
+<head>
+    <title>ChargeItPro Payment Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://ppppublic.blob.core.windows.net/webpos/CIP.token.js"></script>
+</head>
+<body>
+    <form action="/paymenttest" method="post" id="payment-form">
+
+        <div>
+
+            <!-- Your Form Data Goes Here -->
+
+        </div>
+
+        <div>
+            <div>Card Number</div>
+            <input type="text" data-cip="accountdata" value="4000100011112224">
+        </div>
+
+        <div>
+            <div>Expiration Month</div>
+            <input type="text" size="2" data-cip="exp-month" value="12">
+        </div>
+
+        <div>
+            <div>Expiration Year</div>
+            <input type="text" size="2" data-cip="exp-year" value="18">
+        </div>
+
+        <div>
+            <div>Billing Name</div>
+            <input type="text" data-cip="billingname">
+        </div>
+
+        <div>
+            <div>CVV Number</div>
+            <input type="text" size="3" data-cip="cvvnumber">
+        </div>
+
+        <div>
+            <div>Billing Street Address</div>
+            <input type="text" data-cip="billingstreetaddress">
+        </div>
+
+        <div>
+            <div>Billing Zip</div>
+            <input type="text" data-cip="billingzip">
+        </div>
+
+        <div>
+            <button type="submit">Submit</button>
+        </div>
+
+        <div id="payment-errors"></div>
+
+    </form>
+    <div style="width: 500px;word-break:break-all;">
+        @Model
+    </div>
+    <script>
+
+        jQuery(function ($) {
+
+            console.log('jquery loaded');
+
+            /* You must set your Merchant Name identifier (Public Key) */
+            CIP.token.merchantName = 'Merchant1_23f1984001644e1ba7b4ca9506077e81';
+
+            $('#payment-form').on('submit', function (e) {
+
+                console.log('form submitted');
+
+                var $form = $(this);
+
+                /* Create the token and append cipToken as a hidden field on the callback */
+                CIP.token.create($form, function (status, response) {
+
+                    if (response.error) {
+                        $form.find('#payment-errors').text(response.error.message);
+
+                    } else {
+
+                        var token = response.Token;
+
+                        $form.append($('<input type="hidden" name="cipToken" />').val(token));
+                        console.log(response);
+                        console.log('Token: ' + token);
+
+                        $form.get(0).submit();
+                    }
+                });
+
+                return false;
+            });
+        });
+
+    </script>
+</body>
+</html>
