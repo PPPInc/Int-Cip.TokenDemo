@@ -22,20 +22,20 @@
 
     <h4>Secure Payment Form</h4>
 
+    @if (@Model != null && @Model.Error != string.Empty)
+    {
+        <div style="margin: 10px 0 10px 0;color: red;">
+            <text>@Model.Error</text>
+        </div>
+    }
+
     <div class="container-fluid">
 
         <form role="form" action="/achpayment" method="POST" id="payment-form" style="margin: 0 0 100px 0;">
 
             <div class="row">
 
-                <div class="col-md-6">
-
-                    @if (@Model != null && @Model.Error != string.Empty)
-                    {
-                        <div style="margin: 10px 0 10px 0;color: red;">
-                            <text>@Model.Error</text>
-                        </div>
-                    }
+                <div class="col-md-4">
 
                     <div class="panel panel-default">
 
@@ -68,8 +68,24 @@
                                 <input type="text" class="form-control input-large" value="" name="comments">
                             </div>
 
+                            <div class="form-group" style="margin: 20px 0 0 0;">
+                                <label>Receipt Email</label>
+                                <input type="text" class="form-control input-large" value="" name="email" id="email">
+                            </div>
+
                         </div>
+
                     </div>
+
+                    <div class="form-group">
+                        <button class="btn btn-default" type="submit">Submit</button>
+                        <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
+                        <span id="payment-validation-error" class="error" style="margin: 0 0 0 10px;"></span>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4">
 
                     <!-- Billing Address -->
                     <div class="panel panel-default">
@@ -134,7 +150,12 @@
                             </div>
 
                         </div>
+
                     </div>
+
+                </div>
+
+                <div class="col-md-4">
 
                     <!-- Shipping Address -->
                     <div class="panel panel-default">
@@ -200,28 +221,6 @@
 
                         </div>
 
-                    </div>
-
-                    <!-- Receipt Email -->
-                    <div class="panel panel-default">
-
-                        <div class="panel-heading"><h3 class="panel-title">Receipt Email</h3></div>
-
-                        <div class="panel-body">
-
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="text" class="form-control input-large" value="" name="email" id="email">
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                    <div class="form-group">
-                        <button class="btn btn-default" type="submit">Submit</button>
-                        <img id="loader" src="~/content/Images/ajax-loader-1.gif" style="margin: 0 0 0 10px;" class="hidden" />
-                        <span id="payment-validation-error" class="error" style="margin: 0 0 0 10px;"></span>
                     </div>
 
                 </div>

@@ -110,7 +110,9 @@
 
             //var connection = $.hubConnection('https://api-staging.chargeitpro.com');
 
-            var connection = $.hubConnection('http://localhost:57192');
+            var connection = $.hubConnection('http://localhost:54769');
+
+            //var connection = $.hubConnection('http://cip-cloud-staging.cloudapp.net');
 
             connection.qs = { "userName": userName, "x-apikey" : password };
 
@@ -153,7 +155,7 @@
                         });
                 });
 
-                $("#connected").html("You are connected as: " + userName).removeClass("error");
+                $("#connected").html("You are connected as: " + connection.id).removeClass("error");
 
                 //console.log(connection);
 

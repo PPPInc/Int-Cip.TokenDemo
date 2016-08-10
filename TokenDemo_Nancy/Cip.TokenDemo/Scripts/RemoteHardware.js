@@ -1,211 +1,255 @@
 ﻿/*
- * These functions need to be implemented by consuming Developers.
+ *
+ * Charge It Pro Cloud Hardware Library v1.0.0
+ * https://www.chargeitpro.com/
+ *
+ * Copyright (C) Charge It Pro, Corporation. All rights reserved.
+ *
  */
-var OnResultFunction; //Function to be called when transaction results are returned from remote hardware.
-var OnEchoFunction; //Function to be called when an echo response is returned from remote hardware.
-var OnQuestionFunction; //Function to be called when remote hardware requires input from the POS to finish a transaction.
-var OnConfigurationDownloaded; //Function to be called when the configuration has been downloaded.
-var OnErrorFunction; //Function to be called when the Hub reports an error.
 
-/*
- * These variables can be used by consuming Developers.
- */
-var UserName; //Unique name for this connection.
-var ControllerName; //Name of the remote hardware controller to send transactions.
-var LocationId; //LocationId for this connection.
-var Devices; //Array of remote hardware devices that transactions can be processed on.
+var CIP = CIP || {};
 
-/*
- * These are functions that can be consumed by Developers and should not be assigned to or overwritten.
- */
-var downloadConfiguration; //Call this function to download the configuration settings for your location.
-var answerYesFunction; //Call this function to respond with "YES" to a question request from remote hardware.
-var answerNoFunction; //Call this function to respond with "NO" to a question request from rmote hardware.
-var echoFunction; //Call this function to test connectivity between your web-based POS and the remote hardware controller.
-var debitSaleFunction; //Call this function to process a debit sale.
-var creditSaleFunction; //Call this function to process a credit sale.
-var creditReturnFunction; //Call this function to process a credit return.
-var creditAuthFunction; //Call this function to authorize a transaction.
-var creditForceFunction; //Call this function to force a credit sale.
-var creditAddTipFunction; //Call this function to add a tip to a previous transaction.
-var voidFunction; //Call this function to void a transaction.
-var requestSignatureFunction; //Call this function to request a signature.
-var saveCreditCardFunction; //Call this function to tokenize a credit card.
-var displayTextFunction; //Call this function to display a message on the device screen.
+CIP = new (function ($) {
 
-/*
- * private variables
- */
-var _remoteHub;
-var _connected = false;
+    var self = this;
 
-/*
- * private functions
- */
-var _connect;
-var _doTransaction;
+    self.noConflict = function () {
+        return CIP;
+    };
 
-$(function() {
+    self.version = '1.0.0';
 
-    _connect = function (done, fail) {
-        if (UserName === "") {
-            alert("UserName not set.");
+    /*
+     * These functions are to be implemented by consuming Developers.
+     */
+    self.OnResultFunction; //Function to be called when transaction results are returned from cloud hardware.
+    self.OnEchoFunction; //Function to be called when an echo response is returned from cloud hardware.
+    self.OnConfigurationDownloadedFunction; //Function to be called when the configuration has been downloaded.
+    self.OnErrorFunction; //Function to be called when the Hub reports an error.
+    self.OnConnectedFunction; //Function to be called when Client connects to Hub.
+
+    /*
+     * These properties are to be set by consuming developers.
+     */
+    self.isTestMode = false; //Bool value indicating whether test mode is on or off.
+    self.userName; //Unique name for this connection.
+    self.controllerName; //Name of the cloud hardware controller to send transactions.
+    self.locationId; //LocationId for this connection.
+    self.devices; //Array of cloud hardware devices that transactions can be processed on.
+
+    /*
+     * These are functions that can be consumed by Developers and should not be assigned to or overwritten.
+     */
+    self.downloadConfiguration; //Call this function to download the configuration settings for your location.
+    self.echoFunction; //Call this function to test connectivity between your web-based POS and the cloud hardware controller.
+    self.debitSaleFunction; //Call this function to process a debit sale.
+    self.creditSaleFunction; //Call this function to process a credit sale.
+    self.creditReturnFunction; //Call this function to process a credit return.
+    self.creditAuthFunction; //Call this function to authorize a transaction.
+    self.creditForceFunction; //Call this function to force a credit sale.
+    self.creditAddTipFunction; //Call this function to add a tip to a previous transaction.
+    self.voidFunction; //Call this function to void a transaction.
+    self.requestSignatureFunction; //Call this function to request a signature.
+    self.saveCreditCardFunction; //Call this function to tokenize a credit card.
+    self.displayTextFunction; //Call this function to display a message on the device screen.
+    self.cancelFunction; //Call this function to cancel a transaction.
+    self.pingFunction; //Call this function to ping a device and verify it is connected properly.
+
+    /*
+     * private variables
+     */
+    self._remoteHub;
+    self._connected;
+
+    /*
+     * private functions
+     */
+    self._connect = function (done, fail) {
+
+        if (self.controllerName === "") {
+            if (self.OnErrorFunction) self.OnErrorFunction("ControllerName not set.");
             return;
         }
-        if (ControllerName === "") {
-            alert("ControllerName not set.");
-            return;
+
+        var url;
+        if (self.isTestMode) {
+            //url = 'http://localhost:54769';
+            url = "https://cloud-staging.chargeitpro.com";
+        } else {
+            url = "https://cloud.chargeitpro.com";
         }
 
-        //var connection = $.hubConnection('https://api-staging.chargeitpro.com');
+        var connection = $.hubConnection(url);
 
-        var connection = $.hubConnection('http://localhost:57192');
+        connection.qs = { "userName": self.userName };
 
-        connection.qs = { "userName": UserName };
+        self._remoteHub = connection.createHubProxy("DeviceHub");
 
-        _remoteHub = connection.createHubProxy("DeviceHub");
-
-        _remoteHub.on("send", function(from, message) {
+        self._remoteHub.on("send", function (from, message) {
             var result = JSON.parse(message);
             if (result.Action === "Echo") {
-                if (OnEchoFunction)
-                    OnEchoFunction(result.Data);
+                if (self.OnEchoFunction)
+                    self.OnEchoFunction(result.Message);
                 return;
             } else if (result.Action === "Question") {
-                if (OnQuestionFunction)
-                    OnQuestionFunction(result.Data);
+                if (self.OnQuestionFunction)
+                    self.OnQuestionFunction(result.Message);
                 return;
             } else if (result.Action === "Result") {
                 if (result.ResultFields) {
-                    if (OnResultFunction)
-                        OnResultFunction(result);
+                    if (self.OnResultFunction)
+                        self.OnResultFunction(result);
                 } else {
-                    alert("No Result returned from remote hardware.");
+                    if (self.OnErrorFunction) self.OnErrorFunction("No Result returned from remote hardware.");
                 }
                 return;
             }
         });
 
-        _remoteHub.on("error", function (error) {
-            OnErrorFunction(error);
+        self._remoteHub.on("error", function (error) {
+            if (self.OnErrorFunction) self.OnErrorFunction(error);
         });
 
-        connection.start().done(function() {
-            _connected = true;
-            console.log("Connected");
+        connection.start().done(function () {
+            self._connected = true;
+            console.log("Connected as: " + connection.id);
+            if (self.OnConnectedFunction) self.OnConnectedFunction(connection);
             done();
-        }).fail(function(error) {
+        }).fail(function (error) {
             _connected = false;
             console.log(error);
             fail();
         });
 
-        connection.error(function(error) {
+        connection.error(function (error) {
             _connected = false;
             console.log("SignalR error: " + error);
         });
-    };
+    }
 
-    _doTransaction = function(message) {
-        if (!_connected)
-            _connect(function () {
-                _remoteHub.invoke("send", ControllerName, LocationId, JSON.stringify(message));
-            }, function () { alert("Error connecting."); });
+    self._doTransaction = function (message) {
+        if (!self._connected)
+            self._connect(function () {
+                self._remoteHub.invoke("send", self.controllerName, self.locationId, JSON.stringify(message));
+            }, function () { if (self.OnErrorFunction) self.OnErrorFunction("Error connecting."); });
         else {
-            _remoteHub.invoke("send", ControllerName, JSON.stringify(message));
+            self._remoteHub.invoke("send", self.controllerName, self.locationId, JSON.stringify(message));
         }
-    };
+    }
 
-    answerYesFunction = function() {
-        var yesMessage = { Action: "Answer", Success: true };
-        _doTransaction(yesMessage);
-    };
+    self.creditSaleFunction = function (deviceName, amount, uniqueTransRef, cashier, transactionRef) {
+        var csMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "CreditSale", Amount: amount, DeviceName: deviceName, UniqueTransRef: uniqueTransRef, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(csMessage);
+    }
 
-    answerNoFunction = function() {
-        var noMessage = { Action: "Answer", Success: false };
-        _doTransaction(noMessage);
-    };
+    self.creditReturnFunction = function (deviceName, amount, uniqueTransRef, cashier, transactionRef) {
+        var crMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "CreditReturn", Amount: amount, DeviceName: deviceName, UniqueTransRef: uniqueTransRef, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(crMessage);
+    }
 
-    creditSaleFunction = function(deviceName, amount, accountNumber, billingName, expDate, cvv, street, zip) {
-        var csMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditSale", Amount: amount, AccountNumber: accountNumber, BillingName: billingName, ExpDate: expDate, CVV: cvv, Street: street, Zip: zip, DeviceName: deviceName }) };
-        _doTransaction(csMessage);
-    };
+    self.creditAuthFunction = function (deviceName, amount, cashier, transactionRef) {
+        var caMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "CreditAuth", Amount: amount, DeviceName: deviceName, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(caMessage);
+    }
 
-    creditReturnFunction = function(deviceName, amount) {
-        var crMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditReturn", Amount: amount, DeviceName: deviceName }) };
-        _doTransaction(crMessage);
-    };
+    self.creditForceFunction = function (deviceName, amount, authCode, uniqueTransRef, cashier, transactionRef) {
+        var cfMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "CreditForce", Amount: amount, DeviceName: deviceName, VoiceAuthCode: authCode, UniqueTransRef: uniqueTransRef, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(cfMessage);
+    }
 
-    creditAuthFunction = function(deviceName, amount, accountNumber, billingName, expDate, cvv, street, zip) {
-        var caMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditAuth", Amount: amount, AccountNumber: accountNumber, BillingName: billingName, ExpDate: expDate, CVV: cvv, Street: street, Zip: zip, DeviceName: deviceName }) };
-        _doTransaction(caMessage);
-    };
+    self.creditAddTipFunction = function (deviceName, amount, uniqueTransRef, cashier, transactionRef) {
+        var catMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "CreditAddTip", Amount: amount, DeviceName: deviceName, UniqueTransRef: uniqueTransRef, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(catMessage);
+    }
 
-    creditForceFunction = function(deviceName, amount, authCode, uniqueTransRef) {
-        var cfMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditForce", Amount: amount, DeviceName: deviceName, VoiceAuthCode: authCode, UniqueTransRef: uniqueTransRef }) };
-        _doTransaction(cfMessage);
-    };
+    self.saveCreditCardFunction = function (deviceName, cashier, transactionRef) {
+        var sccMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "CreditSaveCard", Amount: "0.05", DeviceName: deviceName, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(sccMessage);
+    }
 
-    creditAddTipFunction = function(deviceName, amount, uniqueTransRef) {
-        var catMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditAddTip", Amount: amount, DeviceName: deviceName, UniqueTransRef: uniqueTransRef }) };
-        _doTransaction(catMessage);
-    };
+    self.debitSaleFunction = function (deviceName, amount, cashier, transactionRef) {
+        var dsMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "DebitSale", Amount: amount, DeviceName: deviceName, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(dsMessage);
+    }
 
-    saveCreditCardFunction = function (deviceName, accountNumber, billingName, expDate, cvv, street, zip) {
-        var sccMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "CreditSaveCard", Amount: "0.05", AccountNumber: accountNumber, BillingName: billingName, ExpDate: expDate, CVV: cvv, Street: street, Zip: zip, DeviceName: deviceName }) };
-        _doTransaction(sccMessage);
-    };
+    self.echoFunction = function (message) {
+        var eMessage = { Action: "Echo", Message: message };
+        self._doTransaction(eMessage);
+    }
 
-    debitSaleFunction = function(deviceName, amount) {
-        var dsMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "DebitSale", Amount: amount, DeviceName: deviceName }) };
-        _doTransaction(dsMessage);
-    };
+    self.pingFunction = function (deviceName) {
+        var pMessage = { Action: "Ping", TestMode: self.isTestMode, Data: { DeviceName: deviceName } };
+        self._doTransaction(pMessage);
+    }
 
-    echoFunction = function(message) {
-        var eMessage = { Action: "Echo", Data: message };
-        _doTransaction(eMessage);
-    };
+    self.voidFunction = function (deviceName, uniqueTransRef, cashier, transactionRef) {
+        var vMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "Void", UniqueTransRef: uniqueTransRef, DeviceName: deviceName, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(vMessage);
+    }
 
-    voidFunction = function(deviceName, uniqueTransRef) {
-        var vMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "Void", UniqueTransRef: uniqueTransRef, DeviceName: deviceName }) };
-        _doTransaction(vMessage);
-    };
+    self.requestSignatureFunction = function (deviceName, cashier, transactionRef) {
+        var rsMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "RequestSignature", DeviceName: deviceName, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(rsMessage);
+    }
 
-    requestSignatureFunction = function(deviceName) {
-        var rsMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "RequestSignature", DeviceName: deviceName }) };
-        _doTransaction(rsMessage);
-    };
+    self.displayTextFunction = function (deviceName, displayText, cashier, transactionRef) {
+        var dtMessage = {
+            Action: "Transaction", TestMode: self.isTestMode, Data: { TransactionType: "DisplayText", DeviceName: deviceName, DisplayText: displayText, Cashier: cashier, TransactionRef: transactionRef }
+        };
+        self._doTransaction(dtMessage);
+    }
 
-    displayTextFunction = function(deviceName, displayText) {
-        var dtMessage = { Action: "Transaction", Data: JSON.stringify({ TransactionType: "DisplayText", DeviceName: deviceName, DisplayText: displayText }) };
-        _doTransaction(dtMessage);
-    };
+    self.cancelFunction = function (deviceName) {
+        var cancelMessage = { Action: "CancelTransaction", TestMode: self.isTestMode, Data: { DeviceName: deviceName } };
+        self._doTransaction(cancelMessage);
+    }
 
-    downloadConfiguration = function (locationId) {
+    self.downloadConfiguration = function (locationId) {
         if (!locationId) return;
+        var url;
+        if (self.isTestMode) {
+            url = "https://cloud-staging.chargeitpro.com/Config/";
+        } else {
+            url = "https://cloud.chargeitpro.com/Config/";
+        }
         $.ajax({
-            url: "https://api-staging.chargeitpro.com/RemoteConfig/" + locationId,
-            headers: {
-                "Content-Type" : "application/json",
-                "x-apiKey" : "587DAA0C-E50B-4679-B4D1-036E49B7A899"
-            }
+            url: url + locationId,
+            headers: { "Content-Type": "application/json" }
         }).done(function (data) {
             if (data.Success === true) {
-                ControllerName = data.Result.ControllerName;
-                Devices = data.Result.Devices;
-                if (!OnConfigurationDownloaded) {
+                self.controllerName = data.Result.ControllerName;
+                self.devices = data.Result.Devices;
+                if (!self.OnConfigurationDownloadedFunction) {
                     alert("Configuration successfully downloaded.");
                     return;
                 }
-                Devices.sort(function (a, b) {
+                self.devices.sort(function (a, b) {
                     if (a.DeviceName < b.DeviceName) return -1;
                     if (a.DeviceName > b.DeviceName) return 1;
                     return 0;
                 });
-                OnConfigurationDownloaded();
+                if (self.OnConfigurationDownloadedFunction) self.OnConfigurationDownloadedFunction();
             }
-        }).fail(function(error) {
+        }).fail(function (error) {
             alert("Unable to download configuration.");
         });
     }
-});
+})(window.jQuery);
